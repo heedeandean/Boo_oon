@@ -85,32 +85,30 @@ def login_post():
     print('username >>>>', username)
 
     u = Users.query.filter(Users.username == username).first()
-    print("영ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+
     print( '아이디 검색 결과 >>>', u)
     
 
     islogin = False
 
     if u is not None:
-        print("일ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+
         if check_password_hash(u.pw, pw) == True:
             session['loginUser'] = { 'username': u.username }
-            print("이ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
+
             if session.get('next'):
                 next = session.get('next')
                 del session['next']
-                print("삼ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ")
-                return redirect(next)
-                
 
-            
+                return redirect(next)
+
             flash("안녕하세요. %s 님" % username)
             
             islogin = True
             
 
-            # return redirect("/boo")
-            return render_template('ecom_main.html')
+            return redirect("/boo")
+            # return render_template('ecom_main.html')
 
         else:
             return jsonify(login='비밀번호 오류')
