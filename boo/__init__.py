@@ -129,12 +129,17 @@ def login_post():
 
 
 # 로그아웃
-@app.route('/logout')
+@app.route('/boo/logout')
 def logout():
+    
+    global islogin
+
     if session.get('loginUser'):
         del session['loginUser']
 
-    return redirect('/')
+        islogin = False
+
+    return redirect('/boo')
     
 
 

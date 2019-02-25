@@ -55,7 +55,7 @@
                     <a class="indigo-text font-weight-bold">   </a>
                   </h1>
                   <h5 class="text-uppercase mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">   </h5>
-                  <a class="btn btn-outline-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s" data-toggle='modal' data-target='#loginModal'>로그아웃</a>
+                  <a class="btn btn-outline-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s" href="/boo/logout">로그아웃</a>
                   <a class="btn btn-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s" data-toggle="modal" data-target="#writeModal" >글쓰기</a>
                 </div>
               </div>
@@ -66,7 +66,7 @@
      
     {% else %}
       <!-- 로그인 전 화면 -->
-      <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('static/img/whale.jpeg') ; background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('static/img/whale.jpeg') ; background-repeat: no-repeat; background-size: cover; background-position: center center;" id="logout">
         <div class="mask rgba-white-light">
           <div class="container h-100 d-flex justify-content-center align-items-center">
             <div class="row pt-5 mt-3">
