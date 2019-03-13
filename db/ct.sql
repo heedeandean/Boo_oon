@@ -10,9 +10,9 @@ create table User (
         email varchar(128) unique,
     	following_cnt int(11) not null default 0,
    	follower_cnt int(11) not null default 0,
-    flag boolean,
+    	flag boolean,
     
-    constraint pw_chk CHECK (length(pw) >= 5)
+    	constraint pw_chk CHECK (length(pw) >= 5)
 );
 
 create table Follow (					
