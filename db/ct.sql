@@ -2,16 +2,20 @@ create table User (
 	userno int unsigned not null auto_increment primary key,
 	username varchar(128) not null,
     	pw varchar(256) not null,
-    	birthdate date not null, 
+    	birthdate varchar(13)  NOT NULL, 
     	city varchar(128) not null,
     	gender varchar(5) not null,
-    	regidate timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    	join_date  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     	job varchar(128) not null default '',
+        email varchar(128) unique,
     	following_cnt int(11) not null default 0,
-   	follower_cnt int(11) not null default 0
+   	follower_cnt int(11) not null default 0,
+    flag boolean,
+    
+    constraint pw_chk CHECK (length(pw) >= 5)
 );
 
-create table Follow (
+create table Follow (					
 	userno int unsigned not null,
     	following int unsigned not null,
     
