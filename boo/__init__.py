@@ -5,4 +5,4 @@ app.debug = True
 
 @app.route('/boo')
 def main():
-    return render_template('ecommerce.html')
+    return render_template('mdbmain.html')
