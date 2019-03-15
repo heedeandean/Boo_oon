@@ -2,26 +2,26 @@
 drop table if exists user;
 
 create table user (
-	user_id int primary key auto_increment,
-    username varchar(35) not null,
-    email varchar(256) not null,
-    pw_hash varchar(256) not null
+	user_id integer primary key autoincrement,
+    username string not null,
+    email string not null,
+    pw_hash string not null
 );
 
 drop table if exists follower;
 
 create table follower(
-	who_id int,
-    whom_id int
+	who_id integer,
+    whom_id integer
     );
     
 drop table if exists message;
 
 create table message (
-	message_id int primary key auto_increment,
-    author_id int not null,
-    text varchar(2048) not null,
-    pub_date int 
+	message_id integer primary key autoincrement,
+    author_id integer not null,
+    text string not null,
+    pub_date integer 
     );
     
     

@@ -79,7 +79,7 @@ def timeline():
 def public_timeline() :
     return render_template('timeline.html', messages = query_db('''
         select message.*, user.* from message, user 
-        where message.author_id = user.get_user_id
+        where message.author_id = user.user_id
         order by message.pub_date desc limit ? ''' , [PER_PAGE] ))
 
 @app.route('/<username>')
