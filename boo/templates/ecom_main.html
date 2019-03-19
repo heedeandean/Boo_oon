@@ -1,5 +1,5 @@
 {% extends 'ecommerce.html' %}
-{% from 'macro/forms.html' import modal1, modal %}
+{% from 'macro/forms.html' import modal1, modal, card_modal %}
 
 {% block main %}
 <!--Main Navigation-->
@@ -39,7 +39,7 @@
     </nav>
 
     <!-- Intro Section -->
-    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('static/img/boon.jpg') ; background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('static/img/whale.jpeg') ; background-repeat: no-repeat; background-size: cover; background-position: center center;">
       <div class="mask rgba-white-light">
         <div class="container h-100 d-flex justify-content-center align-items-center">
           <div class="row pt-5 mt-3">
@@ -65,9 +65,13 @@
     
 
 
-{% call modal1('writeModal') %}
-    <p>글쓰기</p>
+{% call modal('writeModal') %}
+    heedeandean
 {% endcall %} 
+
+{% call card_modal('cardModal')%}
+    나의 뜬 구름
+{% endcall %}
 
   <!--Main Layout-->
   <main>
@@ -91,14 +95,14 @@
           <div class="col-lg-3 col-md-6 mb-4">
 
             <!--Card-->
-            <div class="card card-ecommerce">
+            <div class="card card-ecommerce" >
 
               <!--Card image-->
               <div class="view overlay z-depth-1">
                 <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/img%20(36).jpg" class="card-img-top"
                   alt="">
                 <a>
-                  <div class="mask rgba-white-slight"></div>
+                  <div class="mask rgba-white-slight" data-toggle="modal" data-target = '#cardModal'></div>
                 </a>
               </div>
               <!--Card image-->
