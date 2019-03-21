@@ -4,6 +4,11 @@ from init_db import Base
 
 class User(Base):
     __tablename__ = 'User'
+
+    def __init__(self, email, username,):
+        self.username = username
+        self.email = email
+
     userno = Column(Integer, primary_key=True)
     username  = Column(String)
     pw = Column(String)
@@ -17,9 +22,12 @@ class User(Base):
     follower_cnt = Column(Integer)
     flag = Column(Boolean)
 
+    def __repr__(self):
+        return 'User %r, %r' % (self.email, self.username)
+
 
 class Follow(Base):	
-    __tablename__ = 'Follow'			
+    __tablename__ = 'Follow'	
     userno = Column(Integer, ForeignKey('User.userno'))
     following = Column(Integer, ForeignKey('User.userno'))
 
