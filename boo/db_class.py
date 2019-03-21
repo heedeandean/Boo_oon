@@ -74,7 +74,6 @@ class Comment(Base):
         return j
     
 
-
 class Ranking(Base):
     __tablename__ = 'Ranking'
     ranking_id = Column(Integer, primary_key=True)
