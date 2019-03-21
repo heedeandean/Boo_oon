@@ -1,5 +1,5 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
-from db_class import User, Comment, List, Follow, Ranking, Likecnt, DM
+from boo.db_class import User, Comment, List, Follow, Ranking, Likecnt, DM
 
 app = Flask(__name__)
 app.debug = True
