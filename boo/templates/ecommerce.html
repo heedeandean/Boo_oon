@@ -95,6 +95,7 @@
 
 <body>
 
+
 {% block main %}
 {% endblock main %}
 
@@ -110,6 +111,16 @@
   <script type="text/javascript" src="{{ url_for('static', filename="js/mdb.min.js") }}"></script>
   <script>
     new WOW().init();
+
+    function nextRegist(panelId) {
+      $('#panel8').toggle();
+      $('#' + panelId).toggle();
+    }
+
+    function preRegist(panelId) {
+      $('#panel9').toggle();
+      $('#' + panelId).toggle();
+    }
 
   </script>
 </body>

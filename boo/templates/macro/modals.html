@@ -335,7 +335,7 @@
           <!--/.Panel 7-->
 
           <!--Panel 8-->
-          <div class="tab-pane fade" id="panel8" role="tabpanel">
+          <div class="tab-pane show" id="panel8" role="tabpanel">
 
             <!--Body-->
             <!-- 회원가입 -->
@@ -366,7 +366,7 @@
         
               <!--Controls-->
               <div class="controls-top text-center">
-                <a class="btn-floating primary-color nav-link" data-toggle="tab" href="#panel9" role='tab'>
+                <a class="btn-floating primary-color nav-link" onclick="nextRegist('panel9')">
                   <i class="fas fa-chevron-right"></i>
                 </a>
               </div>
@@ -378,7 +378,7 @@
           <!--/.Panel 8-->
 
           <!--Panel 9-->
-          <div class="tab-pane fade" id="panel9" role="tabpanel">
+          <div class="tab-pane hidden" id="panel9" >
 
             <!--Body-->
             <div class="modal-body">
@@ -410,7 +410,7 @@
 
               <!--Controls-->
               <div class="controls-top text-center">
-                <a class="btn-floating primary-color nav-link" data-toggle="tab" href="#panel8" role="tab">
+                <a class="btn-floating primary-color nav-link" onclick="preRegist('panel8')">
                   <i class="fas fa-chevron-left"></i>
                 </a>
               </div>
@@ -421,14 +421,15 @@
                 <button class="btn btn-info"> 회원가입 <i class="fas fa-sign-in ml-1"></i></button>
               </div>
 
-            </div>    
-                      <!--Footer-->
-          <div class="modal-footer">
+            </div>
+            
+            <!--Footer-->
+            <div class="modal-footer">
             <div class="options text-right">
               <p class="pt-1"><a data-toggle="tab" href="#panel7" role="tab">로그인</a></p>
             </div>
             <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
-          </div>     
+            </div>     
           </div>
           <!--/.Panel 9-->
         </div>
