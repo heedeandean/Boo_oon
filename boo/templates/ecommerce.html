@@ -112,15 +112,11 @@
   <script>
     new WOW().init();
 
-    function nextRegist(panelId) {
-      $('#panel8').toggle();
+    function controlRegist(myId, panelId) {
+      $('#' + myId).toggle();
       $('#' + panelId).toggle();
     }
 
-    function preRegist(panelId) {
-      $('#panel9').toggle();
-      $('#' + panelId).toggle();
-    }
 
   </script>
 </body>
