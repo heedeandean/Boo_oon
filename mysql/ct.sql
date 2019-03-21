@@ -10,7 +10,7 @@ create table User (
         email varchar(128) unique,
     	following_cnt int(11) not null default 0,
    	follower_cnt int(11) not null default 0,
-    	flag boolean,
+    	flag boolean default 1,
     
     	constraint pw_chk CHECK (length(pw) >= 5)
 );
@@ -28,7 +28,7 @@ create table List (
     	list_txt varchar(4096),
     	likecnt int(11) not null default 0,
     	hatecnt int(11) not null default 0,
-    	public boolean,
+    	public boolean default 1,
     	list_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     
     	constraint foreign key fk_user(userno) references User(userno)
