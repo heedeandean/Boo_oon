@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP
 from sqlalchemy.orm import relationship, backref
-from init_db import Base
+from boo.init_db import Base
 
 class User(Base):
     __tablename__ = 'User'
