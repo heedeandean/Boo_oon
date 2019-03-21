@@ -27,7 +27,8 @@ class User(Base):
 
 
 class Follow(Base):	
-    __tablename__ = 'Follow'	
+    __tablename__ = 'Follow'
+    follow_id = Column(Integer, primary_key = True)	
     userno = Column(Integer, ForeignKey('User.userno'))
     following = Column(Integer, ForeignKey('User.userno'))
 
@@ -76,6 +77,7 @@ class Comment(Base):
 
 class Ranking(Base):
     __tablename__ = 'Ranking'
+    ranking_id = Column(Integer, primary_key=True)
     list_id  = Column(Integer, ForeignKey('List.list_id'))
     ranking_date = Column(TIMESTAMP)
     rank  = Column(Integer)
@@ -85,6 +87,7 @@ class Ranking(Base):
 
 class Likecnt(Base):
     __tablename__ = 'Likecnt'
+    likecnt_id = Column(Integer, primary_key=True)
     list_id = Column(Integer, ForeignKey('List.list_id'))
     today_like = Column(Integer)
 
@@ -93,6 +96,7 @@ class Likecnt(Base):
 
 class DM(Base):
     __tablename__ = 'DM'
+    dm_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('User.userno'))
     receiver = Column(Integer)
     dm_txt = Column(String)
