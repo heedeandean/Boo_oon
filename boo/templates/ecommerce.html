@@ -116,8 +116,8 @@
 
     // 가입창 함수
     function controlRegist(myId, panelId) {
-      $('#' + myId).toggle();
-      $('#' + panelId).toggle();
+        $('#' + myId).toggle();
+        $('#' + panelId).toggle();
     }
 
     // 생년월일 함수
@@ -135,6 +135,7 @@
       $('#years, #months').change(function () {
         updateNumberOfDays();
       });
+
     });
 
     function updateNumberOfDays() {
@@ -151,7 +152,7 @@
     function daysInMonth(month, year) {
       return new Date(year, month, 0).getDate();
     }
-
+    
   </script>
 
 </body>
