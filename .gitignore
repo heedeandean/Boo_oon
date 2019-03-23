@@ -1,6 +1,7 @@
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+boo/__pycache__
 *.py[cod]
 *$py.class
 
@@ -126,6 +127,5 @@ instance/*
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
 *$py.class
