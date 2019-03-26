@@ -2,10 +2,10 @@ from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, Prim
 from sqlalchemy.orm import relationship, backref
 from boo.init_db import Base, db_session
 
-class User(Base):
-    __tablename__ = 'User'
+class Users(Base):
+    __tablename__ = 'Users'
 
-    def __init__(self, username, pw, birthdate, city, joindt, gender, job, email):
+    def __init__(self, username, pw, birthdate, city, gender, job, email):
         self.username = username
         self.pw = pw
         self.birthdate = birthdate
@@ -13,7 +13,6 @@ class User(Base):
         self.gender = gender
         self.job = job
         self.email = email
-        self.join_date = joindt
     
     userno = Column(Integer, primary_key=True)
     username  = Column(String)
@@ -21,44 +20,43 @@ class User(Base):
     birthdate = Column(String)
     city = Column(String)
     gender = Column(String)
-    join_date  =  Column(TIMESTAMP)
+    # join_date  =  Column(TIMESTAMP)
     job = Column(String)
     email = Column(String)
-    following_cnt =  Column(Integer)
-    follower_cnt = Column(Integer)
-    flag = Column(Boolean)
+    # following_cnt =  Column(Integer)
+    # follower_cnt = Column(Integer)
 
     def __repr__(self):
-        return 'User %r, %r' % (self.email, self.username)
+        return 'Users %r, %r' % (self.email, self.username)
 
 
 class Follow(Base):	
     __tablename__ = 'Follow'
     follow_id = Column(Integer, primary_key = True)	
-    userno = Column(Integer, ForeignKey('User.userno'))
-    following = Column(Integer, ForeignKey('User.userno'))
+    userno = Column(Integer, ForeignKey('Users.userno'))
+    following = Column(Integer, ForeignKey('Users.userno'))
 
-    fk_user = relationship('User', foreign_keys=[userno])
-    fk_following = relationship('User', foreign_keys=[following])
+    fk_users = relationship('Users', foreign_keys=[userno])
+    fk_following = relationship('Users', foreign_keys=[following])
 
     # __table_args__ = (PrimaryKeyConstraint('userno', 'following'), {})
     
 
-# class List(Base):
-#     __tablename__ = "List"
+# class Lists(Base):
+#     __tablename__ = "Lists"
 #     list_id = Column(Integer, primary_key=True)
-#     userno = Column(Integer, ForeignKey('User.userno'))
+#     userno = Column(Integer, ForeignKey('Users.userno'))
 #     list_txt = Column(String)
 #     likecnt = Column(Integer)
 #     hatecnt = Column(Integer)
 #     public = Column(Boolean)
 #     list_date = Column(TIMESTAMP)
 
-#     fk_user = relationship('User')
+#     fk_users = relationship('Users')
     
 
-# class Comment(Base):
-#     __tablename__ = 'Comment'
+# class Cmt(Base):
+#     __tablename__ = 'Cmt'
 
 #     def __init__(self, userno, cmt_txt, list_id):
 #         self.userno = userno
@@ -66,47 +64,47 @@ class Follow(Base):
 #         self.list_id = list_id
 
 #     cmt_id = Column(Integer, primary_key=True)
-#     userno = Column(Integer, ForeignKey('User.userno'))
+#     userno = Column(Integer, ForeignKey('Users.userno'))
 #     cmt_txt = Column(String)
 #     cmt_date = Column(TIMESTAMP)
-#     list_id = Column(Integer, ForeignKey('List.list_id'))
+#     list_id = Column(Integer, ForeignKey('Lists.list_id'))
 #     cmt_like = Column(Integer)
 #     cmt_hate =  Column(Integer)
 
-#     fk_user = relationship('User')
-#     fk_list = relationship('List')
+#     fk_users = relationship('Users')
+#     fk_lists = relationship('Lists')
 
 #     def json(self):
 #         j = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-#         j['writername'] = self.fk_user.username
+#         j['writername'] = self.fk_users.username
 #         return j
     
 
 # class Ranking(Base):
 #     __tablename__ = 'Ranking'
 #     ranking_id = Column(Integer, primary_key=True)
-#     list_id  = Column(Integer, ForeignKey('List.list_id'))
+#     list_id  = Column(Integer, ForeignKey('Lists.list_id'))
 #     ranking_date = Column(TIMESTAMP)
 #     rank  = Column(Integer)
 
-#     fk_list =  relationship('List')
+#     fk_lists =  relationship('Lists')
 
 
 # class Likecnt(Base):
 #     __tablename__ = 'Likecnt'
 #     likecnt_id = Column(Integer, primary_key=True)
-#     list_id = Column(Integer, ForeignKey('List.list_id'))
+#     list_id = Column(Integer, ForeignKey('Lists.list_id'))
 #     today_like = Column(Integer)
 
-#     fk_list = relationship('List')
+#     fk_lists = relationship('Lists')
 
 
 # class DM(Base):
 #     __tablename__ = 'DM'
 #     dm_id = Column(Integer, primary_key=True)
-#     userno = Column(Integer, ForeignKey('User.userno'))
+#     userno = Column(Integer, ForeignKey('Users.userno'))
 #     receiver = Column(Integer)
 #     dm_txt = Column(String)
 #     dm_date = Column(TIMESTAMP)
 
-#     fk_user = relationship('User')
+#     fk_users = relationship('Users')
