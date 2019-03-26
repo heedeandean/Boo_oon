@@ -5,6 +5,7 @@ from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
 app.debug = True
+app.jinja_env.trim_blocks = True
 
 app.config.update(
 	SECRET_KEY='X1243yRH!mMwf',
@@ -30,12 +31,13 @@ def regist_post():
     gender = request.values.get('gender')
     city = request.values.get('addr')
     job = request.values.get('job')
+    joindt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     if passwd != passwd2:
         flash("암호를 정확히 입력하세요!!")
         return render_template("ecom_main.html", email=email, username=username)
     else:
-        u = User( username, passwd, birth, city, gender, job, email)
+        u = User( username, passwd, birth, city, joindt, gender, job, email)
         try:
             db_session.add(u)
             db_session.commit()
@@ -45,6 +47,10 @@ def regist_post():
             db_session.rollback()
 
         flash("%s 님, 가입을 환영합니다!" % username)
-        return redirect("/boo")
+        return render_template("ecom_main.html")
   
-  
+
+@app.teardown_appcontext
+def teardown_context(exception):
+    print(">>> teardown context!!", exception)
+    db_session.remove() 

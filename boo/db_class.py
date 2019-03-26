@@ -5,7 +5,7 @@ from boo.init_db import Base, db_session
 class User(Base):
     __tablename__ = 'User'
 
-    def __init__(self, username, pw, birthdate, city, gender, job, email):
+    def __init__(self, username, pw, birthdate, city, joindt, gender, job, email):
         self.username = username
         self.pw = pw
         self.birthdate = birthdate
@@ -13,6 +13,7 @@ class User(Base):
         self.gender = gender
         self.job = job
         self.email = email
+        self.join_date = joindt
     
     userno = Column(Integer, primary_key=True)
     username  = Column(String)
