@@ -132,6 +132,43 @@
       $('#job').append($('<option />').val(job[j]).html(job[j]));
     }
 
+    // AJAX
+    function send_ajax(url, method, data, dataType, fn) {
+        $.ajax({
+            url: url,
+            data: data,
+            type: method,
+            dataType: dataType
+        }).done(function (res) {
+            if (fn)
+              fn(res)
+        }).fail(function (xhr, status, errorThrown) {
+            console.error("Sorry, there was a problem!", xhr, status, errorThrown);
+        }).always(function (xhr, status) {
+            console.log("The request is complete!");
+        });
+    }
+
+    $(document).ready(function () {
+      var path = '{{request.path}}';
+      console.log("path>>", path)
+      send_ajax('/boo', 'GET', '', '', function (res) {
+        console.log("res>>", res)
+        if (!res || !res.length) return;
+        //res.forEach( function(r) {
+        //    console.log("rrrr>>", r.songno)
+        // });
+        // if (res && res.result === 'OK') {
+        //     console.log("----------------", $star)
+        // $star.removeClass('far').addClass('fas');
+        // }
+      });
+      
+    })
+
+  
+
+
   </script>
 
 </body>

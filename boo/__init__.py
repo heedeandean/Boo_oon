@@ -1,5 +1,6 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
-from boo.db_class import User, Comment, List, Follow, Ranking, Likecnt, DM
+# from boo.db_class import User, Comment, List, Follow, Ranking, Likecnt, DM, db_session
+from boo.db_class import User, Follow, db_session
 
 app = Flask(__name__)
 app.debug = True
@@ -8,10 +9,35 @@ app.debug = True
 def main():
     return render_template('ecom_main.html')
 
+@app.route('/regist', methods=['GET'])
+def regist():
+    return render_template("ecom_main.html")
 
-@app.route('/comment', methods=['GET'])
-def comment():
-    cmts = Comment.query.all()
-    return jsonify([s.json() for s in cmts])
+@app.route('/boo', methods=['POST'])
+def regist_post():
+    email = request.values.get('email')
+    passwd = request.values.get('passwd')
+    passwd2 = request.values.get('passwd2')
+    username = request.values.get('username')
+    birth = request.values.get('birth')
+    gender = request.values.get('gender')
+    city = request.values.get('addr')
+    job = request.values.get('job')
+
+    if passwd != passwd2:
+        flash("암호를 정확히 입력하세요!!")
+        return render_template("ecom_main.html", email=email, username=username)
+    else:
+        u = User( username, passwd, birth, city, gender, job, email)
+        try:
+            db_session.add(u)
+            db_session.commit()
+
+        except Exception as err:
+            print("Erroir on user>>>", err)
+            db_session.rollback()
+
+        flash("%s 님, 가입을 환영합니다!" % username)
+        return redirect("/login")
   
   
