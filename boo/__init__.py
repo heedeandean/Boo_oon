@@ -1,15 +1,22 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
 # from boo.db_class import User, Comment, List, Follow, Ranking, Likecnt, DM, db_session
 from boo.db_class import User, Follow, db_session
+from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
 app.debug = True
+
+app.config.update(
+	SECRET_KEY='X1243yRH!mMwf',
+	SESSION_COOKIE_NAME='pyweb_flask_session',
+	PERMANENT_SESSION_LIFETIME=timedelta(31)      # 31 days
+)
 
 @app.route('/boo')
 def main():
     return render_template('ecom_main.html')
 
-@app.route('/regist', methods=['GET'])
+@app.route('/boo', methods=['GET'])
 def regist():
     return render_template("ecom_main.html")
 
@@ -38,6 +45,6 @@ def regist_post():
             db_session.rollback()
 
         flash("%s 님, 가입을 환영합니다!" % username)
-        return redirect("/login")
+        return redirect("/boo")
   
   
