@@ -17,6 +17,7 @@ app.config.update(
 def main():
     return render_template('ecom_main.html')
 
+# 회원가입.
 @app.route('/boo', methods=['GET'])
 def regist():
     return render_template("ecom_main.html")
@@ -31,7 +32,6 @@ def regist_post():
     gender = request.values.get('gender')
     job = request.values.get('job')
     email = request.values.get('email')
-    
     # joindt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     if pw != pw2:
@@ -43,13 +43,18 @@ def regist_post():
             db_session.add(u)
             db_session.commit()
 
+            flash("%s 님, 가입을 환영합니다!" % username)
+            
+            
         except Exception as err:
             print("Error on users>>>", err)
             db_session.rollback()
-
-        flash("%s 님, 가입을 환영합니다!" % username)
+        
         return render_template("ecom_main.html")
-  
+        
+
+
+
 
 @app.teardown_appcontext
 def teardown_context(exception):

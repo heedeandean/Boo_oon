@@ -309,156 +309,172 @@
         <div class="tab-content">
           <!--Panel 7-->
           <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+            <form action="/boo" method="POST">
+              {% for message in get_flashed_messages() %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>{{message}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              {% endfor %}
 
-            <!--Body-->
-            <div class="modal-body mb-1">
-              <div class="md-form form-sm mb-5">
-                <i class="fas fa-user-alt prefix"></i>
-                <input type="text" id="modalLRInput10" class="form-control form-control-sm validate">
-                <label data-error="wrong" data-success="right" for="modalLRInput10">아이디</label>
-              </div>
+              <!--Body-->
+              <div class="modal-body mb-1">
+                <div class="md-form form-sm mb-5">
+                  <i class="fas fa-user-alt prefix"></i>
+                  <input type="text" id="modalLRInput10" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput10">아이디</label>
+                </div>
 
-              <div class="md-form form-sm mb-4">
-                <i class="fas fa-lock prefix"></i>
-                <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
-                <label data-error="wrong" data-success="right" for="modalLRInput11">비밀번호</label>
+                <div class="md-form form-sm mb-4">
+                  <i class="fas fa-lock prefix"></i>
+                  <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+                  <label data-error="wrong" data-success="right" for="modalLRInput11">비밀번호</label>
+                </div>
+                <div class="text-center mt-2">
+                  <button class="btn btn-info" type="submit">로그인 <i class="fas fa-sign-in ml-1"></i></button>
+                </div>
               </div>
-              <div class="text-center mt-2">
-                <button class="btn btn-info">로그인 <i class="fas fa-sign-in ml-1"></i></button>
+              <!--Footer-->
+              <div class="modal-footer">
+                <div class="options text-center text-md-right mt-1">
+                  <p><a href="#" class="blue-text"><small>아이디 / 비밀번호 찾기</small></a></p>
+                  <!--<p><a href="#" class="blue-text"><small>회원가입</small></a></p>-->
+                </div>
+                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
               </div>
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-              <div class="options text-center text-md-right mt-1">
-                <p><a href="#" class="blue-text"><small>아이디 / 비밀번호 찾기</small></a></p>
-                <!--<p><a href="#" class="blue-text"><small>회원가입</small></a></p>-->
-              </div>
-              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
-            </div>
-
+            </form>
           </div>
           <!--/.Panel 7-->
 
           <!--Panel 89-->
           <div class="tab-pane show" id="panel89" role="tabpanel">
             <form action="/boo" method="POST">
-            <div class="tab-content">
-              <!--Panel 8-->
-              <div class="tab-pane fade in show active" id="panel8" role="tabpanel">
-                <div class="modal-body">
+              {% for message in get_flashed_messages() %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>{{message}}</strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              {% endfor %}
+              <div class="tab-content">
+                <!--Panel 8-->
+                <div class="tab-pane fade in show active" id="panel8" role="tabpanel">
+                  <div class="modal-body">
+                  
+                    <div class="md-form form-sm mb-5">
+                      <i class="fas fa-user-alt prefix"></i>
+                      <input type="text" id="modalLRInput12" class="form-control form-control-sm validate" name = 'username'>
+                      <label data-error="wrong" data-success="right" for="modalLRInput12">아이디</label>
+                    </div>
                 
-                  <div class="md-form form-sm mb-5">
-                    <i class="fas fa-user-alt prefix"></i>
-                    <input type="text" id="modalLRInput12" class="form-control form-control-sm validate" name = 'username'>
-                    <label data-error="wrong" data-success="right" for="modalLRInput12">아이디</label>
-                  </div>
-              
-                  <div class="md-form form-sm mb-5">
-                    <i class="fas fa-lock prefix"></i>
-                    <input type="password" id="modalLRInput13" class="form-control form-control-sm validate" name='pw'>
-                    <label data-error="wrong" data-success="right" for="modalLRInput13">비밀번호</label>
-                  </div>
+                    <div class="md-form form-sm mb-5">
+                      <i class="fas fa-lock prefix"></i>
+                      <input type="password" id="modalLRInput13" class="form-control form-control-sm validate" name='pw'>
+                      <label data-error="wrong" data-success="right" for="modalLRInput13">비밀번호</label>
+                    </div>
 
-                  <div class="md-form form-sm mb-4">
-                    <i class="fas fa-lock prefix"></i>
-                    <input type="password" id="modalLRInput14" class="form-control form-control-sm validate" name='pw2'>
-                    <label data-error="wrong" data-success="right" for="modalLRInput14">비밀번호 확인</label>
-                  </div>
+                    <div class="md-form form-sm mb-4">
+                      <i class="fas fa-lock prefix"></i>
+                      <input type="password" id="modalLRInput14" class="form-control form-control-sm validate" name='pw2'>
+                      <label data-error="wrong" data-success="right" for="modalLRInput14">비밀번호 확인</label>
+                    </div>
+                
+                    <div class="md-form form-sm mb-5">
+                      <i class="fas fa-envelope prefix"></i>
+                      <input type="email" id="modalLRInput15" class="form-control form-control-sm validate" name='email'>
+                      <label data-error="wrong" data-success="right" for="modalLRInput15">이메일</label>
+                    </div>  
               
-                  <div class="md-form form-sm mb-5">
-                    <i class="fas fa-envelope prefix"></i>
-                    <input type="email" id="modalLRInput15" class="form-control form-control-sm validate" name='email'>
-                    <label data-error="wrong" data-success="right" for="modalLRInput15">이메일</label>
-                  </div>  
+                    <!--Controls-->
+                    <div class="controls-top text-center">
+                        <a class="btn-floating primary-color nav-link" onclick="controlRegist('panel8','panel9')">
+                          <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </div>
+                    <!--Controls-->
+                  </div>
+                </div>  
+                <!--/.Panel 8-->
+                
+                <!--Panel 9-->
+                <div class="tab-pane hide" id="panel9" role="tabpanel">    
+                  <div class="modal-body">
             
-                  <!--Controls-->
-                  <div class="controls-top text-center">
-                      <a class="btn-floating primary-color nav-link" onclick="controlRegist('panel8','panel9')">
-                        <i class="fas fa-chevron-right"></i>
-                      </a>
-                  </div>
-                  <!--Controls-->
-                </div>
-              </div>  
-              <!--/.Panel 8-->
-              
-              <!--Panel 9-->
-              <div class="tab-pane hide" id="panel9" role="tabpanel">    
-                <div class="modal-body">
-          
-                  <!--생년월일-->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    
-                      <label class="input-group-text" for="inputGroupSelect01">생년월일</label>
-                    </div>
-                    <select id="years" class="browser-default custom-select" id="inputGroupSelect01" name='birthdate'>  </select>
-                    <select id="months" class="browser-default custom-select" id="inputGroupSelect01">  </select>
-                    <select id="days" class="browser-default custom-select" id="inputGroupSelect01">  </select>
-                  </div>
-                  
-                  <!--성별-->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    
-                      <label class="input-group-text" for="inputGroupSelect01">성별</label>
-                    </div>
-                    <select id="tttsel" class="browser-default custom-select" id="inputGroupSelect01" name = 'gender'>
-                      <option value="1">여자</option>
-                      <option value="2">남자</option>
-                    </select>
-                  </div>
-
-                  <!--거주지-->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    
-                      <label class="input-group-text" for="inputGroupSelect01">거주지</label>
-                    </div>
-                    <select id="sidogun" class="browser-default custom-select" id="inputGroupSelect01" name='city'>
-                     
-                    </select>
-                    <select id="city" class="browser-default custom-select" id="inputGroupSelect01">
+                    <!--생년월일-->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
                       
-                    </select>
-                  </div>
-                  
-                  <!--직업-->
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                    
-                      <label class="input-group-text" for="inputGroupSelect01">직업</label>
+                        <label class="input-group-text" for="inputGroupSelect01">생년월일</label>
+                      </div>
+                      <select id="years" class="browser-default custom-select" id="inputGroupSelect01" name='birthdate'>  </select>
+                      <select id="months" class="browser-default custom-select" id="inputGroupSelect01">  </select>
+                      <select id="days" class="browser-default custom-select" id="inputGroupSelect01">  </select>
                     </div>
-                    <select id="job" class="browser-default custom-select" id="inputGroupSelect01" name='job'> 
-                    </select>
-                  </div>   
+                    
+                    <!--성별-->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
                       
+                        <label class="input-group-text" for="inputGroupSelect01">성별</label>
+                      </div>
+                      <select id="tttsel" class="browser-default custom-select" id="inputGroupSelect01" name = 'gender'>
+                        <option value="1">여자</option>
+                        <option value="2">남자</option>
+                      </select>
+                    </div>
 
-                  <!--Controls-->
-                  <div class="controls-top text-center">
-                      <a class="btn-floating primary-color nav-link" onclick="controlRegist('panel9','panel8')">
-                        <i class="fas fa-chevron-left"></i>
-                      </a>
-                  </div>
-                  <!--Controls-->
+                    <!--거주지-->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                      
+                        <label class="input-group-text" for="inputGroupSelect01">거주지</label>
+                      </div>
+                      <select id="sidogun" class="browser-default custom-select" id="inputGroupSelect01" name='city'>
+                      
+                      </select>
+                      <select id="city" class="browser-default custom-select" id="inputGroupSelect01">
+                        
+                      </select>
+                    </div>
+                    
+                    <!--직업-->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                      
+                        <label class="input-group-text" for="inputGroupSelect01">직업</label>
+                      </div>
+                      <select id="job" class="browser-default custom-select" id="inputGroupSelect01" name='job'> 
+                      </select>
+                    </div>   
+                        
 
-                  <div class="text-center form-sm mt-2">
-                    <button class="btn btn-info" type="submit"> 가입 확인 <i class="fas fa-sign-in ml-1"></i></button>
+                    <!--Controls-->
+                    <div class="controls-top text-center">
+                        <a class="btn-floating primary-color nav-link" onclick="controlRegist('panel9','panel8')">
+                          <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </div>
+                    <!--Controls-->
+
+                    <div class="text-center form-sm mt-2">
+                      <button class="btn btn-info" type="submit"> 가입 확인 <i class="fas fa-sign-in ml-1"></i></button>
+                    </div>
                   </div>
                 </div>
+                <!--/.Panel 9-->
+                
+                <!--Footer-->
+                <div class="modal-footer">
+                <div class="options text-right">
+                  <p class="pt-1"><a href="#">로그인</a></p>
+                </div>
+                <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
+                </div>  
               </div>
-              <!--/.Panel 9-->
-              
-              <!--Footer-->
-              <div class="modal-footer">
-              <div class="options text-right">
-                <p class="pt-1"><a href="#">로그인</a></p>
-              </div>
-              <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
-              </div>  
-            </div>
-
-          </form>
+            </form>
           </div>
           <!--/.Panel 89-->
 
