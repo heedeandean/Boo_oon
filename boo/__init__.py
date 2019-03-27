@@ -1,6 +1,5 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
-# from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
-from boo.db_class import Users, Follow, db_session
+from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
