@@ -1,6 +1,7 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
+from werkzeug import generate_password_hash
 
 app = Flask(__name__)
 app.debug = True
@@ -38,11 +39,13 @@ def regist_post():
     email = request.form.get('email')
     # joindt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    if pw != pw2:
-        flash("암호를 정확히 입력하세요!!")
+    if len(username) == 0 or len(pw) == 0 or len(email):
+        # flash("모든 값을 입력해주세요!!")
+        msg = "가입 실패. 입력되지 않은 값이 있습니다."
         return render_template("ecom_main.html", email=email, username=username)
     else:
-        u = Users(username, pw, birthdate, addr, gender, job, email)
+        u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
+        
         try:
             db_session.add(u)
             db_session.commit()
@@ -64,8 +67,6 @@ def regist_post():
 def teardown_context(exception):
     print(">>> teardown context!!", exception)
     db_session.remove() 
-
-
 
 
 def getzero(md):

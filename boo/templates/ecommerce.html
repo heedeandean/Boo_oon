@@ -126,7 +126,7 @@
     }
 
     // 직업 함수
-    var job = ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠',  '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교','군인','학생','기타']
+    var job = ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']
 
     for (j in job){  
       $('#job').append($('<option />').val(job[j]).html(job[j]));
@@ -159,7 +159,24 @@
       
     })
 
-  
+    // 비밀번호 확인 함수
+    var ssn1 = document.getElementById("modalLRInput13");
+    var ssn2 = document.getElementById("modalLRInput14");
+    var current = document.getElementById("modalPW2");
+    
+    ssn2.oninput = function(event) {
+     if (ssn1.value == ssn2.value ) {
+      ssn2.classList.remove("invalid");
+      ssn2.classList.add("valid");
+     } else {
+      ssn2.classList.remove("valid");
+      ssn2.classList.add("invalid");
+     }
+    }
+
+    
+
+
 
 
   </script>

@@ -9,7 +9,8 @@ create table Users (
 	job varchar(128) not null,
 	email varchar(128) not null unique,
 	following_cnt int(11) not null default 0,
-	follower_cnt int(11) not null default 0
+	follower_cnt int(11) not null default 0,
+    ismember boolean not null default 1
 );
 
 create table Follow (			
