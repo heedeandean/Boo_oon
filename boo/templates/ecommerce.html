@@ -155,13 +155,6 @@
       send_ajax('/boo', 'GET', '', '', function (res) {
         console.log("res>>", res)
         if (!res || !res.length) return;
-        //res.forEach( function(r) {
-        //    console.log("rrrr>>", r.songno)
-        // });
-        // if (res && res.result === 'OK') {
-        //     console.log("----------------", $star)
-        // $star.removeClass('far').addClass('fas');
-        // }
       });
       
     })
