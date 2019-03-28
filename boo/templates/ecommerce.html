@@ -171,13 +171,10 @@
       }
     }
 
-<<<<<<< HEAD
-    
-=======
-    ssn2.onchange = function() {
-      console.log(ssn1.value);
-      setTimeout(ss);
-    }
+    //ssn2.onchange = function() {
+    //  console.log(ssn1.value);
+    //  setTimeout(ss);
+    //}
 
     function ss() {
       if (ssn1.value == ssn2.value ) {
@@ -185,8 +182,11 @@
       } else {
         $('#modalLRInput14').removeClass("vaild").addClass("invalid");
       }
-    }
 
+      if ($.trim($('#modalLRInput14').val()) == ''){
+        $('#modalLRInput14').removeClass("vaild").removeClass("invalid");
+      }
+    }
 
 
     // 가입 정보 공백 시 처리 함수
@@ -197,13 +197,12 @@
       nameInput.setCustomValidity('');
       nameInput.checkValidity();
     });
->>>>>>> 43f35e7839a71518d75d76ff08307297a93a2377
 
 
     // 필수 사항 입력 여부 체크 함수
     $('#submit').click(function(){
-      if($.trim($('#modalLRInput15').val()) == ''){
-          alert('이메일 값을 채워주세요.');
+      if($.trim($('#modalLRInput15').val()) == '' || $.trim($('#modalLRInput12').val()) == '' || $.trim($('#modalLRInput13').val()) == ''){
+        alert('빠짐없이 기입했는지 확인해주세요.');
       }
     });
 
