@@ -37,7 +37,6 @@ def regist_post():
     gender = request.form.get('gender')
     job = request.form.get('job')
     email = request.form.get('email')
-    # joindt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
     
