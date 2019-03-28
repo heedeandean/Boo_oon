@@ -162,36 +162,25 @@
     // 비밀번호 확인 함수
     var ssn1 = document.getElementById("modalLRInput13");
     var ssn2 = document.getElementById("modalLRInput14");
-    var current = document.getElementById("modalPW2");
     
     ssn2.oninput = function(event) {
      if (ssn1.value == ssn2.value ) {
-      ssn2.classList.remove("invalid");
-      ssn2.classList.add("valid");
-     } else {
-      ssn2.classList.remove("valid");
-      ssn2.classList.add("invalid");
-     }
+        $('#modalLRInput14').removeClass("invalid").addClass("valid");
+      } else {
+        $('#modalLRInput14').removeClass("vaild").addClass("invalid");
+      }
     }
 
     ssn2.onchange = function() {
       console.log(ssn1.value);
-      setTimeout( ss);
+      setTimeout(ss);
     }
 
     function ss() {
-      var ssn1 = document.getElementById("modalLRInput13");
-      var ssn2 = document.getElementById("modalLRInput14");
       if (ssn1.value == ssn2.value ) {
-        console.log('일치 : ' + ssn2.value)
-        ssn2.classList.remove("invalid");
-        ssn2.classList.add("valid");
+        $('#modalLRInput14').removeClass("invalid").addClass("valid");
       } else {
-        console.log('불일치11 : ' + ssn2.value)
-        //$('#modalLRInput14').removeClass('valid')
-        //$('#modalLRInput14').addClass('invalid')
-        ssn2.classList.remove('valid');
-        ssn2.classList.add('invalid');
+        $('#modalLRInput14').removeClass("vaild").addClass("invalid");
       }
     }
 
