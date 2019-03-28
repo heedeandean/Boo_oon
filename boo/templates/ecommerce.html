@@ -162,19 +162,42 @@
     // 비밀번호 확인 함수
     var ssn1 = document.getElementById("modalLRInput13");
     var ssn2 = document.getElementById("modalLRInput14");
-    var current = document.getElementById("modalPW2");
     
     ssn2.oninput = function(event) {
      if (ssn1.value == ssn2.value ) {
-      ssn2.classList.remove("invalid");
-      ssn2.classList.add("valid");
-     } else {
-      ssn2.classList.remove("valid");
-      ssn2.classList.add("invalid");
-     }
+        $('#modalLRInput14').removeClass("invalid").addClass("valid");
+      } else {
+        $('#modalLRInput14').removeClass("vaild").addClass("invalid");
+      }
     }
 
+<<<<<<< HEAD
     
+=======
+    ssn2.onchange = function() {
+      console.log(ssn1.value);
+      setTimeout(ss);
+    }
+
+    function ss() {
+      if (ssn1.value == ssn2.value ) {
+        $('#modalLRInput14').removeClass("invalid").addClass("valid");
+      } else {
+        $('#modalLRInput14').removeClass("vaild").addClass("invalid");
+      }
+    }
+
+
+
+    // 가입 정보 공백 시 처리 함수
+    const nameInput = document.querySelector('input');
+    const form = document.querySelector('form');
+
+    nameInput.addEventListener('input', () => {
+      nameInput.setCustomValidity('');
+      nameInput.checkValidity();
+    });
+>>>>>>> 43f35e7839a71518d75d76ff08307297a93a2377
 
 
 
