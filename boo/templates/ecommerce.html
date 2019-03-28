@@ -174,8 +174,45 @@
      }
     }
 
-    
+    ssn2.onchange = function() {
+      console.log(ssn1.value);
+      setTimeout( ss);
+    }
 
+    function ss() {
+      var ssn1 = document.getElementById("modalLRInput13");
+      var ssn2 = document.getElementById("modalLRInput14");
+      if (ssn1.value == ssn2.value ) {
+        console.log('일치 : ' + ssn2.value)
+        ssn2.classList.remove("invalid");
+        ssn2.classList.add("valid");
+      } else {
+        console.log('불일치11 : ' + ssn2.value)
+        //$('#modalLRInput14').removeClass('valid')
+        //$('#modalLRInput14').addClass('invalid')
+        ssn2.classList.remove('valid');
+        ssn2.classList.add('invalid');
+      }
+    }
+
+
+
+    // 가입 정보 공백 시 처리 함수
+    const nameInput = document.querySelector('input');
+    const form = document.querySelector('form');
+
+    nameInput.addEventListener('input', () => {
+      nameInput.setCustomValidity('');
+      nameInput.checkValidity();
+    });
+
+    nameInput.addEventListener('invalid', () => {
+      if(nameInput.value === '') {
+        alert('Enter your username!');
+      } else {
+        nameInput.setCustomValidity('Usernames can only contain upper and lowercase letters. Try again!');
+      }
+    });
 
 
 
