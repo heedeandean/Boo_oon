@@ -39,26 +39,21 @@ def regist_post():
     email = request.form.get('email')
     # joindt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    if len(username) == 0 or len(pw) == 0 or len(email):
-        # flash("모든 값을 입력해주세요!!")
-        msg = "가입 실패. 입력되지 않은 값이 있습니다."
-        return render_template("ecom_main.html", email=email, username=username)
-    else:
-        u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
-        
-        try:
-            db_session.add(u)
-            db_session.commit()
+    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
+    
+    try:
+        db_session.add(u)
+        db_session.commit()
 
-            flash("%s 님, 가입을 환영합니다!" % username)
-            
-            
-        except Exception as err:
-            print("Error on users>>>", err)
-            db_session.rollback()
+        flash("%s 님, 가입을 환영합니다!" % username)
         
-        return render_template("ecom_main.html")
         
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return render_template("ecom_main.html")
+    
 
 
 
