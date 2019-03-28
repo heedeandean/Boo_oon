@@ -171,6 +171,9 @@
       }
     }
 
+<<<<<<< HEAD
+    
+=======
     ssn2.onchange = function() {
       console.log(ssn1.value);
       setTimeout(ss);
@@ -194,14 +197,8 @@
       nameInput.setCustomValidity('');
       nameInput.checkValidity();
     });
+>>>>>>> 43f35e7839a71518d75d76ff08307297a93a2377
 
-    nameInput.addEventListener('invalid', () => {
-      if(nameInput.value === '') {
-        alert('Enter your username!');
-      } else {
-        nameInput.setCustomValidity('Usernames can only contain upper and lowercase letters. Try again!');
-      }
-    });
 
     // 필수 사항 입력 여부 체크 함수
     $('#submit').click(function(){
