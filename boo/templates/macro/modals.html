@@ -409,9 +409,18 @@
                       
                         <label class="input-group-text" for="inputGroupSelect01">생년월일</label>
                       </div>
-                      <select id="years" class="browser-default custom-select" id="inputGroupSelect01" name='birthyear' required>  </select>
-                      <select id="months" class="browser-default custom-select" id="inputGroupSelect01" name='birthmonth' required>  </select>
-                      <select id="days" class="browser-default custom-select" id="inputGroupSelect01" name='birthday' required>  </select>
+                      <!--년도(years)-->
+                      <select id="years" class="browser-default custom-select" id="inputGroupSelect01" name='birthyear' required>  
+                        <option value="년도">년도</option>
+                      </select>
+                      <!--월(months)-->
+                      <select id="months" class="browser-default custom-select" id="inputGroupSelect01" name='birthmonth' required>  
+                        <option value="월">월</option>
+                      </select>
+                      <!--일(days)-->
+                      <select id="days" class="browser-default custom-select" id="inputGroupSelect01" name='birthday' required> 
+                        <option value="일">일</option>
+                      </select>
                     </div>
                     
                     <!--성별-->
@@ -432,8 +441,14 @@
                       
                         <label class="input-group-text" for="inputGroupSelect01">거주지</label>
                       </div>
-                      <select id="sidogun" class="browser-default custom-select" id="inputGroupSelect01" name='sidogun' required> </select>
-                      <select id="city" class="browser-default custom-select" id="inputGroupSelect01" name='city' required> </select>
+                       <!--지역(sidogun)-->
+                      <select id="sidogun" class="browser-default custom-select" id="inputGroupSelect01" name='sidogun' required>
+                        <option value="지역">지역</option> 
+                      </select>
+                       <!--세부 도시(city)-->
+                      <select id="city" class="browser-default custom-select" id="inputGroupSelect01" name='city' required>
+                        <option value="도시">도시</option>  
+                      </select>
                     </div>
                     
                     <!--직업-->
@@ -443,6 +458,7 @@
                         <label class="input-group-text" for="inputGroupSelect01">직업</label>
                       </div>
                       <select id="job" class="browser-default custom-select" id="inputGroupSelect01" name='job'> 
+                        <option value="직업">직업</option>  
                       </select>
                     </div>   
                         
@@ -486,60 +502,3 @@
 <!--Modal: Login / Register Form-->
 {%- endmacro %}
 
-
-<!--가입창-->
-{% macro regist_modal() %}
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      
-
-      <div class="modal-body">
-      
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="inputGroupSelect01">Options</label>
-          </div>
-          <select id="tttsel" class="browser-default custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <select id="tttsel" class="browser-default custom-select" id="inputGroupSelect01">
-            <option selected>Choose...</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-        </div>
-
-        
-
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-{% endmacro %}

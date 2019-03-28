@@ -66,6 +66,7 @@
 
     function updateNumberOfDays() {
       $('#days').html('');
+      $('#days').append($('<option />').val('일').html('일'));
       month = $('#months').val();
       year = $('#years').val();
       days = daysInMonth(month, year);
@@ -210,8 +211,22 @@
       if($.trim($('#modalLRInput15').val()) == '' || $.trim($('#modalLRInput12').val()) == '' || $.trim($('#modalLRInput13').val()) == ''){
         alert('빠짐없이 기입했는지 확인해주세요.');
       }
+
+      if ( $('#years').prop('selectedIndex') == 0) {
+        alert('생년월일을 선택해주세요.');
+      }
+
+      if ( $('#sidogun').prop('selectedIndex') == 0) {
+        alert('거주지를 선택해주세요.');
+      }
+
+      if ( $('#job').prop('selectedIndex') == 0) {
+        alert('직업 선택해주세요.');
+      }
+
     });
 
+    
 
 
   </script>
