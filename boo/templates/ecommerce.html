@@ -207,27 +207,20 @@
     }
 
     // 필수 사항 입력 여부 체크 함수
-    $('#registSubmit').click(function(){
+    $('#registForm').submit(function(event){
       if($.trim($('#modalLRInput15').val()) == '' || $.trim($('#modalLRInput12').val()) == '' || $.trim($('#modalLRInput13').val()) == ''){
         alert('빠짐없이 기입했는지 확인해주세요.');
       }
       
-      if ( $('#years').prop('selectedIndex') == 0) {
-        alert('생년월일을 선택해주세요.');
-        $('#registSubmit').prop('onclick', false);
-      }
-      
-      if ( $('#sidogun').prop('selectedIndex') == 0) {
-        alert('거주지를 선택해주세요.');
-        $('#registSubmit').prop('onclick', false);
-      }
-      
-      if ( $('#job').prop('selectedIndex') == 0) {
-        alert('직업 선택해주세요.');
-        $('#registSubmit').prop('onclick', false);
+      if ( $('#years').prop('selectedIndex') == 0 || $('#sidogun').prop('selectedIndex') == 0 || $('#job').prop('selectedIndex') == 0 ) {
+        alert('선택되지 않은 항목이 있습니다.');
+        event.preventDefault();
+        //$('#registSubmit').prop('onclick', false);
       }
 
+      genderRadio
     });
+
 
     // 엔터키 눌렀을 때 submit 되는 거 막기
     $('input').keydown(function() {
