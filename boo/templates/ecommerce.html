@@ -217,8 +217,12 @@
         event.preventDefault();
         //$('#registSubmit').prop('onclick', false);
       }
-
-      genderRadio
+      
+      if ( $('#genderRadio input:checked').val() != '1' || $('#genderRadio input:checked').val() != '2' ){
+        alert('성별을 선택해주세요.');
+        event.preventDefault();
+      }
+     
     });
 
 
