@@ -212,13 +212,13 @@
         alert('빠짐없이 기입했는지 확인해주세요.');
       }
       
-      if ( $('#years').prop('selectedIndex') == 0 || $('#sidogun').prop('selectedIndex') == 0 || $('#job').prop('selectedIndex') == 0 ) {
+      if ( $('#years').prop('selectedIndex') == 0 || $('#sidogun').prop('selectedIndex') == 0 || $('#job').prop('selectedIndex') == 0 || $('#genderRadio input:checked').val() == false ) {
         alert('선택되지 않은 항목이 있습니다.');
         event.preventDefault();
         //$('#registSubmit').prop('onclick', false);
       }
       
-      if ( $('#genderRadio input:checked').val() != '1' || $('#genderRadio input:checked').val() != '2' ){
+      if ( ){
         alert('성별을 선택해주세요.');
         event.preventDefault();
       }
