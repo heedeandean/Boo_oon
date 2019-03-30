@@ -40,10 +40,16 @@
   <script>
     new WOW().init();
 
-    // 가입창 함수
+    // 화살표 함수 : panel8에서 모두 입력 시 넘어가는 함수.
     function controlRegist(myId, panelId) {
+      if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
+         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '') {
+
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
+      } else {
+          alert('빠짐없이 기입했는지 확인해주세요.');
+      }
     }
 
     // 생년월일 함수
@@ -208,29 +214,19 @@
       }
     }
 
-    // 필수 사항 입력 여부 체크 함수
+    // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
-      if($.trim($('#modalLRInput15').val()) == '' || $.trim($('#modalLRInput12').val()) == '' || $.trim($('#modalLRInput13').val()) == ''){
-        alert('빠짐없이 기입했는지 확인해주세요.');
-        event.preventDefault();
-      }
-      
-      if ( $('#years').prop('selectedIndex') == 0 || $('#sidogun').prop('selectedIndex') == 0 || $('#job').prop('selectedIndex') == 0 || $('#genderRadio input:radio:checked').length == 0 ) {
+
+      if ( $('#years').prop('selectedIndex') == 0 || $('#months').prop('selectedIndex') == 0 || $('#days').prop('selectedIndex') == 0 || 
+           $('#sidogun').prop('selectedIndex') == 0 || 
+           $('#job').prop('selectedIndex') == 0 || $('#genderRadio input:radio:checked').length == 0  || 
+           $('#genderRadio input:radio:checked').length == 0) {
+
         alert('선택되지 않은 항목이 있습니다.');
         event.preventDefault();
         //$('#registSubmit').prop('onclick', false);
       }
-      
-     // if ($('#genderRadio input:radio:checked').length == 0) {
-     //   alert('성별을 선택해주세요.');
-     //   event.preventDefault();
-     // }
 
-      // if ($('#genderRadio input:radio').is(':checked') == false){
-      //  alert('성별을 선택해주세요.');
-      //    event.preventDefault();
-      //  }
-     
     });
 
 
