@@ -218,9 +218,8 @@
     $('#registForm').submit(function(event){
 
       if ( $('#years').prop('selectedIndex') == 0 || $('#months').prop('selectedIndex') == 0 || $('#days').prop('selectedIndex') == 0 || 
-           $('#sidogun').prop('selectedIndex') == 0 || 
-           $('#job').prop('selectedIndex') == 0 || $('#genderRadio input:radio:checked').length == 0  || 
-           $('#genderRadio input:radio:checked').length == 0) {
+           $('#sidogun').prop('selectedIndex') == 0 || $('#job').prop('selectedIndex') == 0 || 
+           $('#genderRadio input:radio:checked').length == 0 ) {
 
         alert('선택되지 않은 항목이 있습니다.');
         event.preventDefault();
