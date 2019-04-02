@@ -227,29 +227,36 @@
     });
 
     // 아이디 중복 체크
-    $(function(){
-    //아이디 중복체크
-      $('#modalLRInput12').blur(function(){
-        $.ajax({
-        type:"POST",
-        url:"/boo",
-        data:{ "username" : $('#modalLRInput12').val()},
-        success:function(data){	//data : checkSignup에서 넘겨준 결과값
-            if($.trim(data)=="YES"){
-              if($('#modalLRInput12').val()!=''){ 
-                alert("사용가능한 아이디입니다.");
-              }
-            }else{
-              if($('#modalLRInput12').val()!=''){
-                alert("중복된 아이디입니다.");
-                $('#modalLRInput12').val('');
-                $('#modalLRInput12').focus();
-              }
+    $(document).ready(function(){
+    $('#modalLRInput12').keyup(function(){
+        if ( $('#modalLRInput12').val().length > 3) {
+          var id = $(this).val();
+          // ajax 실행
+          $.ajax({
+            type : 'POST',
+            url : '/boo',
+            data:
+            {
+              username : id,
+              gender : 1,
+              job : '',
+              pw : 123,
+              birthyear : 1995,
+              birthmonth : 5,
+              birthday : 12,
+              sidogun : '',
+              city : ''
+            },
+            success : function(data, result) {
+                if (data['username'] == '가입 가능') {
+                  $("#modalLRInput12").removeClass('invalid').addClass('valid')
+                }else {
+                   $("#modalLRInput12").removeClass('valid').addClass('invalid')
+                }
             }
-          }
-        }) 
-      })
-
+          }); // end ajax
+        }
+      }); // end keyup
     });
     
 

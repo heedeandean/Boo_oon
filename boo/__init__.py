@@ -13,9 +13,13 @@ app.config.update(
 	PERMANENT_SESSION_LIFETIME=timedelta(31)      # 31 days
 )
 
-@app.route('/login')
+@app.route('/regist')
 def login():
-    return render_template('login.html')
+    u = User.query.filter(User.id == username).first()
+    if len(u) > 0 :
+        return True
+    else : return False
+    
 
 @app.route('/boo')
 def main():
@@ -39,6 +43,23 @@ def regist_post():
     email = request.form.get('email')
 
     u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
+
+    check = Users.query.filter(Users.username == username).first()
+
+    
+
+    if check == None :
+        print('실패실패')
+        return jsonify(username='가입 가능')
+
+    else : 
+        # response = make_response(render_template('ecom_main.html'))
+        # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
+        # print('플라스크 ㅊㅊㅊㅊㅊㅊ')
+        print('성공성공')
+        return jsonify(username='이미 있음')
+
+      
     
     try:
         db_session.add(u)
