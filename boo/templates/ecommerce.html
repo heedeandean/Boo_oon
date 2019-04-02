@@ -180,14 +180,12 @@
     }
 
     $(document).ready(function () {
-      $('#loginModal').modal('show');
       var path = '{{request.path}}';
       console.log("path>>", path)
       send_ajax('/boo', 'GET', '', '', function (res) {
         console.log("res>>", res)
         if (!res || !res.length) return;
       });
-      
     })
 
     // 비밀번호 확인 함수
