@@ -44,19 +44,17 @@
 
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
-      if($.trim($('#modalLRInput12').val()) != '' || 
-         $.trim($('#modalLRInput13').val()) != '' || 
-         $.trim($('#modalLRInput14').val()) != '' || 
-         $.trim($('#modalLRInput15').val()) != '' || 
-         $(this).hasClass('invalid') ) {
-        
-        console.log( $(this).val())
+      if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
+         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '' && 
+         $('#modalLRInput12').hasClass('valid') && $('#modalLRInput14').hasClass('valid') && $('#modalLRInput15').hasClass('valid')){
+
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
       } else {
           alert('정보를 정확히 기입해 주세요.');
       }
     }
+
 
     // 생년월일 함수
     $(function () {
@@ -223,9 +221,8 @@
 
     });
 
-    propSelected('years')
     function propSelected(id){
-      $('#'+id).prop('selectedIndex') == 0
+      return $('#'+id).prop('selectedIndex') == 0
     }
 
     // 엔터키 눌렀을 때 submit 되는 거 막기
