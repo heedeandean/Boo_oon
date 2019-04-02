@@ -17,6 +17,29 @@ app.config.update(
 def main():
     return render_template('ecom_main.html')
 
+@app.route('/boo/idcheck', methods=['GET','POST'])
+def ifexists():
+    username = request.form.get('username')
+
+    checkid = Users.query.filter(Users.username == username).first()
+
+    checkem = Users.query.filter(Users.email == username).first()
+    
+    if checkid == None and checkem == None :
+        print('실패실패', username)
+        return jsonify(username='가입 가능')
+
+    elif checkid == None and checkem != None :
+        print('이메일은 있음', username)
+        return jsonify(username='이메일 있음')
+
+    else : 
+        # response = make_response(render_template('ecom_main.html'))
+        # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
+        # print('플라스크 ㅊㅊㅊㅊㅊㅊ')
+        print('성공성공')
+        return jsonify(username='이미 있음')
+
 # 회원가입.
 @app.route('/boo', methods=['GET','POST'])
 def regist_post():
@@ -35,26 +58,6 @@ def regist_post():
     email = request.form.get('email')
 
     u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
-
-    checkid = Users.query.filter(Users.username == username).first()
-
-    checkem = Users.query.filter(Users.email == username).first()
-
-    
-    if checkid == None and checkem == None :
-        print('실패실패', username)
-        return jsonify(username='가입 가능')
-
-    elif checkid == None and checkem != None :
-        print('이메일은 있음', username)
-        return jsonify(username='이메일 있음')
-
-    else : 
-        # response = make_response(render_template('ecom_main.html'))
-        # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
-        # print('플라스크 ㅊㅊㅊㅊㅊㅊ')
-        print('성공성공')
-        return jsonify(username='이미 있음')
 
 
     #---- DB insert try ----#

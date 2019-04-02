@@ -44,8 +44,8 @@
 
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
-      if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
-         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '' && 
+      if($.trim($('#modalLRInput12').val()) != '' || $.trim($('#modalLRInput13').val()) != '' || 
+         $.trim($('#modalLRInput14').val()) != '' || $.trim($('#modalLRInput15').val()) != '' || 
          $(this).hasClass('invalid')) {
 
         $('#' + myId).toggle();
@@ -242,17 +242,9 @@
             // ajax 실행
             $.ajax({
               type : 'POST',
-              url : '/boo',
+              url : '/boo/idcheck',
               data:
-              { username : id,
-                gender : 1,
-                job : '',
-                pw : 123,
-                birthyear : 2000,
-                birthmonth : 1,
-                birthday : 1,
-                sidogun : '',
-                city : ''
+              { username : id
               },
               success : function(data) {
                 console.log(data)
