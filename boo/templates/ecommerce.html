@@ -45,12 +45,13 @@
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
       if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
-         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '') {
+         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '' && 
+         $(this).hasClass('invalid')) {
 
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
       } else {
-          alert('빠짐없이 기입했는지 확인해주세요.');
+          alert('정보를 정확히 기입해 주세요.');
       }
     }
 
