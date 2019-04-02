@@ -215,7 +215,6 @@
 
     // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
-
       if ( propSelected('years') || propSelected('months') ||  propSelected('days') || 
            propSelected('sidogun') || propSelected('job') ||
            $('#genderRadio input:radio:checked').length == 0 ) {
@@ -224,7 +223,6 @@
         event.preventDefault();
         //$('#registSubmit').prop('onclick', false);
       }
-
     });
 
     function propSelected(id){
@@ -241,8 +239,8 @@
 
 
     // 아이디, 이메일 중복 체크
-    checkItOut('modalLRInput12') //아이디
-    checkItOut('modalLRInput15') //이메일
+    checkItOut('modalLRInput12') // 아이디 
+    checkItOut('modalLRInput15') // 이메일
 
     function checkItOut(modalId) {
       var mid = '#' +  modalId 
