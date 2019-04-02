@@ -44,9 +44,8 @@
 
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
-      if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
-         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '' && 
-         $('#modalLRInput12').hasClass('valid') && $('#modalLRInput14').hasClass('valid') && $('#modalLRInput15').hasClass('valid')){
+      if(trimHas('modalLRInput12') && trimHas('modalLRInput13') && 
+         trimHas('modalLRInput14') && trimHas('modalLRInput15')) {
 
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
@@ -54,6 +53,10 @@
           alert('정보를 정확히 기입해 주세요.');
       }
     }
+
+    function trimHas(id){
+      return $.trim($('#'+id).val()) != '' && $('#'+id).hasClass('valid')
+    }       
 
 
     // 생년월일 함수
@@ -89,6 +92,7 @@
     function daysInMonth(month, year) {
       return new Date(year, month, 0).getDate();
     }
+
 
     // 시도군 함수
     var cities = {
@@ -153,6 +157,7 @@
       }
     }
 
+
     // 직업 함수
     var job = ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', 
                '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', 
@@ -161,6 +166,7 @@
     for (j in job){  
       $('#job').append($('<option />').val(job[j]).html(job[j]));
     }
+
 
     // AJAX
     function send_ajax(url, method, data, dataType, fn) {
@@ -188,6 +194,7 @@
       });
     })
 
+
     // 비밀번호 확인 함수
     var ssn1 = document.getElementById("modalLRInput13");
     var ssn2 = document.getElementById("modalLRInput14");
@@ -204,6 +211,7 @@
         $('#modalLRInput14').removeClass("vaild").removeClass("invalid");
       } 
     }
+
 
     // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
@@ -223,12 +231,14 @@
       return $('#'+id).prop('selectedIndex') == 0
     }
 
+
     // 엔터키 눌렀을 때 submit 되는 거 막기
     $('input').keydown(function() {
       if (event.keyCode === 13) {
         event.preventDefault();
       }
     });
+
 
     // 아이디, 이메일 중복 체크
     checkItOut('modalLRInput12') //아이디
