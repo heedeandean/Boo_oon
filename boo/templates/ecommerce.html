@@ -44,10 +44,13 @@
 
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
-      if($.trim($('#modalLRInput12').val()) != '' || $.trim($('#modalLRInput13').val()) != '' || 
-         $.trim($('#modalLRInput14').val()) != '' || $.trim($('#modalLRInput15').val()) != '' || 
-         $(this).hasClass('invalid')) {
-
+      if($.trim($('#modalLRInput12').val()) != '' || 
+         $.trim($('#modalLRInput13').val()) != '' || 
+         $.trim($('#modalLRInput14').val()) != '' || 
+         $.trim($('#modalLRInput15').val()) != '' || 
+         $(this).hasClass('invalid') ) {
+        
+        console.log( $(this).val())
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
       } else {
@@ -209,11 +212,8 @@
     // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
 
-      if ( $('#years').prop('selectedIndex') == 0 || 
-           $('#months').prop('selectedIndex') == 0 || 
-           $('#days').prop('selectedIndex') == 0 || 
-           $('#sidogun').prop('selectedIndex') == 0 || 
-           $('#job').prop('selectedIndex') == 0 || 
+      if ( propSelected('years') || propSelected('months') ||  propSelected('days') || 
+           propSelected('sidogun') || propSelected('job') ||
            $('#genderRadio input:radio:checked').length == 0 ) {
 
         alert('선택되지 않은 항목이 있습니다.');
@@ -223,6 +223,10 @@
 
     });
 
+    propSelected('years')
+    function propSelected(id){
+      $('#'+id).prop('selectedIndex') == 0
+    }
 
     // 엔터키 눌렀을 때 submit 되는 거 막기
     $('input').keydown(function() {
