@@ -232,13 +232,12 @@
     });
 
     // 아이디, 이메일 중복 체크
-    checkItOut('modalLRInput12')
-    checkItOut('modalLRInput15')
+    checkItOut('modalLRInput12') //아이디
+    checkItOut('modalLRInput15') //이메일
 
-    function checkItOut(modalId, ) {
+    function checkItOut(modalId) {
       var mid = '#' +  modalId 
       $(mid).blur(function(){
-          if ( $(mid).val().length > 3) {
             var id = $(this).val();
             // ajax 실행
             $.ajax({
@@ -255,8 +254,8 @@
                 sidogun : '',
                 city : ''
               },
-              success : function(data, result) {
-                //console.log(data)
+              success : function(data) {
+                console.log(data)
                 if (data['username'] == '가입 가능') {
                   $(mid).removeClass('invalid').addClass('valid')
                 }else {
@@ -264,7 +263,6 @@
                 }
               }
             }); // end ajax
-          } // end if
         }); // end blur
     } // function checkItOut
 

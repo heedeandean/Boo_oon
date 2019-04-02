@@ -46,7 +46,7 @@ def regist_post():
         return jsonify(username='가입 가능')
 
     elif checkid == None and checkem != None :
-        print('실패실패', username)
+        print('이메일은 있음', username)
         return jsonify(username='이메일 있음')
 
     else : 
