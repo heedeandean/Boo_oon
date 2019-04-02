@@ -61,6 +61,7 @@
       }
     }
 
+
     // 생년월일 함수
     $(function () {
       for (i = new Date().getFullYear(); i > 1929; i--) {
@@ -215,11 +216,8 @@
     // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
 
-      if ( $('#years').prop('selectedIndex') == 0 || 
-           $('#months').prop('selectedIndex') == 0 || 
-           $('#days').prop('selectedIndex') == 0 || 
-           $('#sidogun').prop('selectedIndex') == 0 || 
-           $('#job').prop('selectedIndex') == 0 || 
+      if ( propSelected('years') || propSelected('months') ||  propSelected('days') || 
+           propSelected('sidogun') || propSelected('job') ||
            $('#genderRadio input:radio:checked').length == 0 ) {
 
         alert('선택되지 않은 항목이 있습니다.');
@@ -229,6 +227,9 @@
 
     });
 
+    function propSelected(id){
+      return $('#'+id).prop('selectedIndex') == 0
+    }
 
     // 엔터키 눌렀을 때 submit 되는 거 막기
     $('input').keydown(function() {
