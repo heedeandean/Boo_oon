@@ -26,7 +26,9 @@
 {% endblock main %}
 
 
+{% block login %}
 
+{% endblock login %}
 
   <!--  SCRIPTS  -->
   <!-- JQuery -->
@@ -176,6 +178,7 @@
     }
 
     $(document).ready(function () {
+      $('#loginModal').modal('show');
       var path = '{{request.path}}';
       console.log("path>>", path)
       send_ajax('/boo', 'GET', '', '', function (res) {
@@ -222,7 +225,35 @@
         event.preventDefault();
       }
     });
+
+    // 아이디 중복 체크
+    $(function(){
+    //아이디 중복체크
+      $('#modalLRInput12').blur(function(){
+        $.ajax({
+        type:"POST",
+        url:"/boo",
+        data:{ "username" : $('#modalLRInput12').val()},
+        success:function(data){	//data : checkSignup에서 넘겨준 결과값
+            if($.trim(data)=="YES"){
+              if($('#modalLRInput12').val()!=''){ 
+                alert("사용가능한 아이디입니다.");
+              }
+            }else{
+              if($('#modalLRInput12').val()!=''){
+                alert("중복된 아이디입니다.");
+                $('#modalLRInput12').val('');
+                $('#modalLRInput12').focus();
+              }
+            }
+          }
+        }) 
+      })
+
+    });
     
+
+   
 
 
 

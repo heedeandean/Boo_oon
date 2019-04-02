@@ -13,16 +13,16 @@ app.config.update(
 	PERMANENT_SESSION_LIFETIME=timedelta(31)      # 31 days
 )
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
 @app.route('/boo')
 def main():
     return render_template('ecom_main.html')
 
 # 회원가입.
-@app.route('/boo', methods=['GET'])
-def regist():
-    return render_template("ecom_main.html")
-
-@app.route('/boo', methods=['POST'])
+@app.route('/boo', methods=['GET','POST'])
 def regist_post():
     username = request.form.get('username')
     pw = request.form.get('pw')
@@ -46,15 +46,12 @@ def regist_post():
 
         flash("%s 님, 가입을 환영합니다!" % username)
         
-        
     except Exception as err:
         print("Error on users>>>", err)
         db_session.rollback()
     
     return render_template("ecom_main.html")
     
-
-
 
 
 @app.teardown_appcontext
