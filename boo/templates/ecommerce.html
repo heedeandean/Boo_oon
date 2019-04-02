@@ -44,9 +44,9 @@
 
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
-      if($.trim($('#modalLRInput12').val()) != '' || $.trim($('#modalLRInput13').val()) != '' || 
-         $.trim($('#modalLRInput14').val()) != '' || $.trim($('#modalLRInput15').val()) != '' || 
-         $(this).hasClass('invalid')) {
+      if($.trim($('#modalLRInput12').val()) != '' && $.trim($('#modalLRInput13').val()) != '' && 
+         $.trim($('#modalLRInput14').val()) != '' && $.trim($('#modalLRInput15').val()) != '' && 
+         $('#modalLRInput12').hasClass('valid') && $('#modalLRInput14').hasClass('valid') && $('#modalLRInput15').hasClass('valid')){
 
         $('#' + myId).toggle();
         $('#' + panelId).toggle();
