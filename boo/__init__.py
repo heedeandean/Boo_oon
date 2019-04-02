@@ -36,11 +36,18 @@ def regist_post():
 
     u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
 
-    check = Users.query.filter(Users.username == username).first()
+    checkid = Users.query.filter(Users.username == username).first()
 
-    if check == None :
-        print('실패실패')
+    checkem = Users.query.filter(Users.email == username).first()
+
+    
+    if checkid == None and checkem == None :
+        print('실패실패', username)
         return jsonify(username='가입 가능')
+
+    elif checkid == None and checkem != None :
+        print('실패실패', username)
+        return jsonify(username='이메일 있음')
 
     else : 
         # response = make_response(render_template('ecom_main.html'))
@@ -49,8 +56,8 @@ def regist_post():
         print('성공성공')
         return jsonify(username='이미 있음')
 
-      
-    
+
+    #---- DB insert try ----#
     try:
         db_session.add(u)
         db_session.commit()

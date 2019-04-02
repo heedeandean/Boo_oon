@@ -208,9 +208,12 @@
     // 필수 사항 입력 여부 체크 함수(panel9)
     $('#registForm').submit(function(event){
 
-      if ( $('#years').prop('selectedIndex') == 0 || $('#months').prop('selectedIndex') == 0 || 
-           $('#days').prop('selectedIndex') == 0 || $('#sidogun').prop('selectedIndex') == 0 || 
-           $('#job').prop('selectedIndex') == 0 || $('#genderRadio input:radio:checked').length == 0 ) {
+      if ( $('#years').prop('selectedIndex') == 0 || 
+           $('#months').prop('selectedIndex') == 0 || 
+           $('#days').prop('selectedIndex') == 0 || 
+           $('#sidogun').prop('selectedIndex') == 0 || 
+           $('#job').prop('selectedIndex') == 0 || 
+           $('#genderRadio input:radio:checked').length == 0 ) {
 
         alert('선택되지 않은 항목이 있습니다.');
         event.preventDefault();
@@ -228,35 +231,41 @@
     });
 
     // 아이디, 이메일 중복 체크
-    $('#modalLRInput12').blur(function(){
-        if ( $('#modalLRInput12').val().length > 3) {
-          var id = $(this).val();
-          // ajax 실행
-          $.ajax({
-            type : 'POST',
-            url : '/boo',
-            data:
-            { username : id,
-              gender : 1,
-              job : '',
-              pw : 123,
-              birthyear : 2000,
-              birthmonth : 1,
-              birthday : 1,
-              sidogun : '',
-              city : ''
-            },
-            success : function(data, result) {
-              if (data['username'] == '가입 가능') {
-                $("#modalLRInput12").removeClass('invalid').addClass('valid')
-              }else {
-                $("#modalLRInput12").removeClass('valid').addClass('invalid')
-              }
-            }
-          }); // end ajax
-        } // end if
-      }); // end blur
+    checkItOut('modalLRInput12')
+    checkItOut('modalLRInput15')
 
+    function checkItOut(modalId, ) {
+      var mid = '#' +  modalId 
+      $(mid).blur(function(){
+          if ( $(mid).val().length > 3) {
+            var id = $(this).val();
+            // ajax 실행
+            $.ajax({
+              type : 'POST',
+              url : '/boo',
+              data:
+              { username : id,
+                gender : 1,
+                job : '',
+                pw : 123,
+                birthyear : 2000,
+                birthmonth : 1,
+                birthday : 1,
+                sidogun : '',
+                city : ''
+              },
+              success : function(data, result) {
+                //console.log(data)
+                if (data['username'] == '가입 가능') {
+                  $(mid).removeClass('invalid').addClass('valid')
+                }else {
+                  $(mid).removeClass('valid').addClass('invalid')
+                }
+              }
+            }); // end ajax
+          } // end if
+        }); // end blur
+    } // function checkItOut
 
 
   </script>
