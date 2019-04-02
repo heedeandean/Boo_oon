@@ -311,7 +311,7 @@
         <div class="tab-content">
           <!--Panel 7-->
           <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
-            <form action="/boo" method="POST">
+            <form action="/boo/login" method="POST">
               {% for message in get_flashed_messages() %}
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
                   <strong>{{message}}</strong>
@@ -325,13 +325,13 @@
               <div class="modal-body mb-1">
                 <div class="md-form form-sm mb-5">
                   <i class="fas fa-user-alt prefix"></i>
-                  <input type="text" id="modalLRInput10" class="form-control form-control-sm validate">
+                  <input type="text" id="modalLRInput10" class="form-control form-control-sm validate" name='loginUsername'>
                   <label data-error="wrong" data-success="right" for="modalLRInput10">아이디</label>
                 </div>
 
                 <div class="md-form form-sm mb-4">
                   <i class="fas fa-lock prefix"></i>
-                  <input type="password" id="modalLRInput11" class="form-control form-control-sm validate">
+                  <input type="password" id="modalLRInput11" class="form-control form-control-sm validate" name="loginPw">
                   <label data-error="wrong" data-success="right" for="modalLRInput11">비밀번호</label>
                 </div>
                 <div class="text-center mt-2">

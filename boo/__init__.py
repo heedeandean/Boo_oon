@@ -2,6 +2,7 @@ from flask import Flask, url_for, render_template, request, Response, session, j
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash
+from werkzeug import check_password_hash
 
 app = Flask(__name__)
 app.debug = True
@@ -36,7 +37,6 @@ def ifexists():
     else : 
         # response = make_response(render_template('ecom_main.html'))
         # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
-        # print('플라스크 ㅊㅊㅊㅊㅊㅊ')
         print('성공성공')
         return jsonify(username='이미 있음')
 
@@ -57,10 +57,8 @@ def regist_post():
     job = request.form.get('job')
     email = request.form.get('email')
 
-    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
+    u = Users(username, pw, birthdate, addr, gender, job, email)
 
-
-    #---- DB insert try ----#
     try:
         db_session.add(u)
         db_session.commit()
@@ -72,6 +70,29 @@ def regist_post():
         db_session.rollback()
     
     return render_template("ecom_main.html")
+
+# 로그인.
+@app.route('/boo/login', methods=['GET', 'POST'])
+def login_post():
+    username = request.form.get('loginUsername')
+    pw = request.form.get('loginPw')
+
+    u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
+    
+    print("어어어", u)
+    if u is not None:
+        session['loginUser'] = { 'username': u.username }
+        
+        if session.get('next'):
+            next = session.get('next')
+            del session['next']
+            return redirect(next)
+
+        flash("안녕하세요. %s 님" % username)
+        return redirect('/boo')
+    else:
+        flash("해당 사용자가 없습니다!!")
+        return render_template("ecom_main.html", username=username)
     
 
 
