@@ -193,15 +193,16 @@
     var ssn2 = document.getElementById("modalLRInput14");
 
     function ss() {
-      if (ssn1.value == ssn2.value ) {
+     
+      if ($('#modalLRInput14').val().length != 0 && ssn1.value == ssn2.value ) {
         $('#modalLRInput14').removeClass("invalid").addClass("valid");
       } else {
         $('#modalLRInput14').removeClass("vaild").addClass("invalid");
       }
 
-      if ($.trim($('#modalLRInput14').val()) == ''){
+       if ($('#modalLRInput14').val().length == 0){
         $('#modalLRInput14').removeClass("vaild").removeClass("invalid");
-      }
+      } 
     }
 
     // 필수 사항 입력 여부 체크 함수(panel9)
@@ -226,9 +227,8 @@
       }
     });
 
-    // 아이디 중복 체크
-    $(document).ready(function(){
-    $('#modalLRInput12').keyup(function(){
+    // 아이디, 이메일 중복 체크
+    $('#modalLRInput12').blur(function(){
         if ( $('#modalLRInput12').val().length > 3) {
           var id = $(this).val();
           // ajax 실행
@@ -236,31 +236,26 @@
             type : 'POST',
             url : '/boo',
             data:
-            {
-              username : id,
+            { username : id,
               gender : 1,
               job : '',
               pw : 123,
-              birthyear : 1995,
-              birthmonth : 5,
-              birthday : 12,
+              birthyear : 2000,
+              birthmonth : 1,
+              birthday : 1,
               sidogun : '',
               city : ''
             },
             success : function(data, result) {
-                if (data['username'] == '가입 가능') {
-                  $("#modalLRInput12").removeClass('invalid').addClass('valid')
-                }else {
-                   $("#modalLRInput12").removeClass('valid').addClass('invalid')
-                }
+              if (data['username'] == '가입 가능') {
+                $("#modalLRInput12").removeClass('invalid').addClass('valid')
+              }else {
+                $("#modalLRInput12").removeClass('valid').addClass('invalid')
+              }
             }
           }); // end ajax
-        }
-      }); // end keyup
-    });
-    
-
-   
+        } // end if
+      }); // end blur
 
 
 

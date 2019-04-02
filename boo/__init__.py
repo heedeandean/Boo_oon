@@ -13,14 +13,6 @@ app.config.update(
 	PERMANENT_SESSION_LIFETIME=timedelta(31)      # 31 days
 )
 
-@app.route('/regist')
-def login():
-    u = User.query.filter(User.id == username).first()
-    if len(u) > 0 :
-        return True
-    else : return False
-    
-
 @app.route('/boo')
 def main():
     return render_template('ecom_main.html')
@@ -45,8 +37,6 @@ def regist_post():
     u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
 
     check = Users.query.filter(Users.username == username).first()
-
-    
 
     if check == None :
         print('실패실패')
