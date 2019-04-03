@@ -1,8 +1,8 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
-from werkzeug import generate_password_hash
-from werkzeug import check_password_hash
+from werkzeug import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.debug = True
@@ -76,7 +76,8 @@ def regist_post():
 def login_post():
     username = request.form.get('loginUsername')
     pw = request.form.get('loginPw')
-
+    username1 = request.form['loginUsername']
+    print(username1)
     u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
     
     print("어어어", u)

@@ -244,7 +244,7 @@
 
     function checkItOut(modalId) {
       var mid = '#' +  modalId 
-      $(mid).blur(function(){
+      $(mid).change(function(){
             var id = $(this).val();
             // ajax 실행
             $.ajax({
