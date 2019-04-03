@@ -242,7 +242,7 @@
 
     function checkItOut(modalId) {
       var mid = '#' +  modalId 
-      $(mid).change(function(){
+      $(mid).focusout(function(){
             var id = $(this).val();
             // ajax 실행
             $.ajax({
@@ -311,6 +311,16 @@
             } // end success
           }); // end ajax
       }); // end blur
+
+      // 잘못된 회원 정보 입력 시 로그인 막기
+      $('#loginForm').submit(function(event){
+
+        if(!(trimHas('modalLRInput10') && trimHas('modalLRInput11'))) {
+          alert('정보를 정확히 기입해 주세요.');
+          event.preventDefault();
+        } 
+      });
+    
 
       
     
