@@ -95,10 +95,10 @@ def login_post():
 
         else:
             flash("비밀번호가 올바르지 않습니다!!")
-            return render_template("ecom_main.html", username=username)
+            return redirect('/boo')
     else:
         flash("아이디가 올바르지 않습니다!!")
-        return render_template("ecom_main.html", username=username)
+        return redirect('/boo')
     
 
 
