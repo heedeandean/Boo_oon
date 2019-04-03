@@ -100,6 +100,8 @@ def login_post():
         flash("아이디가 올바르지 않습니다!!")
         return redirect('/boo')
 
+
+
 # 로그아웃
 @app.route('/logout')
 def logout():
