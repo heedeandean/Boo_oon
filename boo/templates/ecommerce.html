@@ -265,7 +265,7 @@
 
 
     // 로그인시 아이디, 비밀번호 체크
-    $('#modalLRInput10, #modalLRInput11').change(function(){
+    $('#modalLRInput10, #modalLRInput11').focusout(function(){
           var id = $('#modalLRInput10').val();
           var pw = $('#modalLRInput11').val();
           // ajax 실행
@@ -281,6 +281,7 @@
               if (id.length != 0 && data['login'] == '아이디 오류') {
                 console.log('아이디가 없대!')
                 $('#modalLRInput10').removeClass('valid').addClass('invalid')
+                $('#modalLRInput11').val('').removeClass('invalid, valid')
               } else if (id.length == 0 ){
                 $('#modalLRInput10').removeClass('invalid, valid')
               } else {
