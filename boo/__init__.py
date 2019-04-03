@@ -18,6 +18,7 @@ app.config.update(
 def main():
     return render_template('ecom_main.html')
 
+# 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
 def ifexists():
     username = request.form.get('username')
@@ -31,7 +32,7 @@ def ifexists():
         return jsonify(username='가입 가능')
 
     elif checkid == None and checkem != None :
-        print('이메일은 있음', username)
+        print('이메일 있음', username)
         return jsonify(username='이메일 있음')
 
     else : 
@@ -72,15 +73,21 @@ def regist_post():
     return render_template("ecom_main.html")
 
 # 로그인.
-@app.route('/boo/login', methods=['GET', 'POST'])
+@app.route('/boo/login', methods=['GET','POST'])
 def login_post():
-    username = request.form.get('loginUsername')
-    pw = request.form.get('loginPw')
-
+    username = request.form.get('username')
+    pw = request.form.get('pw')
+    # username = request.form.get('loginUsername')
+    # pw = request.form.get('loginPw')
+  
     # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
 
+    print('username >>>>', username)
+
     u = Users.query.filter(Users.username == username).first()
-    
+
+    print( '아이디 검색 결과 >>>', u)
+
     if u is not None:
         if check_password_hash(u.pw, pw) == True:
             session['loginUser'] = { 'username': u.username }
@@ -94,11 +101,10 @@ def login_post():
             return redirect('/boo')
 
         else:
-            flash("비밀번호가 올바르지 않습니다!!")
-            return redirect('/boo')
-    else:
-        flash("아이디가 올바르지 않습니다!!")
-        return redirect('/boo')
+            return jsonify(login='비밀번호 오류')
+
+    else:  return jsonify(login='아이디 오류')  # if u is None
+        
 
 
 
