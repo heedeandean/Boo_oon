@@ -57,7 +57,7 @@ def regist_post():
     job = request.form.get('job')
     email = request.form.get('email')
 
-    u = Users(username, pw, birthdate, addr, gender, job, email)
+    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
 
     try:
         db_session.add(u)
@@ -76,24 +76,43 @@ def regist_post():
 def login_post():
     username = request.form.get('loginUsername')
     pw = request.form.get('loginPw')
+<<<<<<< HEAD
     username1 = request.form['loginUsername']
     print(username1)
     u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
-    
-    print("어어어", u)
-    if u is not None:
-        session['loginUser'] = { 'username': u.username }
-        
-        if session.get('next'):
-            next = session.get('next')
-            del session['next']
-            return redirect(next)
+=======
 
-        flash("안녕하세요. %s 님" % username)
-        return redirect('/boo')
+    # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
+
+    u = Users.query.filter(Users.username == username).first()
+>>>>>>> df0c14c4f5f3e0c6284452c49a7b9c3c9df24ed8
+    
+    if u is not None:
+        if check_password_hash(u.pw, pw) == True:
+            session['loginUser'] = { 'username': u.username }
+            
+            if session.get('next'):
+                next = session.get('next')
+                del session['next']
+                return redirect(next)
+
+            flash("안녕하세요. %s 님" % username)
+            return redirect('/boo')
+
+        else:
+            flash("비밀번호가 올바르지 않습니다!!")
+            return redirect('/boo')
     else:
-        flash("해당 사용자가 없습니다!!")
-        return render_template("ecom_main.html", username=username)
+        flash("아이디가 올바르지 않습니다!!")
+        return redirect('/boo')
+
+# 로그아웃
+@app.route('/logout')
+def logout():
+    if session.get('loginUser'):
+        del session['loginUser']
+
+    return redirect('/')
     
 
 
