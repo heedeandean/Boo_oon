@@ -1,8 +1,8 @@
 from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
-from werkzeug import generate_password_hash
-from werkzeug import check_password_hash
+from werkzeug import generate_password_hash, check_password_hash
+
 
 app = Flask(__name__)
 app.debug = True
@@ -57,7 +57,7 @@ def regist_post():
     job = request.form.get('job')
     email = request.form.get('email')
 
-    u = Users(username, pw, birthdate, addr, gender, job, email)
+    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
 
     try:
         db_session.add(u)
@@ -77,21 +77,27 @@ def login_post():
     username = request.form.get('loginUsername')
     pw = request.form.get('loginPw')
 
-    u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
-    
-    print("어어어", u)
-    if u is not None:
-        session['loginUser'] = { 'username': u.username }
-        
-        if session.get('next'):
-            next = session.get('next')
-            del session['next']
-            return redirect(next)
+    # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
 
-        flash("안녕하세요. %s 님" % username)
-        return redirect('/boo')
+    u = Users.query.filter(Users.username == username).first()
+    
+    if u is not None:
+        if check_password_hash(u.pw, pw) == True:
+            session['loginUser'] = { 'username': u.username }
+            
+            if session.get('next'):
+                next = session.get('next')
+                del session['next']
+                return redirect(next)
+
+            flash("안녕하세요. %s 님" % username)
+            return redirect('/boo')
+
+        else:
+            flash("비밀번호가 올바르지 않습니다!!")
+            return render_template("ecom_main.html", username=username)
     else:
-        flash("해당 사용자가 없습니다!!")
+        flash("아이디가 올바르지 않습니다!!")
         return render_template("ecom_main.html", username=username)
     
 
