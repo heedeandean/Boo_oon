@@ -99,6 +99,14 @@ def login_post():
     else:
         flash("아이디가 올바르지 않습니다!!")
         return redirect('/boo')
+
+# 로그아웃
+@app.route('/logout')
+def logout():
+    if session.get('loginUser'):
+        del session['loginUser']
+
+    return redirect('/')
     
 
 
