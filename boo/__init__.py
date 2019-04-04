@@ -101,21 +101,20 @@ def login_post():
     if u is not None:
     
         if check_password_hash(u.pw, pw) == True:
+
             islogin = True
 
             session['loginUser'] = { 'username': u.username }
-            # session['islogin'] = {'islogin' : islogin}
+
             
-            if session.get('next'):
-                next = session.get('next')
-                del session['next']
+            # if session.get('next'):
+            #     next = session.get('next')
+            #     del session['next']
 
-                return redirect(next)
+            #     return redirect(next)
                 
-            print('islogin>>>>>>>????>>>>>', islogin)
-            print('login의 두번째 islogin >>>???>>>>', islogin)
 
-            flash("안녕하세요. %s 님" % username)
+            print('login의 두번째 islogin >>>???>>>>', islogin)
 
             return redirect("/boo")
             
@@ -125,10 +124,10 @@ def login_post():
     else:  
         return jsonify(login='아이디 오류')  # if u is None
         print(">>>>>>>>>>>로그인 실패<<<<<<<<<<<<")  
-        print(">>>>>>>>>>>>>>>")     
+        
 
 
-# 로그아웃
+# 로그아웃.
 @app.route('/boo/logout')
 def logout():
     
