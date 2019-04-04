@@ -87,7 +87,7 @@ def regist_post():
 @app.route('/boo/login', methods=['GET','POST'])
 def login_post():
     global islogin
-    
+
     username = request.form.get('username')
     pw = request.form.get('pw')
   
