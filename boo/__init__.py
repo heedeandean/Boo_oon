@@ -42,7 +42,7 @@ def ifexists():
         return jsonify(username='이미 있음')
 
 # 회원가입.
-@app.route('/boo', methods=['GET','POST'])
+@app.route('/boo/regist', methods=['GET','POST'])
 def regist_post():
     username = request.form.get('username')
     pw = request.form.get('pw')
@@ -76,10 +76,10 @@ def regist_post():
 # 로그인.
 @app.route('/boo/login', methods=['GET','POST'])
 def login_post():
-    username = request.form.get('username')
-    pw = request.form.get('pw')
-    # username = request.form.get('loginUsername')
-    # pw = request.form.get('loginPw')
+    # username = request.form.get('username')
+    # pw = request.form.get('pw')
+    username = request.form.get('loginUsername')
+    pw = request.form.get('loginPw')
   
     # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
 
@@ -88,8 +88,6 @@ def login_post():
     u = Users.query.filter(Users.username == username).first()
 
     print( '아이디 검색 결과 >>>', u)
-
-    islogin = False
 
     if u is not None:
         if check_password_hash(u.pw, pw) == True:
@@ -100,22 +98,17 @@ def login_post():
                 del session['next']
                 return redirect(next)
 
-            
             flash("안녕하세요. %s 님" % username)
-            
-            islogin = True
 
-            # return redirect("/boo")
-            return render_template('ecom_main.html')
-
+            return redirect("/boo")
+            # return render_template('ecom_main.html')
         else:
             return jsonify(login='비밀번호 오류')
 
-        
-
-    else:  return jsonify(login='아이디 오류')  # if u is None
-
-    print(">>>>>>>>>>>>>>>", islogin)     
+    else:  
+        return jsonify(login='아이디 오류')  # if u is None
+        print(">>>>>>>>>>>로그인 실패<<<<<<<<<<<<")  
+        print(">>>>>>>>>>>>>>>")     
 
 
 # 로그아웃

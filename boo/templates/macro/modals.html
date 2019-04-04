@@ -337,8 +337,9 @@
                   <input type="password" id="modalLRInput11" class="form-control form-control-sm validate" name="loginPw">
                   <label data-error="wrong" data-success="right" for="modalLRInput11">비밀번호</label>
                 </div>
+
                 <div class="text-center mt-2">
-                  <button class="btn btn-info" type="submit">로그인 <i class="fas fa-sign-in ml-1"></i></button>
+                  <button class="btn btn-info" type="submit" >로그인 <i class="fas fa-sign-in ml-1"></i></button>
                 </div>
               </div>
               <!--Footer-->
@@ -355,7 +356,7 @@
 
           <!--Panel 89-->
           <div class="tab-pane show" id="panel89" role="tabpanel">
-            <form action="/boo" method="POST" id='registForm'>
+            <form action="/boo/regist" method="POST" id='registForm'>
               {% for message in get_flashed_messages() %}
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
                   <strong>{{message}}</strong>
