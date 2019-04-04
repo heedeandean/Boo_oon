@@ -104,7 +104,7 @@ def login_post():
             islogin = True
 
             session['loginUser'] = { 'username': u.username }
-            session['islogin'] = {'islogin' : islogin}
+            # session['islogin'] = {'islogin' : islogin}
             
             if session.get('next'):
                 next = session.get('next')
