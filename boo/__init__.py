@@ -80,7 +80,8 @@ def regist_post():
         print("Error on users>>>", err)
         db_session.rollback()
     
-    return render_template("ecom_main.html")
+    # return render_template("ecom_main.html")
+    return redirect('/boo')
     
 
 # 로그인.
