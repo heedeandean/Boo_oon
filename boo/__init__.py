@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json
+from flask import Flask, url_for, render_template, request, Response, session, jsonify, make_response, redirect, flash, json, g
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash, check_password_hash
@@ -14,9 +14,19 @@ app.config.update(
 	PERMANENT_SESSION_LIFETIME=timedelta(31)      # 31 days
 )
 
+islogin = False
+
 @app.route('/boo')
 def main():
-    return render_template('ecom_main.html')
+    global islogin
+
+    print('boo의 첫번째 islogin >>>???>>>>', islogin)
+    session['islogin'] = {'islogin' : islogin}
+    
+    islogin = session.get('islogin')['islogin']
+    print('boo의 두번째 islogin >>>???>>>>', islogin)
+
+    return render_template('ecom_main.html', islogin = islogin)
 
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
@@ -76,32 +86,39 @@ def regist_post():
 # 로그인.
 @app.route('/boo/login', methods=['GET','POST'])
 def login_post():
-    # username = request.form.get('username')
-    # pw = request.form.get('pw')
-    username = request.form.get('loginUsername')
-    pw = request.form.get('loginPw')
+    global islogin
+    
+    username = request.form.get('username')
+    pw = request.form.get('pw')
   
     # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
 
-    print('username >>>>', username)
-
     u = Users.query.filter(Users.username == username).first()
-
     print( '아이디 검색 결과 >>>', u)
 
+
+    print('login의 첫번째 islogin >>>???>>>>', islogin)
     if u is not None:
+    
         if check_password_hash(u.pw, pw) == True:
+            islogin = True
+
             session['loginUser'] = { 'username': u.username }
+            session['islogin'] = {'islogin' : islogin}
             
             if session.get('next'):
                 next = session.get('next')
                 del session['next']
+
                 return redirect(next)
+                
+            print('islogin>>>>>>>????>>>>>', islogin)
+            print('login의 두번째 islogin >>>???>>>>', islogin)
 
             flash("안녕하세요. %s 님" % username)
 
             return redirect("/boo")
-            # return render_template('ecom_main.html')
+            
         else:
             return jsonify(login='비밀번호 오류')
 
