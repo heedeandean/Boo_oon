@@ -44,6 +44,7 @@ class Lists(Base):
     __tablename__ = "Lists"
     list_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))
+    list_title = Column(String)
     list_txt = Column(String)
     likecnt = Column(Integer)
     hatecnt = Column(Integer)
