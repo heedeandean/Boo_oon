@@ -140,6 +140,12 @@ def logout():
         islogin = False
 
     return redirect('/boo')
+
+# 글쓰기.
+@app.route('/boo/write')
+def write():
+    
+
     
 
 
