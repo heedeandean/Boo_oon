@@ -71,6 +71,7 @@ def regist_post():
         db_session.rollback()
     
     return render_template("ecom_main.html")
+    
 
 # 로그인.
 @app.route('/boo/login', methods=['GET','POST'])
@@ -88,6 +89,8 @@ def login_post():
 
     print( '아이디 검색 결과 >>>', u)
 
+    islogin = False
+
     if u is not None:
         if check_password_hash(u.pw, pw) == True:
             session['loginUser'] = { 'username': u.username }
@@ -97,14 +100,23 @@ def login_post():
                 del session['next']
                 return redirect(next)
 
+            
             flash("안녕하세요. %s 님" % username)
-            return redirect('/boo')
+            
+            islogin = True
+
+            # return redirect("/boo")
+            return render_template('ecom_main.html')
 
         else:
             return jsonify(login='비밀번호 오류')
 
-    else:  return jsonify(login='아이디 오류')  # if u is None
         
+
+    else:  return jsonify(login='아이디 오류')  # if u is None
+
+    print(">>>>>>>>>>>>>>>", islogin)     
+
 
 # 로그아웃
 @app.route('/logout')

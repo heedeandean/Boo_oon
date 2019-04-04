@@ -242,7 +242,7 @@
 
     function checkItOut(modalId) {
       var mid = '#' +  modalId 
-      $(mid).change(function(){
+      $(mid).focusout(function(){
             var id = $(this).val();
             // ajax 실행
             $.ajax({
@@ -265,7 +265,7 @@
 
 
     // 로그인시 아이디, 비밀번호 체크
-    $('#modalLRInput10, #modalLRInput11').focusout(function(){
+    $('#modalLRInput10, #modalLRInput11').focusout(function() {
           var id = $('#modalLRInput10').val();
           var pw = $('#modalLRInput11').val();
           // ajax 실행
@@ -278,30 +278,49 @@
             },
             success : function(data) {
               console.log(data)
+
               if (id.length != 0 && data['login'] == '아이디 오류') {
+
                 console.log('아이디가 없대!')
                 $('#modalLRInput10').removeClass('valid').addClass('invalid')
                 $('#modalLRInput11').val('').removeClass('invalid, valid')
-              } else if (id.length == 0 ){
+
+              } else if (id.length == 0 ) {
+                
                 $('#modalLRInput10').removeClass('invalid, valid')
                 $('#modalLRInput11').val('').removeClass('invalid, valid')
+
               } else {
+
                 $('#modalLRInput10').removeClass('invalid').addClass('valid')
 
-                if (pw.length != 0 && data['login'] == '비밀번호 오류'){
-                $('#modalLRInput11').removeClass('valid').addClass('invalid')
-                } else if (pw.length == 0 ){
-                  $('#modalLRInput11').removeClass('invalid, valid')
-                } else {
-                  $('#modalLRInput11').removeClass('invalid').addClass('valid')
+                  if (pw.length != 0 && data['login'] == '비밀번호 오류') {
+
+                    $('#modalLRInput11').removeClass('valid').addClass('invalid')
+
+                  } else if (pw.length == 0 ) {
+
+                    $('#modalLRInput11').removeClass('invalid, valid')
+
+                  } else {
+
+                    $('#modalLRInput11').removeClass('invalid').addClass('valid')
+                    
+                  }
                 }
-              }
-
-              
-
             } // end success
           }); // end ajax
       }); // end blur
+
+      // 잘못된 회원 정보 입력 시 로그인 막기
+      $('#loginForm').submit(function(event){
+
+        if(!(trimHas('modalLRInput10') && trimHas('modalLRInput11'))) {
+          alert('정보를 정확히 기입해 주세요.');
+          event.preventDefault();
+        } 
+      });
+    
 
       
     
