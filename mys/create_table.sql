@@ -26,6 +26,7 @@ create table Follow (
 create table Lists (
 	list_id int unsigned not null auto_increment primary key,
 	userno int unsigned not null,
+    list_title varchar(4096),
 	list_txt varchar(4096),
 	likecnt int(11) not null default 0,
 	hatecnt int(11) not null default 0,
