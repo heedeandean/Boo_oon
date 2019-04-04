@@ -1,5 +1,6 @@
 {% extends 'ecommerce.html' %}
 {% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
+{% from 'macro/card.html' import card %}
 
 {% block main %}
 
@@ -185,6 +186,23 @@
           </div>
           <!--Grid column-->
 
+            <!-- Grid column -->
+              <div class="col-lg-4 col-md-6">
+
+                <!--Card Primary-->
+                <div class="card indigo text-center z-depth-2">
+                  <div class="card-body">
+                    <h3 class="text-uppercase font-weight-bold amber-text mt-2 mb-3"><strong>News title</strong><i class="far fa-heart ml-3"></i></h3>
+                    <p class="white-text mb-0">Ut enim ad minima veniam, quis nostrum exercita tionem ullam corporis
+                      suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit
+                      qui in ea voluptate non proident velit esse quam. </p>
+                  </div>
+                </div>
+                <!--/.Card Primary-->
+
+              </div>
+              <!-- Grid column -->
+
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4">
 
@@ -237,6 +255,13 @@
 
           </div>
           <!--Grid column-->
+
+          {{ card('화성에 가보고 싶다') }}
+          {{ card('순간이동 해서 아마존에서 숨 쉬고 오고 싶다') }}
+          {{ card('자바를 머릿속에 usb처럼 넣고 싶다') }}
+          {{ card('멘탈 강화 기능를 탑재하고 싶다') }}
+          {{ card('배불러서 위 청소하고 싶다') }}
+          
 
           <!--Grid column-->
           <div class="col-lg-3 col-md-6 mb-4">
