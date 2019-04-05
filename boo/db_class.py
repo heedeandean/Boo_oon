@@ -57,7 +57,7 @@ class Lists(Base):
     # likecnt = Column(Integer)
     # hatecnt = Column(Integer)
     public = Column(String, default=1)
-    # list_date = Column(TIMESTAMP)
+    list_date = Column(TIMESTAMP)
 
     fk_users = relationship('Users')
 

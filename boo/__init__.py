@@ -25,7 +25,7 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.order_by()
+    lists = Lists.query.order_by(Lists.list_date.desc())
 
 
     if islogin == False :
