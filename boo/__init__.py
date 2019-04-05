@@ -158,7 +158,7 @@ def write():
     print("UUUUUUUUU", u)
 
     lists = Lists( u.userno, list_title, list_txt, public)
-    print("U리스트리스트시르트시읗ㅁ", u)
+    print("U리스트리스트시르트시읗ㅁ", lists)
 
     try:
         db_session.add(lists)
