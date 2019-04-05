@@ -53,11 +53,11 @@ class Lists(Base):
     userno = Column(Integer, ForeignKey('Users.userno'))
     list_title = Column(String)
     list_txt = Column(String)
-    likecnt = Column(Integer)
-    hatecnt = Column(Integer)
-    public = Column(Boolean)
-    list_date = Column(TIMESTAMP)
-
+    # likecnt = Column(Integer)
+    # hatecnt = Column(Integer) 
+    public = Column(String, default = '1')
+    # list_date = Column(TIMESTAMP)
+    
     fk_users = relationship('Users')
     
 

@@ -153,12 +153,12 @@ def write():
     list_txt = request.form.get('list_txt')
     public = request.form.get('public')
 
-    print('확인확인확인', user, list_title)
+    print('확인확인확인', user, list_title, list_txt, public)
     u = Users.query.filter(Users.username == user).first()
     print("UUUUUUUUU", u)
 
     lists = Lists( u.userno, list_title, list_txt, public)
-    print("U리스트리스트시르트시읗ㅁ", u)
+    print("U리스트리스트시르트시읗ㅁ", lists)
 
     try:
         db_session.add(lists)
