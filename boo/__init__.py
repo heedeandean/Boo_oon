@@ -145,7 +145,7 @@ def logout():
 
 
 # 글쓰기.
-@app.route('/boo/write', methods=['POST'])
+@app.route('/boo/write', methods=['GET', 'POST'])
 def write():
     username = request.form.get('username')
     list_title = request.form.get('list_title')
