@@ -1,4 +1,4 @@
-{% macro card(title) -%}
+{% macro card(title, txt) -%}
 <!-- Grid column -->
 <div class="col-lg-4 col-md-6 mb-3">
 
@@ -6,8 +6,7 @@
 <div class="card indigo text-center z-depth-2">
     <div class="card-body">
     <h3 class="text-uppercase font-weight-bold amber-text mt-2 mb-3">{{title}}</h3>
-    <p class="white-text mb-0">Ut enim ad minima veniam, quis nostrum exercita tionem ullam corporis
-        suscipit laboriosam, </p>
+    <p class="white-text mb-0">{{txt}}</p>
     </div>
 </div>
 <!--/.Card Primary-->

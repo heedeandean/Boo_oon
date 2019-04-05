@@ -256,6 +256,10 @@
           </div>
           <!--Grid column-->
 
+          {% for l in lists%}
+            {{ card(l.list_title, l.list_txt) }}
+          {% endfor %}
+
           {{ card('화성에 가보고 싶다') }}
           {{ card('순간이동 해서 아마존에서 숨 쉬고 오고 싶다') }}
           {{ card('자바를 머릿속에 usb처럼 넣고 싶다') }}

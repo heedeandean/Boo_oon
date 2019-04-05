@@ -24,10 +24,13 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
+    lists = Lists.query.all()
+    print(lists)
+
     if user != "":
         user = session.get('loginUser')['username']
     
-    return render_template('ecom_main.html', islogin = islogin, user = user)
+    return render_template('ecom_main.html', islogin = islogin, user = user, lists=lists)
 
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])

@@ -59,6 +59,10 @@ class Lists(Base):
     # list_date = Column(TIMESTAMP)
 
     fk_users = relationship('Users')
+
+    def __repr__(self):
+        return 'Lists %r, %r' % (self.list_title, self.list_txt)
+
     
 
 class Cmt(Base):
