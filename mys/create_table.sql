@@ -28,10 +28,12 @@ create table Lists (
 	userno int unsigned not null,
     list_title varchar(4096),
 	list_txt varchar(4096),
+    cmt_count int(11) not null default 0,
 	likecnt int(11) not null default 0,
 	hatecnt int(11) not null default 0,
 	public boolean not null default 1,
 	list_date timestamp not null DEFAULT CURRENT_TIMESTAMP,
+    isdelete boolean not null default 1,
 
 	constraint foreign key fk_users(userno) references Users(userno)
 );

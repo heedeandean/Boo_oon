@@ -148,13 +148,13 @@ def write():
     list_title = request.form.get('list_title')
     list_txt = request.form.get('list_txt')
     public = request.form.get('public')
-    (list_date, like_cnt, hate_cnt) = (None, None, None)
+    (cmt_count, like_cnt, hate_cnt, list_date, isdelete) = (None, None, None, None, None)
 
     print('확인확인확인', user, list_title, list_txt, public)
     u = Users.query.filter(Users.username == user).first()
     print("UUUUUUUUU", u)
 
-    lists = Lists( u.userno, list_title, list_txt, public, list_date, like_cnt, hate_cnt)
+    lists = Lists( u.userno, list_title, list_txt, cmt_count, like_cnt, hate_cnt, public, list_date, isdelete)
     print("U리스트리스트시르트시읗ㅁ", lists)
 
     try:
