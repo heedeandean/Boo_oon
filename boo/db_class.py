@@ -45,14 +45,14 @@ class Follow(Base):
 class Lists(Base):
     __tablename__ = "Lists"
 
-    def __init__(self, userno, list_title, list_txt, public, list_date, like_cnt, hate_cnt):
+    def __init__(self, userno, list_title, list_txt, likecnt, hatecnt, public, list_date):
         self.userno = userno
         self.list_title = list_title
         self.list_txt = list_txt
+        self.likecnt = likecnt
+        self.hatecnt = hatecnt
         self.public = public
-        self.likecnt = list_date
-        self.hatecnt = like_cnt
-        self.hate_cnt = hate_cnt
+        self.list_date = list_date
 
     
     list_id = Column(Integer, primary_key=True)
