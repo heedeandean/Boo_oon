@@ -27,10 +27,13 @@ def main():
     lists = Lists.query.all()
     print(lists)
 
-    if user != "":
+    if islogin == False :
+        user = ''
+    elif user != "" :
         user = session.get('loginUser')['username']
     
     return render_template('ecom_main.html', islogin = islogin, user = user, lists=lists)
+
 
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
@@ -54,6 +57,7 @@ def ifexists():
         # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
         print('성공성공')
         return jsonify(username='이미 있음')
+
 
 # 회원가입.
 @app.route('/boo/regist', methods=['GET','POST'])
@@ -95,12 +99,8 @@ def login_post():
 
     username = request.form.get('username')
     pw = request.form.get('pw')
-  
-    # u = Users.query.filter(Users.username == username, Users.pw == pw).params(username=username, pw=pw).first()
 
     u = Users.query.filter(Users.username == username).first()
-    print( '아이디 검색 결과 >>>', u)
-
 
     print('login의 첫번째 islogin >>>???>>>>', islogin)
     if u is not None:
