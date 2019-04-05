@@ -27,7 +27,7 @@ class Users(Base):
     # follower_cnt = Column(Integer)
 
     def __repr__(self):
-        return 'Users %r, %r, %r' % (self.email, self.username, self.pw)
+        return 'Users %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno)
 
 
 class Follow(Base):	

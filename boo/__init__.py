@@ -147,15 +147,18 @@ def logout():
 # 글쓰기.
 @app.route('/boo/write', methods=['GET', 'POST'])
 def write():
-    username = request.form.get('username')
+    global user
+
     list_title = request.form.get('list_title')
     list_txt = request.form.get('list_txt')
     public = request.form.get('public')
 
-    u = Users.query.filter(Users.username == username).first()
-    print(u)
+    print('확인확인확인', user, list_title)
+    u = Users.query.filter(Users.username == user).first()
+    print("UUUUUUUUU", u)
 
     lists = Lists( u.userno, list_title, list_txt, public)
+    print("U리스트리스트시르트시읗ㅁ", u)
 
     try:
         db_session.add(lists)
