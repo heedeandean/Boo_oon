@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP
+from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP, DateTime
 from sqlalchemy.orm import relationship, backref
 from boo.init_db import Base, db_session
+
 
 class Users(Base):
     __tablename__ = 'Users'
@@ -57,7 +58,7 @@ class Lists(Base):
     # likecnt = Column(Integer)
     # hatecnt = Column(Integer)
     public = Column(String, default=1)
-    list_date = Column(TIMESTAMP)
+    list_date = Column(DateTime(timezone=True), default=func.now())
 
     fk_users = relationship('Users')
 

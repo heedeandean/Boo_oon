@@ -161,7 +161,7 @@ def write():
     u = Users.query.filter(Users.username == user).first()
     print("UUUUUUUUU", u)
 
-    lists = Lists( u.userno, list_title, list_txt, public)
+    lists = Lists( u.userno, list_title, list_txt, public, )
     print("U리스트리스트시르트시읗ㅁ", lists)
 
     try:
