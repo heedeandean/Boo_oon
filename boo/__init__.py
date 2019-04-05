@@ -143,7 +143,7 @@ def logout():
 
 # 글쓰기.
 @app.route('/boo/write')
-def write():
+
     
 
     
