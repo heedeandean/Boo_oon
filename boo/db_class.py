@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP, DateTime
 from sqlalchemy.orm import relationship, backref
 from boo.init_db import Base, db_session
+from datetime import date, datetime
 
 
 class Users(Base):
@@ -44,21 +45,24 @@ class Follow(Base):
 class Lists(Base):
     __tablename__ = "Lists"
 
-    def __init__(self, userno, list_title, list_txt, public, list_date):
+    def __init__(self, userno, list_title, list_txt, public, list_date, like_cnt, hate_cnt):
         self.userno = userno
         self.list_title = list_title
         self.list_txt = list_txt
         self.public = public
-        self.list_date = list_date
+        self.likecnt = list_date
+        self.hatecnt = like_cnt
+        self.hate_cnt = hate_cnt
+
     
     list_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))
     list_title = Column(String)
     list_txt = Column(String)
-    # likecnt = Column(Integer)
-    # hatecnt = Column(Integer)
+    likecnt = Column(Integer, default=0)
+    hatecnt = Column(Integer, default=0)
     public = Column(String, default=1)
-    list_date = Column(DateTime(timezone=True), default=func.now())
+    list_date = Column(TIMESTAMP, default=datetime.now)
 
     fk_users = relationship('Users')
 
