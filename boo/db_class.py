@@ -43,11 +43,12 @@ class Follow(Base):
 class Lists(Base):
     __tablename__ = "Lists"
 
-    def __init__(self, userno, list_title, list_txt, public):
+    def __init__(self, userno, list_title, list_txt, public, list_date):
         self.userno = userno
         self.list_title = list_title
         self.list_txt = list_txt
         self.public = public
+        self.list_date = list_date
     
     list_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))
@@ -56,12 +57,12 @@ class Lists(Base):
     # likecnt = Column(Integer)
     # hatecnt = Column(Integer)
     public = Column(String, default=1)
-    # list_date = Column(TIMESTAMP)
+    list_date = Column(TIMESTAMP)
 
     fk_users = relationship('Users')
 
     def __repr__(self):
-        return 'Lists %r, %r' % (self.list_title, self.list_txt)
+        return 'Lists %r, %r, %r, %r, %r, %r' % (self.list_title, self.list_txt, self.likecnt, self.hatecnt, self.public, self.list_date)
 
     
 
@@ -71,7 +72,8 @@ class Cmt(Base):
     def __init__(self, userno, cmt_txt, list_id):
         self.userno = userno
         self.cmt_txt = cmt_txt
-        self.list_id = list_id
+        
+        
 
     cmt_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))

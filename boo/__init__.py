@@ -4,6 +4,7 @@ from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash, check_password_hash
 
 
+
 app = Flask(__name__)
 app.debug = True
 app.jinja_env.trim_blocks = True
@@ -24,8 +25,8 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.all()
-    print(lists)
+    lists = Lists.query.order_by(Lists.list_date.desc())
+
 
     if islogin == False :
         user = ''
