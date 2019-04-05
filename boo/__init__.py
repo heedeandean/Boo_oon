@@ -148,7 +148,26 @@ def logout():
 @app.route('/boo/write', methods=['POST'])
 def write():
     username = request.form.get('username')
+    list_title = request.form.get('list_title')
+    list_txt = request.form.get('list_txt')
+    public = request.form.get('public')
+
+    u = Users.query.filter(Users.username == username).first()
+
+    lists = Lists( u.userno, list_title, list_txt, public)
+
+    try:
+        db_session.add(lists)
+        db_session.commit()
+        
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
     
+    return redirect('/boo')
+    
+
+
 
     
 @app.teardown_appcontext

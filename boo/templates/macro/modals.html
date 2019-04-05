@@ -1,46 +1,8 @@
-{% macro modal1(id) -%}
-<!--글쓰기 모달-->
-  <div class="modal fade" id="{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true">
-    <form action="/boo/write" method="POST" id='writeForm'>
-      <div class="modal-dialog" role="document">
-          
-          <div class="modal-content">
-              <div class="modal-header text-center">
-                  <h4 class="modal-title w-100 font-weight-bold"> {{caller()}} </h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                  </button>
-              </div>
-              <div class="modal-body mx-3">
-                  <div class="md-form mb-5">
-                  <i class="fas fa-tag prefix grey-text"></i>
-                  <input type="text" id="form32" class="form-control validate">
-                  <label data-error="wrong" data-success="right" for="form32">나의 뜬 구름은 ?</label>
-                  </div>
-
-                  <div class="md-form">
-                  <i class="fas fa-pencil prefix grey-text"></i>
-                  <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
-                  <label data-error="wrong" data-success="right" for="form8">상세 내용</label>
-                  </div>
-
-              </div>
-              <div class="modal-footer d-flex justify-content-center">
-                  <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
-              </div>
-              
-          </div>
-      </div>
-    </form>
-  </div>
-<!--/ 글쓰기 모달-->
-{%- endmacro %}
 
 
 
 {% macro modal(id) -%}
-<!--Modal: Login with Avatar Form-->
+<!--Modal: 글쓰기 -->
 <div class="modal fade" id= "{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
   <div class="modal-dialog cascading-modal modal-avatar" role="document">
@@ -54,23 +16,23 @@
       <!--Body-->
       <div class="modal-body mb-1">
 
-        <h5 class="text-center mt-1 mb-2"> {{ caller() }} </h5>
+        <h5 class="text-center mt-1 mb-2" name="username"> {{ caller() }} </h5>
 
         <div class="md-form mb-5">
             <i class="fas fa-tag prefix grey-text"></i>
-            <input type="text" id="form32" class="form-control validate">
+            <input type="text" id="form32" class="form-control validate" name="list_title">
             <label data-error="wrong" data-success="right" for="form32">나의 뜬 구름은 ?</label>
         </div>
 
         <div class="md-form">
             <i class="fas fa-pencil prefix grey-text"></i>
-            <textarea type="text" id="form8" class="md-textarea form-control" rows="4"></textarea>
+            <textarea type="text" id="form8" class="md-textarea form-control" rows="4" name="list_txt"></textarea>
             <label data-error="wrong" data-success="right" for="form8">상세 내용</label>
         </div>
       </div>
       
       <div class="custom-control custom-checkbox" style="margin: auto; margin-bottom: 10px;">
-        <input type="checkbox" class="custom-control-input" id="defaultChecked2" value="0">
+        <input type="checkbox" class="custom-control-input" id="defaultChecked2" value="0" name='public'>
         <label class="custom-control-label" for="defaultChecked2">비공개 여부</label>
       </div>
 
@@ -86,7 +48,7 @@
     <!--/.Content-->
   </div>
 </div>
-<!--/ Modal: Login with Avatar Form-->
+<!--/ Modal: 글쓰기 -->
 
 <div class="text-center">
   <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalLoginAvatar">Launch

@@ -42,6 +42,13 @@ class Follow(Base):
 
 class Lists(Base):
     __tablename__ = "Lists"
+
+    def __init__(self, userno, list_title, list_txt, public):
+        self.userno = userno
+        self.list_title = list_title
+        self.list_txt = list_txt
+        self.public = public
+    
     list_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))
     list_title = Column(String)
