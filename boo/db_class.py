@@ -54,10 +54,10 @@ class Lists(Base):
     list_title = Column(String)
     list_txt = Column(String)
     # likecnt = Column(Integer)
-    # hatecnt = Column(Integer) 
-    public = Column(String, default = '1')
+    # hatecnt = Column(Integer)
+    public = Column(String, default=1)
     # list_date = Column(TIMESTAMP)
-    
+
     fk_users = relationship('Users')
     
 

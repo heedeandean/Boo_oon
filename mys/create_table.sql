@@ -30,7 +30,7 @@ create table Lists (
 	list_txt varchar(4096),
 	likecnt int(11) not null default 0,
 	hatecnt int(11) not null default 0,
-	public boolean default 1,
+	public boolean not null default 1,
 	list_date timestamp not null DEFAULT CURRENT_TIMESTAMP,
 
 	constraint foreign key fk_users(userno) references Users(userno)
