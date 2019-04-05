@@ -1,6 +1,6 @@
 {% extends 'ecommerce.html' %}
 {% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
-{% from 'macro/card.html' import card %}
+{% from 'macro/card.html' import card, card2  %}
 
 {% block main %}
 
@@ -104,7 +104,7 @@
 
 
 {% call modal('writeModal') %}
-    heedeandean
+  {{user}}
 {% endcall %} 
 
 {% call card_modal('cardModal')%}
@@ -260,7 +260,7 @@
           {{ card('순간이동 해서 아마존에서 숨 쉬고 오고 싶다') }}
           {{ card('자바를 머릿속에 usb처럼 넣고 싶다') }}
           {{ card('멘탈 강화 기능를 탑재하고 싶다') }}
-          {{ card('배불러서 위 청소하고 싶다') }}
+          {{ card2('요트 타고 세계여행') }}
           
 
           <!--Grid column-->

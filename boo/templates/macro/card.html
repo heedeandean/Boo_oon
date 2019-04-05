@@ -1,7 +1,6 @@
 {% macro card(title) -%}
-<!--카드-->
 <!-- Grid column -->
-<div class="col-lg-4 col-md-6">
+<div class="col-lg-4 col-md-6 mb-3">
 
 <!--Card Primary-->
 <div class="card indigo text-center z-depth-2">
@@ -15,5 +14,27 @@
 
 </div>
 <!-- Grid column -->
-<!--카드-->
+{%- endmacro %}
+
+
+
+{% macro card2(title) -%}
+
+<!-- Card -->
+<div class="card card-cascade col-lg-4 col-md-6 h-100 d-inline-block" >
+
+  <!-- Card image -->
+  <div class="view view-cascade gradient-card-header peach-gradient h-90">
+
+    <!-- Title -->
+    <h2 class="card-header-title mt-2 mb-3">{{title}}</h2>
+    <!-- Text -->
+    <p class="mb-0"><i class="fas fa-calendar mr-2"></i>26.07.2017</p>
+
+  </div>
+
+
+
+</div>
+<!-- Card -->
 {%- endmacro %}

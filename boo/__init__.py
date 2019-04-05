@@ -15,18 +15,19 @@ app.config.update(
 )
 
 islogin = False
+user = ''
 
 @app.route('/boo')
 def main():
-    global islogin
+    global islogin, user
 
-    print('boo의 첫번째 islogin >>>???>>>>', islogin)
     session['islogin'] = {'islogin' : islogin}
-    
     islogin = session.get('islogin')['islogin']
-    print('boo의 두번째 islogin >>>???>>>>', islogin)
 
-    return render_template('ecom_main.html', islogin = islogin)
+    if user != "":
+        user = session.get('loginUser')['username']
+    
+    return render_template('ecom_main.html', islogin = islogin, user = user)
 
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
@@ -87,7 +88,7 @@ def regist_post():
 # 로그인.
 @app.route('/boo/login', methods=['GET','POST'])
 def login_post():
-    global islogin
+    global islogin, user
 
     username = request.form.get('username')
     pw = request.form.get('pw')
@@ -104,6 +105,7 @@ def login_post():
         if check_password_hash(u.pw, pw) == True:
 
             islogin = True
+            user = u.username
 
             session['loginUser'] = { 'username': u.username }
 
@@ -141,14 +143,14 @@ def logout():
 
     return redirect('/boo')
 
+
 # 글쓰기.
-@app.route('/boo/write')
-
+@app.route('/boo/write', methods=['POST'])
+def write():
+    username = request.form.get('username')
     
 
     
-
-
 @app.teardown_appcontext
 def teardown_context(exception):
     print(">>> teardown context!!", exception)
