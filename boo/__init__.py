@@ -145,7 +145,7 @@ def logout():
 
 
 # 글쓰기.
-@app.route('/boo/write', methods=['POST'])
+@app.route('/boo/write', methods=['GET', 'POST'])
 def write():
     username = request.form.get('username')
     list_title = request.form.get('list_title')
@@ -153,6 +153,7 @@ def write():
     public = request.form.get('public')
 
     u = Users.query.filter(Users.username == username).first()
+    print(u)
 
     lists = Lists( u.userno, list_title, list_txt, public)
 
