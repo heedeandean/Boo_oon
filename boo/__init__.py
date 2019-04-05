@@ -113,14 +113,6 @@ def login_post():
 
             session['loginUser'] = { 'username': u.username }
 
-            
-            # if session.get('next'):
-            #     next = session.get('next')
-            #     del session['next']
-
-            #     return redirect(next)
-                
-
             print('login의 두번째 islogin >>>???>>>>', islogin)
 
             return redirect("/boo")
@@ -156,12 +148,13 @@ def write():
     list_title = request.form.get('list_title')
     list_txt = request.form.get('list_txt')
     public = request.form.get('public')
+    (list_date, like_cnt, hate_cnt) = (None, None, None)
 
     print('확인확인확인', user, list_title, list_txt, public)
     u = Users.query.filter(Users.username == user).first()
     print("UUUUUUUUU", u)
 
-    lists = Lists( u.userno, list_title, list_txt, public)
+    lists = Lists( u.userno, list_title, list_txt, public, list_date, like_cnt, hate_cnt)
     print("U리스트리스트시르트시읗ㅁ", lists)
 
     try:
