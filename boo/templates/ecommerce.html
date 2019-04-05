@@ -25,9 +25,6 @@
 {% endblock main %}
 
 
-{% block login %}
-{% endblock login %}
-
   <!--  SCRIPTS  -->
   <!-- JQuery -->
   <script type="text/javascript" src="{{ url_for('static', filename= "js/jquery-3.3.1.min.js") }}"></script>
@@ -322,6 +319,11 @@
 
       });
 
+      // 좋아요, 싫어요 처리 함수
+
+      $('#like').click(function(){
+        $('#like').addClass('text-primary')
+      });
     
 
       
