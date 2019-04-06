@@ -167,7 +167,10 @@ def write():
     
     return redirect('/boo')
     
-
+# 좋아요, 싫어요 수 조정
+@app.route('/boo/like_hate/<listno>', methods=['GET', 'POST'])
+def like_hate():
+    like
 
 
     

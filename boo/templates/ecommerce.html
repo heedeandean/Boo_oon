@@ -323,8 +323,12 @@
 
       $('#like').click(function(){
         $('#like').addClass('text-primary')
+        send_ajax('/boo/like_hate', POST, {}, dataType, fn)
       });
-    
+
+       $('#hate').click(function(){
+        $('#hate').addClass('text-danger')
+      });
 
       
     
