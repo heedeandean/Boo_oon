@@ -1,6 +1,6 @@
 {% macro card(list_id, title, txt, cmt_cnt, hate_cnt, like_cnt) -%}
 <!-- 카드 -->
-<div class="col-lg-4 col-md-6 mb-3">
+<div class="col-lg-4 col-md-6 mb-3" id='card'>
 
     <!--Card Primary-->
     <div class="card text-center z-depth-2">
@@ -12,14 +12,15 @@
         <!--Card footer-->
         <div class="card-footer">
             <span class="float-left"><i class="far fa-comment-dots mr-2"></i>{{cmt_cnt}} </span>
-            <span class="float-right">
+            <span class="float-right" >
 
                 <span class="discount"> 
                     {{hate_cnt}}
                     <a class="icons-sm"> <i class="fas fa-heart-broken ml-1 mr-1" id="hate"></i> </a>
                 </span>
                 
-                {{like_cnt}}
+                <span id='likeCnt{{list_id}}'> {{like_cnt}} </span>
+            
                 <a class="icons-sm" > 
                 <i class="fas fa-heart" id='{{list_id}}' onclick='likeOne({{list_id}})' ></i></a>
             </span>

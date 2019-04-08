@@ -25,8 +25,11 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.filter(Lists.public == 1).order_by(Lists.list_date.desc())
+    lists = Lists.query.filter(Lists.public == 1).order_by(Lists.list_id.desc())
 
+    print('boo의 리스트 ?!?!?!?!?!?' )
+    for l in lists :
+        print(l)
 
     if islogin == False :
         user = ''
