@@ -321,37 +321,40 @@
 
 
       // 좋아요, 싫어요 처리 함수        
-      function likeOne(id) { 
-        console.log(id);
+     
+      function like_hate(my, el , id, mycolor, elsecolor) {
+        if ($("#" + my + id).hasClass(mycolor)) {
+            one(my, id, 'del', 'removeClass', mycolor);
+            
+          } else if ($("#"+ el + id).hasClass(elsecolor)){ 
+            one(el, id, 'del', 'removeClass', elsecolor);
+            one(my, id, 'add', 'addClass', mycolor);
 
-        if ($("#like" + id).hasClass('text-primary')) {
-          $("#like" + id).removeClass('text-primary');
-        } else {
-          $("#hate" + id).removeClass('text-info');
-          $("#like" + id).addClass('text-primary');
-          var addOne = parseInt($("#likeCnt" + id).text())+1;
-          $("#likeCnt" + id).text(addOne);
-          send_ajax('/boo/like', 'POST', {list_id : id}, '',  function (res) {});
-        }
+          } else {
+            one(my, id, 'add', 'addClass', mycolor)
+          }
       }
 
-      function hateOne(id) { 
-        console.log(id);
-
-        if ($("#hate" + id).hasClass('text-info')) {
-          $("#hate" + id).removeClass('text-info');
+      function one(feel, id, status, classAR, color){
+        var one = parseInt($("#" + feel + "Cnt" + id).text())
+        if (classAR == 'addClass'){
+          $("#" + feel + id).addClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one + 1);
+          }else { $("#" + feel + "Cnt" + id).text(one - 1); }
+         
         } else {
-          $("#like" + id).removeClass('text-primary');
-          $("#hate" + id).addClass('text-info');
-          var minusOne = parseInt($("#hateCnt" + id).text())-1;
-          $("#hateCnt" + id).text(minusOne);
-          send_ajax('/boo/hate', 'POST', {list_id : id}, '',  function (res) {});
-        }
-      }
-
-
+          $("#" + feel + id).removeClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one - 1);
+          }else { $("#" + feel + "Cnt" + id).text(one + 1); }
     
+        }
 
+        send_ajax('/boo/'+ feel, 'POST', {'list_id' : id, 'num' : status}, '');
+      }
+
+      
      
     
 

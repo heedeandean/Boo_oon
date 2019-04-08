@@ -173,7 +173,8 @@ def write():
 # 좋아요, 싫어요 수 조정
 @app.route('/boo/like', methods=['GET', 'POST'])
 def like():
-    l_id = request.form.get('list_id')
+    l_id = request.values.get('list_id')
+    num = request.values.get('num')
     print("리스트 아이디는 ??????", l_id)
 
     lst = Lists.query.filter(Lists.list_id == l_id).first()
@@ -181,7 +182,11 @@ def like():
     print("리스트 읽은 결과는 ??????", lst)
 
     try:
-        lst.likecnt += 1
+        if num == 'add' :
+            lst.likecnt += 1
+        elif num == 'del' :
+            lst.likecnt -= 1
+        
         db_session.commit()
 
     except Exception as err:
@@ -193,15 +198,20 @@ def like():
 
 @app.route('/boo/hate', methods=['GET', 'POST'])
 def hate():
-    l_id = request.form.get('list_id')
-    print("리스트 아이디는 ??????", l_id)
+    l_id = request.values.get('list_id')
+    num = request.values.get('num')
+    print("리스트 아이디와 넘버 처리는 ??????", l_id, num)
 
     lst = Lists.query.filter(Lists.list_id == l_id).first()
 
     print("리스트 읽은 결과는 ??????", lst)
 
     try:
-        lst.hatecnt -= 1
+        if num == 'add' :
+            lst.hatecnt += 1
+        elif num == 'del' :
+            lst.hatecnt -= 1
+        
         db_session.commit()
 
     except Exception as err:
