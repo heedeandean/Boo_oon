@@ -319,8 +319,29 @@
 
       });
 
-      // 좋아요, 싫어요 처리 함수
 
+      // 좋아요, 싫어요 처리 함수
+      $('#like').click(function(){
+        if ($('#like').hasClass('text-primary')) {
+          $('#like').removeClass('text-primary');
+        } else {
+          $('#hate').removeClass('text-danger');
+          $('#like').addClass('text-primary');
+          send_ajax('/boo/like_hate', POST, {}, dataType, fn)
+        }
+      });
+
+      $('#hate').click(function(){
+        if ($('#hate').hasClass('text-danger')) {
+          $('#hate').removeClass('text-danger');
+        } else {
+          $('#like').removeClass('text-primary');
+          $('#hate').addClass('text-danger');
+        }
+
+
+
+        
       function likeOne(id) { 
         console.log(id)
         $("#" + id).addClass('text-primary') 
