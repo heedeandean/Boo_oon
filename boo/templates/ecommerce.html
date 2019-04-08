@@ -324,15 +324,36 @@
       function likeOne(id) { 
         console.log(id)
         $("#" + id).addClass('text-primary')
-        send_ajax('/boo/like_hate', 'POST', {list_id : id}, '', function(res) {
-              console.log(res.list_id)
-              });
+        send_ajax('/boo/like_hate', 'POST', {list_id : id}, '',  function (res) {
+            console.log('AAAAAAAAAAAAAAAA')
+            console.log("res>>", res, res.result, res.result === 'OK')
+            if (res && res.result === 'OK') {
+              console.log("----------------", res, res.result)
+              console.log("----------------", res, res.result)
+            }
+        });
       }
 
        $('#hate').click(function(){
         $('#hate').addClass('text-danger')
         //send_ajax(url, method, data, dataType, fn)
       });
+
+    
+
+      function addToMyalbum(songno) {
+        var url = "/myalbum";
+        console.log("url>>", url, songno)
+        // url, method, data, dataType, fn
+        var $star = $('#star-' + songno);
+        send_ajax(url, 'POST', {songno: songno}, 'json', function (res) {
+            console.log("res>>", res, res.result, res.result === 'OK')
+            if (res && res.result === 'OK') {
+                console.log("----------------", $star)
+                $star.removeClass('far').addClass('fas');
+            }
+        }); 
+    }
     
 
   </script>
