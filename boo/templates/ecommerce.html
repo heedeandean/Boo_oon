@@ -320,45 +320,33 @@
       });
 
 
-      // 좋아요, 싫어요 처리 함수
-      // $('#like').click(function(){
-      //if ($('#like').hasClass('text-primary')) {
-      //$('#like').removeClass('text-primary');
-      //} else {
-      //$('#hate').removeClass('text-danger');
-      //$('#like').addClass('text-primary');
-      //send_ajax('/boo/like_hate', POST, {}, dataType, fn)
-      //  }
-      //});
-
-      //$('#hate').click(function(){
-      //  if ($('#hate').hasClass('text-danger')) {
-      //    $('#hate').removeClass('text-danger');
-      //  } else {
-      //    $('#like').removeClass('text-primary');
-      //    $('#hate').addClass('text-danger');
-      // }
-
-
-
-        
+      // 좋아요, 싫어요 처리 함수        
       function likeOne(id) { 
-        console.log(id)
-        $("#like" + id).addClass('text-primary') 
-        var addOne = parseInt($("#likeCnt" + id).text())+1
-        $("#likeCnt" + id).text(addOne)
-        send_ajax('/boo/like', 'POST', {list_id : id}, '',  function (res) {
-        });
+        console.log(id);
+
+        if ($("#like" + id).hasClass('text-primary')) {
+          $("#like" + id).removeClass('text-primary');
+        } else {
+          $("#hate" + id).removeClass('text-info');
+          $("#like" + id).addClass('text-primary');
+          var addOne = parseInt($("#likeCnt" + id).text())+1;
+          $("#likeCnt" + id).text(addOne);
+          send_ajax('/boo/like', 'POST', {list_id : id}, '',  function (res) {});
+        }
       }
 
       function hateOne(id) { 
-        console.log(id)
-        $("#hate" + id).addClass('text-info') 
-        var minusOne = parseInt($("#hateCnt" + id).text())-1
-        $("#hateCnt" + id).text(minusOne)
-        send_ajax('/boo/hate', 'POST', {list_id : id}, '',  function (res) {
+        console.log(id);
 
-        });
+        if ($("#hate" + id).hasClass('text-info')) {
+          $("#hate" + id).removeClass('text-info');
+        } else {
+          $("#like" + id).removeClass('text-primary');
+          $("#hate" + id).addClass('text-info');
+          var minusOne = parseInt($("#hateCnt" + id).text())-1;
+          $("#hateCnt" + id).text(minusOne);
+          send_ajax('/boo/hate', 'POST', {list_id : id}, '',  function (res) {});
+        }
       }
 
 
