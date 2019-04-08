@@ -321,66 +321,50 @@
 
 
       // 좋아요, 싫어요 처리 함수
-      $('#like').click(function(){
-        if ($('#like').hasClass('text-primary')) {
-          $('#like').removeClass('text-primary');
-        } else {
-          $('#hate').removeClass('text-danger');
-          $('#like').addClass('text-primary');
-          send_ajax('/boo/like_hate', POST, {}, dataType, fn)
-        }
-      });
+      // $('#like').click(function(){
+      //if ($('#like').hasClass('text-primary')) {
+      //$('#like').removeClass('text-primary');
+      //} else {
+      //$('#hate').removeClass('text-danger');
+      //$('#like').addClass('text-primary');
+      //send_ajax('/boo/like_hate', POST, {}, dataType, fn)
+      //  }
+      //});
 
-      $('#hate').click(function(){
-        if ($('#hate').hasClass('text-danger')) {
-          $('#hate').removeClass('text-danger');
-        } else {
-          $('#like').removeClass('text-primary');
-          $('#hate').addClass('text-danger');
-        }
+      //$('#hate').click(function(){
+      //  if ($('#hate').hasClass('text-danger')) {
+      //    $('#hate').removeClass('text-danger');
+      //  } else {
+      //    $('#like').removeClass('text-primary');
+      //    $('#hate').addClass('text-danger');
+      // }
 
 
 
         
       function likeOne(id) { 
         console.log(id)
-        $("#" + id).addClass('text-primary') 
+        $("#like" + id).addClass('text-primary') 
         var addOne = parseInt($("#likeCnt" + id).text())+1
         $("#likeCnt" + id).text(addOne)
         send_ajax('/boo/like', 'POST', {list_id : id}, '',  function (res) {
-            if (res && res.result === 'OK') {
-            }
         });
       }
 
-       function hateOne(id) { 
+      function hateOne(id) { 
         console.log(id)
-        $("#" + id).addClass('text-primary') 
+        $("#hate" + id).addClass('text-info') 
         var minusOne = parseInt($("#hateCnt" + id).text())-1
         $("#hateCnt" + id).text(minusOne)
         send_ajax('/boo/hate', 'POST', {list_id : id}, '',  function (res) {
-            if (res && res.result === 'OK') {
-            }
+
         });
       }
 
 
     
 
-      function addToMyalbum(songno) {
-        var url = "/myalbum";
-        console.log("url>>", url, songno)
-        // url, method, data, dataType, fn
-        var $star = $('#star-' + songno);
-        send_ajax(url, 'POST', {songno: songno}, 'json', function (res) {
-            console.log("res>>", res, res.result, res.result === 'OK')
-        
-            if (res && res.result === 'OK') {
-                console.log("----------------", $star)
-                $star.removeClass('far').addClass('fas');
-            }
-        }); 
-    }
+     
     
 
   </script>

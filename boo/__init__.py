@@ -201,7 +201,7 @@ def hate():
     print("리스트 읽은 결과는 ??????", lst)
 
     try:
-        lst.likecnt -= 1
+        lst.hatecnt -= 1
         db_session.commit()
 
     except Exception as err:

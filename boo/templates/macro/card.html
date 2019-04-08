@@ -15,14 +15,14 @@
             <span class="float-right" >
 
                 <span class="discount"> 
-                    <span id='hateCnt{{list_id}}'>{{hate_cnt}}</span>
-                    <a class="icons-sm"> <i class="fas fa-heart-broken ml-1 mr-1" id="hate" onclick="hateOne({{list_id}})"></i> </a>
+                    <span id="hateCnt{{list_id}}">{{hate_cnt}}</span>
+                    <a class="icons-sm"> <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" onclick="hateOne({{list_id}})"></i> </a>
                 </span>
                 
                 <span id='likeCnt{{list_id}}'> {{like_cnt}} </span>
             
                 <a class="icons-sm" > 
-                <i class="fas fa-heart" id='{{list_id}}' onclick="likeOne({{list_id}})" ></i></a>
+                <i class="fas fa-heart" id="like{{list_id}}" onclick="likeOne({{list_id}})"></i></a>
             </span>
         </div>
     </div>
