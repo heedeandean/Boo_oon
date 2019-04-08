@@ -171,8 +171,8 @@ def write():
     return redirect('/boo')
     
 # 좋아요, 싫어요 수 조정
-@app.route('/boo/like_hate', methods=['GET', 'POST'])
-def like_hate():
+@app.route('/boo/like', methods=['GET', 'POST'])
+def like():
     l_id = request.form.get('list_id')
     print("리스트 아이디는 ??????", l_id)
 
@@ -189,6 +189,28 @@ def like_hate():
         db_session.rollback()
     
     return redirect('/boo')
+
+
+@app.route('/boo/hate', methods=['GET', 'POST'])
+def hate():
+    l_id = request.form.get('list_id')
+    print("리스트 아이디는 ??????", l_id)
+
+    lst = Lists.query.filter(Lists.list_id == l_id).first()
+
+    print("리스트 읽은 결과는 ??????", lst)
+
+    try:
+        lst.likecnt -= 1
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return redirect('/boo')
+
+
 
 
     

@@ -324,18 +324,25 @@
       function likeOne(id) { 
         console.log(id)
         $("#" + id).addClass('text-primary') 
-        var addOne = parseInt($("#likeCnt"+id).text())+1
-        $("#likeCnt"+id).text(addOne)
-        send_ajax('/boo/like_hate', 'POST', {list_id : id}, '',  function (res) {
+        var addOne = parseInt($("#likeCnt" + id).text())+1
+        $("#likeCnt" + id).text(addOne)
+        send_ajax('/boo/like', 'POST', {list_id : id}, '',  function (res) {
             if (res && res.result === 'OK') {
             }
         });
       }
 
-       $('#hate').click(function(){
-        $('#hate').addClass('text-danger')
-        //send_ajax(url, method, data, dataType, fn)
-      });
+       function hateOne(id) { 
+        console.log(id)
+        $("#" + id).addClass('text-primary') 
+        var minusOne = parseInt($("#hateCnt" + id).text())-1
+        $("#hateCnt" + id).text(minusOne)
+        send_ajax('/boo/hate', 'POST', {list_id : id}, '',  function (res) {
+            if (res && res.result === 'OK') {
+            }
+        });
+      }
+
 
     
 
