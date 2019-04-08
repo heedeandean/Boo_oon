@@ -1,6 +1,6 @@
 {% extends 'ecommerce.html' %}
 {% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
-{% from 'macro/card.html' import card, card2  %}
+{% from 'macro/card.html' import card %}
 
 {% block main %}
 
@@ -107,11 +107,8 @@
   {{user}}
 {% endcall %} 
 
-{% call card_modal('cardModal')%}
-    나의 뜬 구름
-{% endcall %}
-
 {{ login_modal('loginModal') }}
+{{ card_modal('cardModal', user) }}
 
 
   <!--Main Layout-->

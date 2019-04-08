@@ -4,7 +4,7 @@
 
     <!--Card Primary-->
     <div class="card text-center z-depth-2">
-        <div class="card-body">
+        <div class="card-body" id='card-body' data-toggle='modal' data-target='#cardModal'>
         <h3 class="font-weight mt-2 mb-3">{{title}}</h3>
         <p class="gray-text mb-0">{{txt}}</p>
         </div>
@@ -36,25 +36,3 @@
 <!-- 카드 -->
 {%- endmacro %}
 
-
-
-{% macro card2(title) -%}
-
-<!-- Card -->
-<div class="card card-cascade col-lg-4 col-md-6 h-100 d-inline-block" >
-
-  <!-- Card image -->
-  <div class="view view-cascade gradient-card-header peach-gradient h-90">
-
-    <!-- Title -->
-    <h2 class="card-header-title mt-2 mb-3">{{title}}</h2>
-    <!-- Text -->
-    <p class="mb-0"><i class="fas fa-calendar mr-2"></i>26.07.2017</p>
-
-  </div>
-
-
-
-</div>
-<!-- Card -->
-{%- endmacro %}
