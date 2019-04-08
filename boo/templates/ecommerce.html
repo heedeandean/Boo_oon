@@ -319,15 +319,25 @@
 
       });
 
-      // 좋아요, 싫어요 처리 함수
 
+      // 좋아요, 싫어요 처리 함수
       $('#like').click(function(){
-        $('#like').addClass('text-primary')
-        send_ajax('/boo/like_hate', POST, {}, dataType, fn)
+        if ($('#like').hasClass('text-primary')) {
+          $('#like').removeClass('text-primary');
+        } else {
+          $('#hate').removeClass('text-danger');
+          $('#like').addClass('text-primary');
+          send_ajax('/boo/like_hate', POST, {}, dataType, fn)
+        }
       });
 
-       $('#hate').click(function(){
-        $('#hate').addClass('text-danger')
+      $('#hate').click(function(){
+        if ($('#hate').hasClass('text-danger')) {
+          $('#hate').removeClass('text-danger');
+        } else {
+          $('#like').removeClass('text-primary');
+          $('#hate').addClass('text-danger');
+        }
       });
 
       send_ajax(url, method, data, dataType, fn)
