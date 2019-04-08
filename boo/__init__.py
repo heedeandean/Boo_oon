@@ -171,47 +171,27 @@ def write():
     return redirect('/boo')
     
 # 좋아요, 싫어요 수 조정
-@app.route('/boo/like', methods=['GET', 'POST'])
-def like():
-    l_id = request.values.get('list_id')
-    num = request.values.get('num')
-    print("리스트 아이디는 ??????", l_id)
 
-    lst = Lists.query.filter(Lists.list_id == l_id).first()
-
-    print("리스트 읽은 결과는 ??????", lst)
-
-    try:
-        if num == 'add' :
-            lst.likecnt += 1
-        elif num == 'del' :
-            lst.likecnt -= 1
-        
-        db_session.commit()
-
-    except Exception as err:
-        print("Error on users>>>", err)
-        db_session.rollback()
-    
-    return redirect('/boo')
-
-
-@app.route('/boo/hate', methods=['GET', 'POST'])
+@app.route('/boo/like_hate', methods=['GET', 'POST'])
 def hate():
     l_id = request.values.get('list_id')
     num = request.values.get('num')
-    print("리스트 아이디와 넘버 처리는 ??????", l_id, num)
+    feel = request.values.get('feel')
 
     lst = Lists.query.filter(Lists.list_id == l_id).first()
 
-    print("리스트 읽은 결과는 ??????", lst)
-
     try:
-        if num == 'add' :
-            lst.hatecnt += 1
-        elif num == 'del' :
-            lst.hatecnt -= 1
-        
+        if feel == 'like' :
+            if num == 'add' :
+                lst.likecnt += 1
+            elif num == 'del' :
+                lst.likecnt -= 1
+        elif feel == 'hate':
+            if num == 'add' :
+                lst.hatecnt -= 1
+            elif num == 'del' :
+                lst.hatecnt += 1
+
         db_session.commit()
 
     except Exception as err:
@@ -219,8 +199,6 @@ def hate():
         db_session.rollback()
     
     return redirect('/boo')
-
-
 
 
     

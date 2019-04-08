@@ -321,7 +321,7 @@
 
 
       // 좋아요, 싫어요 처리 함수        
-     
+
       function like_hate(my, el , id, mycolor, elsecolor) {
         if ($("#" + my + id).hasClass(mycolor)) {
             one(my, id, 'del', 'removeClass', mycolor);
@@ -351,7 +351,7 @@
     
         }
 
-        send_ajax('/boo/'+ feel, 'POST', {'list_id' : id, 'num' : status}, '');
+        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel }, '');
       }
 
       
