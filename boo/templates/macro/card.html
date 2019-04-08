@@ -1,4 +1,4 @@
-{% macro card(title, txt, cmt_cnt, hate_cnt, like_cnt) -%}
+{% macro card(list_id, title, txt, cmt_cnt, hate_cnt, like_cnt) -%}
 <!-- 카드 -->
 <div class="col-lg-4 col-md-6 mb-3">
 
@@ -20,7 +20,8 @@
                 </span>
                 
                 {{like_cnt}}
-                <a class="icons-sm active ml-1" data-toggle="tooltip" data-placement="top" title="Added to Wishlist"> <i class="fas fa-heart" id="like"></i> </a>
+                <a class="icons-sm" > 
+                <i class="fas fa-heart" id='{{list_id}}' onclick='likeOne({{list_id}})' ></i></a>
             </span>
         </div>
     </div>
