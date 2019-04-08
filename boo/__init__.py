@@ -2,7 +2,7 @@ from flask import Flask, url_for, render_template, request, Response, session, j
 from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_session
 from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash, check_password_hash
-
+from sqlalchemy import update
 
 
 app = Flask(__name__)
@@ -25,8 +25,11 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.filter(Lists.public == 1).order_by(Lists.list_date.desc())
+    lists = Lists.query.filter(Lists.public == 1).order_by(Lists.list_id.desc())
 
+    print('boo의 리스트 ?!?!?!?!?!?' )
+    for l in lists :
+        print(l)
 
     if islogin == False :
         user = ''
@@ -168,9 +171,24 @@ def write():
     return redirect('/boo')
     
 # 좋아요, 싫어요 수 조정
-@app.route('/boo/like_hate/<listno>', methods=['GET', 'POST'])
+@app.route('/boo/like_hate', methods=['GET', 'POST'])
 def like_hate():
-    like
+    l_id = request.form.get('list_id')
+    print("리스트 아이디는 ??????", l_id)
+
+    lst = Lists.query.filter(Lists.list_id == l_id).first()
+
+    print("리스트 읽은 결과는 ??????", lst)
+
+    try:
+        lst.likecnt += 1
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return redirect('/boo')
 
 
     

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP, DateTime
+from sqlalchemy import update
 from sqlalchemy.orm import relationship, backref
 from boo.init_db import Base, db_session
 from datetime import date, datetime
@@ -71,7 +72,7 @@ class Lists(Base):
     fk_users = relationship('Users')
 
     def __repr__(self):
-        return 'Lists %r, %r, %r, %r, %r, %r, %r' % (self.list_title, self.list_txt, self.cmt_count, self.likecnt, self.hatecnt, self.public, self.list_date)
+        return 'Lists %r,%r, %r, %r, %r, %r, %r, %r' % (self.list_id, self.list_title, self.list_txt, self.cmt_count, self.likecnt, self.hatecnt, self.public, self.list_date)
 
     
 
