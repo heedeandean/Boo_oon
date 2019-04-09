@@ -18,7 +18,7 @@ app.config.update(
 islogin = False
 user = ''
 
-@app.route('/boo')
+@app.route('/boo', methods=['GET','POST'])
 def main():
     global islogin, user
 
@@ -35,6 +35,7 @@ def main():
         user = ''
     elif user != "" :
         user = session.get('loginUser')['username']
+
     
     return render_template('ecom_main.html', islogin = islogin, user = user, lists=lists)
 
@@ -170,8 +171,8 @@ def write():
     
     return redirect('/boo')
     
-# 좋아요, 싫어요 수 조정
 
+# 좋아요, 싫어요 수 조정
 @app.route('/boo/like_hate', methods=['GET', 'POST'])
 def hate():
     l_id = request.values.get('list_id')
@@ -199,6 +200,7 @@ def hate():
         db_session.rollback()
     
     return redirect('/boo')
+
 
 
     

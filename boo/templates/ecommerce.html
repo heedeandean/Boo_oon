@@ -242,21 +242,13 @@
       $(mid).focusout(function(){
             var id = $(this).val();
             // ajax 실행
-            $.ajax({
-              type : 'POST',
-              url : '/boo/idcheck',
-              data:
-              { username : id
-              },
-              success : function(data) {
-                //console.log(data)
+            send_ajax('/boo/idcheck', 'POST', { username : id }, '', function(data) {
                 if (data['username'] == '가입 가능') {
                   $(mid).removeClass('invalid').addClass('valid')
                 }else {
                   $(mid).removeClass('valid').addClass('invalid')
                 }
-              }
-            }); // end ajax
+              }) // end ajax
         }); // end blur
     } // function checkItOut
 
@@ -265,48 +257,28 @@
     $('#modalLRInput10, #modalLRInput11').focusout(function() {
           var id = $('#modalLRInput10').val();
           var pw = $('#modalLRInput11').val();
-          // ajax 실행
-          $.ajax({
-            type : 'POST',
-            url : '/boo/login',
-            data:
-            { username : id,
-              pw : pw
-            },
-            success : function(data) {
-              console.log(data)
+          send_ajax('/boo/login', 'POST', { username : id, pw : pw },'', function(data) {
 
               if (id.length != 0 && data['login'] == '아이디 오류') {
-
-                console.log('아이디가 없대!')
                 $('#modalLRInput10').removeClass('valid').addClass('invalid')
                 $('#modalLRInput11').val('').removeClass('invalid, valid')
 
               } else if (id.length == 0 ) {
-                
                 $('#modalLRInput10').removeClass('invalid, valid')
                 $('#modalLRInput11').val('').removeClass('invalid, valid')
 
               } else {
-
                 $('#modalLRInput10').removeClass('invalid').addClass('valid')
 
                   if (pw.length != 0 && data['login'] == '비밀번호 오류') {
-
                     $('#modalLRInput11').removeClass('valid').addClass('invalid')
-
                   } else if (pw.length == 0 ) {
-
                     $('#modalLRInput11').removeClass('invalid, valid')
-
                   } else {
-
-                    $('#modalLRInput11').removeClass('invalid').addClass('valid')
-                    
+                    $('#modalLRInput11').removeClass('invalid').addClass('valid') 
                   }
                 }
-            } // end success
-          }); // end ajax
+            }) // end ajax
       }); // end blur
 
       // 잘못된 회원 정보 입력 시 로그인 막기
@@ -321,7 +293,6 @@
 
 
       // 좋아요, 싫어요 처리 함수        
-
       function like_hate(my, el , id, mycolor, elsecolor) {
         if ($("#" + my + id).hasClass(mycolor)) {
             one(my, id, 'del', 'removeClass', mycolor);
@@ -337,6 +308,7 @@
 
       function one(feel, id, status, classAR, color){
         var one = parseInt($("#" + feel + "Cnt" + id).text())
+        
         if (classAR == 'addClass'){
           $("#" + feel + id).addClass(color);
           if (feel == 'like'){
@@ -351,10 +323,13 @@
     
         }
 
-        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel }, '');
+        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
       }
 
-      
+      //카드 클릭시, 세부 내용 모달 띄우는 함수
+      function card_modal(id){
+        $('#cardModal' + id).modal('show')
+      }
      
     
 
