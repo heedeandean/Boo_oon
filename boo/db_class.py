@@ -90,10 +90,10 @@ class Cmt(Base):
     cmt_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))
     cmt_txt = Column(String)
-    cmt_date = Column(TIMESTAMP)
+    cmt_date = Column(TIMESTAMP, default=datetime.now)
     list_id = Column(Integer, ForeignKey('Lists.list_id'))
-    cmt_like = Column(Integer)
-    cmt_hate =  Column(Integer)
+    cmt_like = Column(Integer, default=0)
+    cmt_hate =  Column(Integer, default=0)
 
     fk_users = relationship('Users')
     fk_lists = relationship('Lists')

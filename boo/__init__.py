@@ -205,16 +205,32 @@ def hate():
 # 댓글 입력
 @app.route('/boo/comment', methods=['GET','POST'])
 def comment():
-    userno
-    cmt_txt
-    cmt_date
-    list_id
-    cmt_like
-    cmt_hate
-
-
+    global user
+    u = Users.query.filter(Users.username == user).first()
 
     
+    list_id = request.values.get('list_id')
+    cmt_txt = request.values.get('cmt_txt')
+    ( cmt_date, cmt_like, cmt_hate ) = (None, None, None)
+
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', u.userno, list_id, cmt_txt)
+
+    c = Cmt(u.userno, cmt_txt, cmt_date, list_id, cmt_like, cmt_hate)
+
+    try:
+        db_session.add(c)
+        db_session.commit()
+        
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+
+    return redirect('/boo')
+    
+
+
+
+
 @app.teardown_appcontext
 def teardown_context(exception):
     print(">>> teardown context!!", exception)
