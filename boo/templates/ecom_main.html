@@ -103,19 +103,15 @@
     
 
 
-{% call modal('writeModal') %}
-  {{user}}
-{% endcall %} 
+{{ modal('writeModal', user) }}
 
 {{ login_modal('loginModal') }}
 
 
 <!--Grid row 카드 자리-->
-
 {% for l in lists%}
-  {{ card_modal(l.fk_users.username, l.list_id, l.list_title, l.list_txt, l.cmt_count, l.hatecnt, l.likecnt) }}
+  {{ card_modal(l.fk_users.username, l.list_id, l.list_title, l.list_txt, l.cmt_count, l.likecnt, l.hatecnt) }}
 {% endfor %}
-
 <!--Grid row 카드 자리-->
 
 

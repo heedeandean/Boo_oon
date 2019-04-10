@@ -1,5 +1,5 @@
 
-{% macro modal(id) -%}
+{% macro modal(id, user) -%}
 <!--Modal: 글쓰기 -->
 <div class="modal fade" id= "{{id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
   aria-hidden="true">
@@ -17,7 +17,7 @@
         <!--Body-->
         <div class="modal-body mb-1">
 
-          <h5 class="text-center mt-1 mb-2" name="username"> {{ caller() }} </h5>
+          <h5 class="text-center mt-1 mb-2" name="username"> {{user}} </h5>
 
           <div class="md-form mb-5">
               <i class="fas fa-tag prefix grey-text"></i>
@@ -83,22 +83,23 @@
             <!-- /뜬 구름 내용 -->
 
             <br>
-            <!-- 댓글수 -->
+            
             <a class="text-muted">댓글</a><span id='cmtCnt'> {{cmt}} </span>
 
             <span class="float-right" >
 
-              <span> <!-- 좋아요 -->
-                <span id="hateCnt">{{hate}}</span>
+              <span> <!-- 싫어요 -->
+                <span id="hateCntModal{{list_id}}">{{hate}}</span>
                 <a class="icons-sm"> 
-                <i class="fas fa-heart-broken ml-1 mr-1"></i> 
+                <i class="fas fa-heart-broken ml-1 mr-1" id="hateModal{{list_id}}" 
+                  onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
                 </a>
               </span>
   
-              <span id='likeCnt'> {{like}} </span>
-          
-              <a class="icons-sm" > <!-- 싫어요 -->
-              <i class="fas fa-heart"></i>
+              <span id='likeCntModal{{list_id}}'> {{like}} </span>
+              <a class="icons-sm" > <!-- 좋아요 -->
+              <i class="fas fa-heart" id="likeModal{{list_id}}" 
+                onclick="like_hate('like','hate', {{list_id}},'text-info','text-primary')"></i>
               </a>
             </span>
           
