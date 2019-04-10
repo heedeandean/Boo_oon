@@ -3,6 +3,8 @@ from boo.db_class import Users, Cmt, Lists, Follow, Ranking, Likecnt, DM, db_ses
 from datetime import date, datetime, timedelta
 from werkzeug import generate_password_hash, check_password_hash
 from sqlalchemy import update
+from sqlalchemy.orm import relationship, backref, joinedload
+
 
 
 app = Flask(__name__)
@@ -25,11 +27,14 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.filter(Lists.public == 1).order_by(Lists.list_id.desc())
+    lists = Lists.query.options(joinedload(Lists.fk_users)).order_by(Lists.list_id.desc())
+    lists = lists.filter(Lists.public == 1)
 
-    print('boo의 리스트 ?!?!?!?!?!?' )
+    print( 'boo의 리스트 ?!?!?!?!?!?', lists )
+
     for l in lists :
         print(l)
+        print("##########", l.fk_users.username)
 
     if islogin == False :
         user = ''

@@ -113,7 +113,7 @@
 <!--Grid row 카드 자리-->
 
 {% for l in lists%}
-  {{ card_modal(user, l.list_id, l.list_title, l.list_txt, l.cmt_count, l.hatecnt, l.likecnt) }}
+  {{ card_modal(l.fk_users.username, l.list_id, l.list_title, l.list_txt, l.cmt_count, l.hatecnt, l.likecnt) }}
 {% endfor %}
 
 <!--Grid row 카드 자리-->

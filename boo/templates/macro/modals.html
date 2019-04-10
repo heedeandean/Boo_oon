@@ -54,7 +54,7 @@
 {%- endmacro %}
 
 
-{% macro card_modal(user, list_id,  title, txt, cmt, like, hate, date) -%}
+{% macro card_modal(username, list_id,  title, txt, cmt, like, hate, date) -%}
 <!-- Modal: 카드 상세 모달 -->
 <div class="modal fade" id="cardModal{{list_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
   <div class="modal-dialog " role="document">
@@ -67,7 +67,7 @@
            
               <!-- Label -->
             <div class="label mt-2">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20)-mini.jpg" class="rounded-circle"> {{user}}
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20)-mini.jpg" class="rounded-circle"> {{username}}
             </div>
 
             <br>

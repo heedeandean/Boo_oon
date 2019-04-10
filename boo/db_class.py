@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, String, Boolean, ForeignKey, PrimaryKeyConstraint, func, TIMESTAMP, DateTime
 from sqlalchemy import update
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship, backref, joinedload
 from boo.init_db import Base, db_session
 from datetime import date, datetime
 
