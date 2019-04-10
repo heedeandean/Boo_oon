@@ -308,7 +308,7 @@
 
       function one(feel, id, status, classAR, color){
         var one = parseInt($("#" + feel + "Cnt" + id).text())
-        
+
         if (classAR == 'addClass'){
           $("#" + feel + id).addClass(color);
           if (feel == 'like'){
@@ -326,12 +326,20 @@
         send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
       }
 
-      //카드 클릭시, 세부 내용 모달 띄우는 함수
+      // 카드 클릭시, 세부 내용 모달 띄우는 함수
       function card_modal(id){
         $('#cardModal' + id).modal('show')
       }
-     
-    
+
+      // 댓글 버튼 
+      //$().button('disponse')
+      $('#cmt').click(function(){
+        $('#cancel').show();
+        $('#cmtAdd').show();
+        $('#cmt').hide();
+      })
+      
+  
 
   </script>
 

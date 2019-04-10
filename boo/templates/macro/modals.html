@@ -116,7 +116,7 @@
 
                       <!-- Label -->
                       <div class="label">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle z-depth-1-half">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
                       </div>
 
                       <!-- Excerpt -->
@@ -129,9 +129,7 @@
                         </div>
 
                         <!-- Added text -->
-                        <div class="added-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero inventore,
-                          iste quas libero eius? Vitae sint neque animi alias sunt dolor, accusantium ducimus, non placeat
-                          voluptate.</div>
+                        <div class="added-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </div>
 
                         <!-- Feed footer -->
                         <div class="feed-footer">
@@ -150,10 +148,16 @@
 
                     </div>
                     <!-- Fourth news -->
-                  
-                    <button class="float-right"> 댓글 작성 </button>
-                    <!-- Comment input -->
-              
+                    
+                    <!-- 댓글 작성 -->
+                    <button class="float-right mb-1 mr-2 btn-sm btn-light-blue" id='cmtAdd' style="display: none;"> 완료 </button>
+                    <button class="float-right mb-1 mr-1 btn-sm btn-light" id='cancel' style="display: none;"> 취소 </button>
+                    <button class="float-right mb-1 btn-sm btn-light" id='cmt'> 댓글 작성 </button>
+                    
+                    <div class="form-group green-border-focus col-11 float-right" id="commentArea1" hidden>
+                    <textarea class="form-control" id="commentArea2" rows="3" placeholder="Write your comment..."></textarea>
+                    </div>
+        
                   </div> <!-- Newsfeed -->  
                 </div> <!-- Grid column -->
               </div> <!-- Grid row -->
