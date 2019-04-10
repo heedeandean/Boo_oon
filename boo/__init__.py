@@ -202,6 +202,17 @@ def hate():
     return redirect('/boo')
 
 
+# 댓글 입력
+@app.route('/boo/comment', methods=['GET','POST'])
+def comment():
+    userno
+    cmt_txt
+    cmt_date
+    list_id
+    cmt_like
+    cmt_hate
+
+
 
     
 @app.teardown_appcontext

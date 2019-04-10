@@ -150,12 +150,12 @@
                     <!-- Fourth news -->
                     
                     <!-- 댓글 작성 -->
-                    <button class="float-right mb-1 mr-2 btn-sm btn-outline-info" id='cmtAdd' style="display: none;"> 완료 </button>
-                    <button class="float-right mb-1 mr-1 btn-sm btn-outline-info" id='cancel' style="display: none;"> 취소 </button>
-                    <button class="float-right mb-1 btn-sm btn-outline-info" id='cmt'> 댓글 작성 </button>
+                    <button class="float-right mb-1 mr-2 btn-sm btn-outline-info" id='cmtAdd{{list_id}}' style="display: none;"> 완료 </button>
+                    <button class="float-right mb-1 mr-1 btn-sm btn-outline-info" id='cancel{{list_id}}' style="display: none;" onclick='closeCmt({{list_id}})'> 취소 </button>
+                    <button class="float-right mb-1 btn-sm btn-outline-info" id='cmt{{list_id}}' onclick='openCmt({{list_id}})'> 댓글 작성 </button>
                     
-                    <div class="form-group green-border-focus col-11 float-right" id="commentArea1" style="display: none;">
-                    <textarea class="form-control" id="commentArea2" rows="3" placeholder="Write your comment..."></textarea>
+                    <div class="form-group green-border-focus col-11 float-right" id="commentArea1{{list_id}}" style="display: none;">
+                    <textarea class="form-control" id="commentArea2{{list_id}}" rows="3" placeholder="Write your comment..."></textarea>
                     </div>
         
                   </div> <!-- Newsfeed -->  

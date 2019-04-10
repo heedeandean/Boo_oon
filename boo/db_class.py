@@ -79,11 +79,13 @@ class Lists(Base):
 class Cmt(Base):
     __tablename__ = 'Cmt'
 
-    def __init__(self, userno, cmt_txt, list_id):
+    def __init__(self, userno, cmt_txt, cmt_date, list_id, cmt_like, cmt_hate):
         self.userno = userno
         self.cmt_txt = cmt_txt
-        
-        
+        self.cmt_date = cmt_date
+        self.list_id = list_id
+        self.cmt_like = cmt_like
+        self.cmt_hate = cmt_hate
 
     cmt_id = Column(Integer, primary_key=True)
     userno = Column(Integer, ForeignKey('Users.userno'))

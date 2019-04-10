@@ -333,12 +333,29 @@
 
       // 댓글 버튼 
       //$().button('disponse')
-      $('#cmt').click(function(){
-        $('#cancel').show();
-        $('#cmtAdd').show();
-        $('#cmt').hide();
-        $('#commentArea1').show();
-      })
+      function openCmt(id){
+        $('#cancel'+ id).show();
+        $('#cmtAdd' + id).show();
+        $('#cmt' + id).hide();
+        $('#commentArea1' + id).show();
+      }
+
+      function closeCmt(id){
+        $('#cancel'+ id).hide();
+        $('#cmtAdd' + id).hide();
+        $('#cmt' + id).show();
+        $('#commentArea1' + id).hide();
+        $('#commentArea2' + id).val('');
+      }
+
+      function addCmt(id){
+        
+        $('#cancel'+ id).hide();
+        $('#cmtAdd' + id).hide();
+        $('#cmt' + id).show();
+        $('#commentArea1' + id).hide();
+        $('#commentArea2' + id).val('');
+      }
       
   
 
