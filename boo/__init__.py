@@ -232,6 +232,27 @@ def comment():
 
     return redirect('/boo')
     
+    
+# 카드 상세 모달
+@app.route('/boo/card/<list_id>', methods=['GET'])
+def card(list_id):
+
+    lst = Lists.query.filter(Lists.list_id == list_id).first()
+    print('@@@####@@@###@@@#####', lst)
+    return jsonify( lst.json() )
+
+
+# 카드 댓글
+@app.route('/boo/comment/<list_id>', methods=['GET'])
+def comments(list_id):
+    cmts = Cmt.query.filter('list_id=:list_id').params(
+        list_id=list_id).order_by(Cmt.cmt_id.desc()).all()
+
+    print('@@@####@@@###@@@#####cmts', cmts)
+
+    return jsonify([c.json() for c in cmts])
+
+
 
 
 

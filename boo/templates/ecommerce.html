@@ -26,6 +26,8 @@
 
 
   <!--  SCRIPTS  -->
+  <!-- Handlebars -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/handlebars-v4.0.12.js')}}"></script>
   <!-- JQuery -->
   <script type="text/javascript" src="{{ url_for('static', filename= "js/jquery-3.3.1.min.js") }}"></script>
   <!-- Bootstrap tooltips -->
@@ -180,16 +182,6 @@
         });
     }
 
-    $(document).ready(function () {
-      var path = '{{request.path}}';
-      console.log("path>>", path)
-      send_ajax('/boo', 'GET', '', '', function (res) {
-        console.log("res>>", res)
-        if (!res || !res.length) return;
-      });
-    })
-
-
     // 비밀번호 확인 함수
     var ssn1 = document.getElementById("modalLRInput13");
     var ssn2 = document.getElementById("modalLRInput14");
@@ -328,7 +320,9 @@
 
       // 카드 클릭시, 세부 내용 모달 띄우는 함수
       function card_modal(id){
-        $('#cardModal' + id).modal('show')
+        //$('#cardModal' + id).modal('show')
+        openModals(id);
+        getComment(id);
       }
 
       // 댓글 버튼 
@@ -359,7 +353,25 @@
         $('#commentArea1' + id).hide();
         $('#commentArea2' + id).val('');
       }
+
+      function openModals(id) {
+        var url = "/boo/card/" + id;
+        var $CardModal = $('#cardModal' + id);
+        send_ajax(url, 'GET', '', '', function(data) {
+            console.log("res>>", data)
+            $CardModal.modal('show');
+            //hbs('comments_template_' + myal, {comments: res}, 'result_comments_' + myal);
+        }); 
+      }
       
+       function getComment(id) {
+        send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
+            if (!res || !res.length) return;
+            console.log("data>>", res)
+            //hbs('comments_template_' + myalid, {comments: res}, 'comments_result_' + myalid);
+        });
+        //$('#basicExampleModal').modal();
+      }
   
 
   </script>

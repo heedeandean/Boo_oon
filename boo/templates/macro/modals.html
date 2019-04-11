@@ -92,14 +92,14 @@
                 <span id="hateCntModal{{list_id}}">{{hate}}</span>
                 <a class="icons-sm"> 
                 <i class="fas fa-heart-broken ml-1 mr-1" id="hateModal{{list_id}}" 
-                  onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
+                  ></i> 
                 </a>
               </span>
   
               <span id='likeCntModal{{list_id}}'> {{like}} </span>
               <a class="icons-sm" > <!-- 좋아요 -->
               <i class="fas fa-heart" id="likeModal{{list_id}}" 
-                onclick="like_hate('like','hate', {{list_id}},'text-info','text-primary')"></i>
+                ></i>
               </a>
             </span>
           
@@ -112,45 +112,11 @@
                 <div class="col-md-12">  
                   <div class="mdb-feed"> 
 
-                    <!-- Fourth news -->
-                    <div class="news">
-
-                      <!-- Label -->
-                      <div class="label">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
-                      </div>
-
-                      <!-- Excerpt -->
-                      <div class="excerpt">
-
-                        <!-- Brief -->
-                        <div class="brief">
-                          <a class="name">Lili Rose</a> 
-                          <div class="date float-right">2일전</div>
-                        </div>
-
-                        <!-- Added text -->
-                        <div class="added-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </div>
-
-                        <!-- Feed footer -->
-                        <div class="feed-footer">
-                          <a class="like mr-1"><!-- 댓글 좋아요 -->
-                            <i class="fas fa-heart"></i>
-                            <span>7 좋아요
-                          </a>
-                          <a class="like"><!-- 댓글 싫어요 -->
-                            <i class="fas fa-heart-broken"></i>
-                            <span>7 싫어요</span>
-                          </a>
-                        </div>
-
-                      </div>
-                      <!-- Excerpt -->
-
-                    </div>
-                    <!-- Fourth news -->
+                    {{caller()}}
                     
-                    <!-- 댓글 작성 -->
+                  </div> <!-- Newsfeed --> 
+
+                  <!-- 댓글 작성 -->
                     <button class="float-right mb-1 mr-2 btn-sm btn-outline-info" id='cmtAdd{{list_id}}' style="display: none;" onclick='addCmt({{list_id}})'> 완료 </button>
                     <button class="float-right mb-1 mr-1 btn-sm btn-outline-info" id='cancel{{list_id}}' style="display: none;" onclick='closeCmt({{list_id}})'> 취소 </button>
                     <button class="float-right mb-1 btn-sm btn-outline-info" id='cmt{{list_id}}' onclick='openCmt({{list_id}})'> 댓글 작성 </button>
@@ -160,10 +126,8 @@
                       
                       <textarea class="form-control" id="commentArea2{{list_id}}" rows="3" placeholder="Write your comment..."></textarea>
                       
-                    </div>
-                  
+                    </div>   
         
-                  </div> <!-- Newsfeed -->  
                 </div> <!-- Grid column -->
               </div> <!-- Grid row -->
               

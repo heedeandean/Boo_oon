@@ -74,6 +74,10 @@ class Lists(Base):
     def __repr__(self):
         return 'Lists %r,%r, %r, %r, %r, %r, %r, %r' % (self.list_id, self.list_title, self.list_txt, self.cmt_count, self.likecnt, self.hatecnt, self.public, self.list_date)
 
+    def json(self):
+        j = {l.name: getattr(self, l.name) for l in self.__table__.columns}
+        j['writer_name'] = self.fk_users.username
+        return j
     
 
 class Cmt(Base):
@@ -100,7 +104,7 @@ class Cmt(Base):
 
     def json(self):
         j = {c.name: getattr(self, c.name) for c in self.__table__.columns}
-        j['writername'] = self.fk_users.username
+        j['writer_name'] = self.fk_users.username
         return j
     
 

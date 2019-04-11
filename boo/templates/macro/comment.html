@@ -1,0 +1,37 @@
+{% macro comment(username, cmt_date, cmt_txt, like, hate) -%}
+    <div class="news">
+
+        <!-- Label -->
+        <div class="label">
+        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
+        </div>
+
+        <!-- Excerpt -->
+        <div class="excerpt">
+
+        <!-- Brief -->
+        <div class="brief">
+            <a class="name">{{username}}</a> 
+            <div class="date float-right">{{cmt_date}}</div>
+        </div>
+
+        <!-- Added text -->
+        <div class="added-text"> {{cmt_txt}} </div>
+
+        <!-- Feed footer -->
+        <div class="feed-footer">
+            <a class="like mr-1"><!-- 댓글 좋아요 -->
+            <i class="fas fa-heart"></i>
+            <span>{{like}} 좋아요
+            </a>
+            <a class="like"><!-- 댓글 싫어요 -->
+            <i class="fas fa-heart-broken"></i>
+            <span>{{hate}} 싫어요</span>
+            </a>
+        </div>
+
+        </div>
+        <!-- Excerpt -->
+
+    </div>
+{%- endmacro %}
