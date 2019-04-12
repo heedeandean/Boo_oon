@@ -1,7 +1,7 @@
 {% extends 'ecommerce.html' %}
 {% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
 {% from 'macro/card.html' import card %}
-{% from 'macro/comment.html' import comment %}
+
 
 {% block main %}
 
@@ -103,23 +103,14 @@
   <!--Main Navigation-->
     
 
-
+<!-- 모달 -->
 {{ modal('writeModal', user) }}
-
 
 {{ login_modal('loginModal') }}
 
-
-<!-- 카드 상세 모달 -->
 {% for l in lists%}
-  {% call card_modal(l.fk_users.username, l.list_id, l.list_title, l.list_txt, l.cmt_count, l.likecnt, l.hatecnt) %}
-    
-    <!--댓글 for loop 필요-->
-    {{ comment()}}
-
-  {% endcall %} 
+  {{ card_modal(l.list_id) }}
 {% endfor %}
-
 
 
   <!--Main Layout-->
@@ -141,7 +132,7 @@
 
         <!--Grid row 카드 자리-->
         <div class="row">
-
+        
           {% for l in lists%}
             {{ card(l.list_id, l.list_title, l.list_txt, l.cmt_count, l.hatecnt, l.likecnt) }}
           {% endfor %}

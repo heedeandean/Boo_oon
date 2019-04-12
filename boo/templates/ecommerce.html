@@ -320,18 +320,22 @@
 
       // 카드 클릭시, 세부 내용 모달 띄우는 함수
       function card_modal(id){
-        //$('#cardModal' + id).modal('show')
         openModals(id);
-        getComment(id);
+        //getComment(id);
+        $('#cardModal'+id).modal('show');
       }
 
       // 댓글 버튼 
       //$().button('disponse')
       function openCmt(id){
+        if ( $('#writeModalUser').text().length == 0 ){
+          alert('로그인이 필요합니다.')
+        }else {
         $('#cancel'+ id).show();
         $('#cmtAdd' + id).show();
         $('#cmt' + id).hide();
         $('#commentArea1' + id).show();
+        }
       }
 
       function closeCmt(id){
@@ -345,7 +349,9 @@
       function addCmt(id){
         var txt = $('#commentArea2' + id).val()
 
-        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '' )
+        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', 
+        getComment(id) )
+        ;
         
         $('#cancel'+ id).hide();
         $('#cmtAdd' + id).hide();
@@ -355,24 +361,44 @@
       }
 
       function openModals(id) {
-        var url = "/boo/card/" + id;
-        var $CardModal = $('#cardModal' + id);
-        send_ajax(url, 'GET', '', '', function(data) {
-            console.log("res>>", data)
-            $CardModal.modal('show');
-            //hbs('comments_template_' + myal, {comments: res}, 'result_comments_' + myal);
+        send_ajax("/boo/card/" + id, 'GET', '', '', function(res) {
+            console.log("modals>>", res)
+            hbs( 'card_modal_'+ id, res, 'cm' + id);  
+
+            getComment(id);
         }); 
       }
       
        function getComment(id) {
         send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
             if (!res || !res.length) return;
-            console.log("data>>", res)
-            //hbs('comments_template_' + myalid, {comments: res}, 'comments_result_' + myalid);
+            console.log("comments>>", res)
+            hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
         });
-        //$('#basicExampleModal').modal();
       }
+
+      function hbs(sourceId, data, resultId) {
+          var source = document.getElementById(sourceId).innerHTML;
+          var template = Handlebars.compile(source);
+          var html = template(data);
+          var result = document.getElementById(resultId).innerHTML;
   
+          if ( result ) {
+            //$('#' + resultId).append(data[data.length])
+            console.log('comment resultId', resultId)
+            console.log('last data', Object.values(data),)
+          
+          } else {
+            document.getElementById(resultId).innerHTML = html;
+          }
+      }
+
+
+      
+
+      function render(template, data, resultId) {
+        document.getElementById(resultId).innerHTML = template(data);
+        }
 
   </script>
 

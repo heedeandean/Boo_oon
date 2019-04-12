@@ -17,7 +17,7 @@
         <!--Body-->
         <div class="modal-body mb-1">
 
-          <h5 class="text-center mt-1 mb-2" name="username"> {{user}} </h5>
+          <h5 class="text-center mt-1 mb-2" name="username" id="writeModalUser">{{user}}</h5>
 
           <div class="md-form mb-5">
               <i class="fas fa-tag prefix grey-text"></i>
@@ -54,95 +54,128 @@
 {%- endmacro %}
 
 
-{% macro card_modal(username, list_id,  title, txt, cmt, like, hate, date) -%}
+{% macro card_modal( list_id ) -%}
 <!-- Modal: 카드 상세 모달 -->
-<div class="modal fade" id="cardModal{{list_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  >
+<div class="modal fade" id="cardModal{{list_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog " role="document">
     <div class="modal-content rounded">
-      <!-- modal body-->
+      
       <div class="modal-body">
-        <div class="">
-
-          <div class="col-lg-12">
-           
-              <!-- Label -->
-            <div class="label mt-2">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20)-mini.jpg" class="rounded-circle"> {{username}}
-            </div>
-
-            <br>
-              
-            <!-- 뜬 구름 내용 -->
-            <div class="text-center text-break h-50 rounded-lg py-3 px-4 mb-4 light-blue lighten-5">
-              <h4>{{title}}</h4>
-            </div>
-
-            <div class="mb-3">
-              <h6 class="text-muted text-break px-2">{{txt}}</h6>
-            </div>
-            <!-- /뜬 구름 내용 -->
-
-            <br>
-            
-            <a class="text-muted">댓글</a><span id='cmtCnt'> {{cmt}} </span>
-
-            <span class="float-right" >
-
-              <span> <!-- 싫어요 -->
-                <span id="hateCntModal{{list_id}}">{{hate}}</span>
-                <a class="icons-sm"> 
-                <i class="fas fa-heart-broken ml-1 mr-1" id="hateModal{{list_id}}" 
-                  ></i> 
-                </a>
-              </span>
-  
-              <span id='likeCntModal{{list_id}}'> {{like}} </span>
-              <a class="icons-sm" > <!-- 좋아요 -->
-              <i class="fas fa-heart" id="likeModal{{list_id}}" 
-                ></i>
-              </a>
-            </span>
-          
-            <hr>
-
-            <!-- 댓글창 -->
-            <section class="my-5">
-             
-              <div class="row">  
-                <div class="col-md-12">  
-                  <div class="mdb-feed"> 
-
-                    {{caller()}}
-                    
-                  </div> <!-- Newsfeed --> 
-
-                  <!-- 댓글 작성 -->
-                    <button class="float-right mb-1 mr-2 btn-sm btn-outline-info" id='cmtAdd{{list_id}}' style="display: none;" onclick='addCmt({{list_id}})'> 완료 </button>
-                    <button class="float-right mb-1 mr-1 btn-sm btn-outline-info" id='cancel{{list_id}}' style="display: none;" onclick='closeCmt({{list_id}})'> 취소 </button>
-                    <button class="float-right mb-1 btn-sm btn-outline-info" id='cmt{{list_id}}' onclick='openCmt({{list_id}})'> 댓글 작성 </button>
-                    
-                    
-                    <div class="form-group green-border-focus col-11 float-right" id="commentArea1{{list_id}}" style="display: none;">
-                      
-                      <textarea class="form-control" id="commentArea2{{list_id}}" rows="3" placeholder="Write your comment..."></textarea>
-                      
-                    </div>   
-        
-                </div> <!-- Grid column -->
-              </div> <!-- Grid row -->
-              
-            </section>
-            <!-- 댓글 -->
-            
-
-          
-            
-          </div>
-        </div>
+        <div class="" id="cm{{list_id}}"></div>
       </div>
     </div>
   </div>
 </div>
+
+
+<script id="card_modal_{{list_id}}" type="text/x-handlebars-template">
+  {% raw %}
+  <div class="col-lg-12">
+      
+    <div class="label mt-2">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20)-mini.jpg" class="rounded-circle"> {{writer_name}}
+    </div>
+    
+    <br>
+    
+    <div class="text-center text-break h-50 rounded-lg py-3 px-4 mb-4 light-blue lighten-5">
+      <h4>{{list_title}}</h4>
+    </div>
+
+    <div class="mb-3">
+      <h6 class="text-muted text-break px-2">{{list_txt}}</h6>
+    </div>
+    
+
+    <br>
+    
+    <a class="text-muted">댓글</a><span id='cmtCnt'> {{cmt_count}} </span> {{!-- 댓글수 --}}
+
+    <span class="float-right" >
+
+      <span> 
+        <span id="hateCntModal{{list_id}}">{{hatecnt}}</span> {{!-- 싫어요 --}}
+        <a class="icons-sm"> 
+        <i class="fas fa-heart-broken ml-1 mr-1" id="hateModal{{list_id}}" 
+          ></i> 
+        </a>
+      </span>
+
+      <span id='likeCntModal{{list_id}}'> {{likecnt}} </span> {{!-- 좋아요 --}}
+      <a class="icons-sm" > 
+      <i class="fas fa-heart" id="likeModal{{list_id}}" 
+        ></i>
+      </a>
+    </span>
+
+    <hr>
+
+    <section class="my-5">
+      
+      <div class="row">  
+        <div class="col-md-12">  
+          <div class="mdb-feed" id='comments{{list_id}}'></div> {{!-- mdb-feed --}}
+
+            
+          <button class="float-right mb-1 mr-2 btn-sm btn-outline-info" id='cmtAdd{{list_id}}' style="display: none;" onclick='addCmt({{list_id}})'> 완료 </button>
+          <button class="float-right mb-1 mr-1 btn-sm btn-outline-info" id='cancel{{list_id}}' style="display: none;" onclick='closeCmt({{list_id}})'> 취소 </button>
+          <button class="float-right mb-1 btn-sm btn-outline-info" id='cmt{{list_id}}' onclick='openCmt({{list_id}})'> 댓글 작성 </button>
+          
+            
+          <div class="form-group green-border-focus col-11 float-right" id="commentArea1{{list_id}}" style="display: none;">
+            
+            <textarea class="form-control" id="commentArea2{{list_id}}" rows="3" placeholder="Write your comment..."></textarea>
+            
+          </div>   
+
+        </div> 
+      </div> 
+      
+    </section>
+ 
+  </div>
+  {% endraw %} 
+</script>
+
+
+<!-- 댓글 -->
+<script id="comment_template_{{list_id}}" type="text/x-handlebars-template">
+{% raw %}
+    {{#if cmts}}
+    {{#each cmts}}
+      <div class="news" >
+        <div class="label">
+        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
+        </div>
+
+        <div class="excerpt">
+        
+            <div class="brief">
+                <a class="name">{{writer_name}}</a> 
+                <div class="date float-right">{{cmt_date}}</div>
+            </div>
+
+            <div class="added-text"> {{cmt_txt}} </div>
+            
+            <div class="feed-footer">
+                <a class="like mr-1">
+                <i class="fas fa-heart"></i>
+                <span>{{cmt_like}} 좋아요
+                </a>
+                <a class="like">
+                <i class="fas fa-heart-broken"></i>
+                <span>{{cmt_hate}} 싫어요</span>
+                </a>
+            </div>
+        </div>
+      </div>  
+    {{/each }}
+    {{/if}}
+    
+{% endraw %}   
+</script>
+
+
 {%- endmacro %}
 
 

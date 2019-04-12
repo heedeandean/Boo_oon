@@ -30,11 +30,11 @@ def main():
     lists = Lists.query.options(joinedload(Lists.fk_users)).order_by(Lists.list_id.desc())
     lists = lists.filter(Lists.public == 1)
 
-    print( 'boo의 리스트 ?!?!?!?!?!?', lists )
+    #print( 'boo의 리스트 ?!?!?!?!?!?', lists )
 
-    for l in lists :
-        print(l)
-        print("##########", l.fk_users.username)
+    #for l in lists :
+       # print(l)
+        #print("##########", l.fk_users.username)
 
     if islogin == False :
         user = ''
@@ -121,8 +121,6 @@ def login_post():
             user = u.username
 
             session['loginUser'] = { 'username': u.username }
-
-            print('login의 두번째 islogin >>>???>>>>', islogin)
 
             return redirect("/boo")
             
@@ -212,17 +210,18 @@ def hate():
 def comment():
     global user
     u = Users.query.filter(Users.username == user).first()
-
     
+
     list_id = request.values.get('list_id')
     cmt_txt = request.values.get('cmt_txt')
     ( cmt_date, cmt_like, cmt_hate ) = (None, None, None)
 
-    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@', u.userno, list_id, cmt_txt)
-
     c = Cmt(u.userno, cmt_txt, cmt_date, list_id, cmt_like, cmt_hate)
 
+    lst = Lists.query.filter(Lists.list_id == list_id).first()
+
     try:
+        lst.cmt_count += 1
         db_session.add(c)
         db_session.commit()
         
@@ -232,7 +231,7 @@ def comment():
 
     return redirect('/boo')
     
-    
+
 # 카드 상세 모달
 @app.route('/boo/card/<list_id>', methods=['GET'])
 def card(list_id):
