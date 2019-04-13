@@ -350,7 +350,7 @@
         var txt = $('#commentArea2' + id).val()
 
         send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', 
-        getComment(id) )
+        function(data) { getComment(data) } )
         ;
         
         $('#cancel'+ id).hide();
