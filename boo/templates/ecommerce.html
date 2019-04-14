@@ -349,15 +349,15 @@
       function addCmt(id){
         var txt = $('#commentArea2' + id).val()
 
-        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', 
-        function(data) { getComment(data) } )
-        ;
+        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '' );
         
         $('#cancel'+ id).hide();
         $('#cmtAdd' + id).hide();
         $('#cmt' + id).show();
         $('#commentArea1' + id).hide();
         $('#commentArea2' + id).val('');
+
+        getComment(id);
       }
 
       function openModals(id) {
@@ -386,7 +386,7 @@
           if ( result ) {
             //$('#' + resultId).append(data[data.length])
             console.log('comment resultId', resultId)
-            console.log('last data', Object.values(data),)
+            console.log('last data', Object.values(data))
           
           } else {
             document.getElementById(resultId).innerHTML = html;
