@@ -94,17 +94,17 @@
     <span class="float-right" >
 
       <span> 
-        <span id="hateCntModal{{list_id}}">{{hatecnt}}</span> {{!-- 싫어요 --}}
+        <span id="hateCnt{{list_id}}">{{hatecnt}}</span> {{!-- 싫어요 --}}
         <a class="icons-sm"> 
-        <i class="fas fa-heart-broken ml-1 mr-1" id="hateModal{{list_id}}" 
-          ></i> 
+        <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" 
+           onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
         </a>
       </span>
 
-      <span id='likeCntModal{{list_id}}'> {{likecnt}} </span> {{!-- 좋아요 --}}
+      <span id='likeCnt{{list_id}}'> {{likecnt}} </span> {{!-- 좋아요 --}}
       <a class="icons-sm" > 
-      <i class="fas fa-heart" id="likeModal{{list_id}}" 
-        ></i>
+      <i class="fas fa-heart" id="like{{list_id}}" 
+         onclick="like_hate('like','hate',{{list_id}},'text-info','text-primary')"></i>
       </a>
     </span>
 
