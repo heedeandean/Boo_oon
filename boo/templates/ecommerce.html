@@ -349,15 +349,18 @@
       function addCmt(id){
         var txt = $('#commentArea2' + id).val()
 
-        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '' );
+        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', function(res){
+          console.log('댓쓰기 완료')
+          getComment(id)
+        }
+         
+         );
         
         $('#cancel'+ id).hide();
         $('#cmtAdd' + id).hide();
         $('#cmt' + id).show();
         $('#commentArea1' + id).hide();
         $('#commentArea2' + id).val('');
-
-        getComment(id);
       }
 
       function openModals(id) {
@@ -384,10 +387,14 @@
           var result = document.getElementById(resultId).innerHTML;
   
           if ( result ) {
-            //$('#' + resultId).append(data[data.length])
             console.log('comment resultId', resultId)
-            console.log('last data', Object.values(data))
-          
+            console.log('last data', Object.values(data)[0][0])
+            
+             $('#' + resultId).append(Object.values(data)[0][0])
+             console.log('data[cmts]', data)
+
+             data['cmts'].push(Object.values(data)[0][0])
+             render(template, data, resultId)
           } else {
             document.getElementById(resultId).innerHTML = html;
           }
