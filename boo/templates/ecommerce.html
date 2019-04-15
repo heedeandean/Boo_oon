@@ -299,38 +299,16 @@
       }
 
       function one(feel, id, status, classAR, color){
-        var one = parseInt($("#" + feel + "Cnt" + id).text())
-
-        if (classAR == 'addClass'){
-          $("#" + feel + id).addClass(color);
-          if (feel == 'like'){
-            $("#" + feel + "Cnt" + id).text(one + 1);
-          }else { $("#" + feel + "Cnt" + id).text(one - 1); }
-         
-        } else {
-          $("#" + feel + id).removeClass(color);
-          if (feel == 'like'){
-            $("#" + feel + "Cnt" + id).text(one - 1);
-          }else { $("#" + feel + "Cnt" + id).text(one + 1); }
-    
-        }
 
         send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
+
       }
+
 
       // 카드 클릭시, 세부 내용 모달 띄우는 함수
       function card_modal(id){
         openModals(id);
-        //getComment(id);
         $('#cardModal'+id).modal('show');
-      }
-
-
-      // 댓글테스트.
-      function controlRegist(myId, panelId) {
-
-        $('#' + myId).toggle();
-        $('#' + panelId).toggle();
       }
 
 
@@ -367,18 +345,18 @@
       // 카드 + 상세 모달
       function openModals(id) {
         send_ajax("/boo/card/" + id, 'GET', '', '', function(res) {
-            console.log("modals>>", res)
-            hbs( 'card_modal_'+ id, res, 'cm' + id);  
+          console.log("modals>>", res)
+          hbs( 'card_modal_'+ id, res, 'cm' + id);  
 
-            getComment(id);
+          getComment(id);
         }); 
       }
       
        function getComment(id) {
         send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
-            if (!res || !res.length) return;
-            console.log("comments>>", res)
-            hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
+          if (!res || !res.length) return;
+          console.log("comments>>", res)
+          hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
         });
       } 
 
@@ -401,6 +379,10 @@
       function render(template, data, resultId) {
         document.getElementById(resultId).innerHTML = template(data);
       }
+
+
+      // 카드
+      
 
   </script>
 

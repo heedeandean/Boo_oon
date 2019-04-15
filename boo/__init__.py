@@ -231,18 +231,33 @@ def comment():
         db_session.rollback()
 
     return redirect('/boo')
+
+
+# 카드 
+@app.route('/boo/card', methods=['GET'])
+def cards():
+
+    lists = Lists.query.order_by(Lists.list_id.desc())
+    lists = lists.filter(Lists.public == 1).all()
+
+    # lst = Lists.query.all()
+
+    print('@@@####@@@###@@@#####', '카드 리스트 가져왔다 ~~~~~~~')
+    return jsonify( [l.json() for l in lists] )
     
 
-# 카드 상세 모달
+# 상세 모달
 @app.route('/boo/card/<list_id>', methods=['GET'])
 def card(list_id):
 
     lst = Lists.query.filter(Lists.list_id == list_id).first()
+
     print('@@@####@@@###@@@#####', lst)
+
     return jsonify( lst.json() )
 
 
-# 카드 댓글
+# 댓글
 @app.route('/boo/comment/<list_id>', methods=['GET'])
 def comments(list_id):
     cmts = Cmt.query.filter('list_id=:list_id').params(
