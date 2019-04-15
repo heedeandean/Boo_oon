@@ -218,10 +218,10 @@ def comment():
 
     c = Cmt(u.userno, cmt_txt, cmt_date, list_id, cmt_like, cmt_hate)
 
-    lst = Lists.query.filter(Lists.list_id == list_id).first()
+    # lst = Lists.query.filter(Lists.list_id == list_id).first()
 
     try:
-        lst.cmt_count += 1
+        # lst.cmt_count += 1
         db_session.add(c)
         db_session.commit()
         print('댓쓰기 @@@@@@@@@@@@@@@@', lst)

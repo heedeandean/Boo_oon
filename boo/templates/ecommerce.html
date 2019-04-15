@@ -335,7 +335,7 @@
 
 
       // 댓글 버튼 
-      //$().button('disponse')
+      //$().button('dispose')
 
       function controlCmt(id){
         if ( $('#writeModalUser').text().length == 0 ){
@@ -363,6 +363,8 @@
         }
       }
 
+
+      // 카드 + 상세 모달
       function openModals(id) {
         send_ajax("/boo/card/" + id, 'GET', '', '', function(res) {
             console.log("modals>>", res)
@@ -378,8 +380,10 @@
             console.log("comments>>", res)
             hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
         });
-      }
+      } 
 
+
+      // 핸들바
       function hbs(sourceId, data, resultId) {
           var source = document.getElementById(sourceId).innerHTML;
           var template = Handlebars.compile(source);
@@ -394,10 +398,9 @@
           }
       }
       
-
       function render(template, data, resultId) {
         document.getElementById(resultId).innerHTML = template(data);
-        }
+      }
 
   </script>
 
