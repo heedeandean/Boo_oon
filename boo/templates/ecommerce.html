@@ -325,25 +325,28 @@
         $('#cardModal'+id).modal('show');
       }
 
+
+      // 댓글테스트.
+      function controlRegist(myId, panelId) {
+
+        $('#' + myId).toggle();
+        $('#' + panelId).toggle();
+      }
+
+
       // 댓글 버튼 
       //$().button('disponse')
-      function openCmt(id){
+
+      function controlCmt(id){
         if ( $('#writeModalUser').text().length == 0 ){
           alert('로그인이 필요합니다.')
         }else {
-        $('#cancel'+ id).show();
-        $('#cmtAdd' + id).show();
-        $('#cmt' + id).hide();
-        $('#commentArea1' + id).show();
+        $('#cancel'+ id).toggle();
+        $('#cmtAdd' + id).toggle();
+        $('#cmt' + id).toggle();
+        $('#commentArea1' + id).toggle();
+        // $('#commentArea2' + id).val('');
         }
-      }
-
-      function closeCmt(id){
-        $('#cancel'+ id).hide();
-        $('#cmtAdd' + id).hide();
-        $('#cmt' + id).show();
-        $('#commentArea1' + id).hide();
-        $('#commentArea2' + id).val('');
       }
 
       function addCmt(id){
@@ -353,14 +356,7 @@
           console.log('댓쓰기 완료')
           getComment(id)
         }
-         
          );
-        
-        $('#cancel'+ id).hide();
-        $('#cmtAdd' + id).hide();
-        $('#cmt' + id).show();
-        $('#commentArea1' + id).hide();
-        $('#commentArea2' + id).val('');
       }
 
       function openModals(id) {
