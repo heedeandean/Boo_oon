@@ -43,15 +43,14 @@
         <span class="discount"> 
             <span id="hateCnt{{list_id}}">{{hatecnt}}</span>
             <a class="icons-sm"> 
-            <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" 
-            onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
+            <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" onclick="add_hate({{list_id}})" ></i> 
             </a>
         </span>
 
-        <span id='likeCnt{{list_id}}'> {{likecnt}} </span>
+        <span id='likeCnt{{list_id}}'>{{likecnt}}</span>
 
-        <a class="icons-sm" > 
-        <i class="fas fa-heart" id="like{{list_id}}" onclick="like_hate('like','hate',{{list_id}},'text-info','text-primary')"></i>
+        <a class="icons-sm" >
+        <i class="fas fa-heart" id="like{{list_id}}" onclick="add_like({{list_id}})"></i>
         </a>
     </span>
 {% endraw %}    

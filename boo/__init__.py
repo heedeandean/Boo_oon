@@ -190,6 +190,7 @@ def hate():
                 lst.likecnt += 1
             elif num == 'del' :
                 lst.likecnt -= 1
+
         elif feel == 'hate':
             if num == 'add' :
                 lst.hatecnt -= 1
@@ -224,7 +225,7 @@ def comment():
         # lst.cmt_count += 1
         db_session.add(c)
         db_session.commit()
-        print('댓쓰기 @@@@@@@@@@@@@@@@', lst)
+        
         
     except Exception as err:
         print("Error on users>>>", err)
