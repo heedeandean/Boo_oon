@@ -234,13 +234,12 @@ def comment():
 
 
 # 카드 
-@app.route('/boo/card', methods=['GET'])
+@app.route('/boo/lists', methods=['GET'])
 def cards():
 
     lists = Lists.query.order_by(Lists.list_id.desc())
     lists = lists.filter(Lists.public == 1).all()
 
-    # lst = Lists.query.all()
 
     print('@@@####@@@###@@@#####', '카드 리스트 가져왔다 ~~~~~~~')
     return jsonify( [l.json() for l in lists] )
@@ -266,8 +265,6 @@ def comments(list_id):
     print('@@@####@@@###@@@#####cmts', cmts)
 
     return jsonify([c.json() for c in cmts])
-
-
 
 
 

@@ -108,10 +108,11 @@
 
 {{ login_modal('loginModal') }}
 
+ <!--Main
 {% for l in lists%}
   {{ card_modal(l.list_id) }}
 {% endfor %}
-
+ Layout-->
 
   <!--Main Layout-->
   <main>
@@ -131,13 +132,7 @@
 
 
         <!--Grid row 카드 자리-->
-        <div class="row">
-        
-          {% for l in lists%}
-            {{ card(l.list_id, l.list_title, l.list_txt, l.cmt_count, l.hatecnt, l.likecnt) }}
-          {% endfor %}
-
-        </div>
+        {{ card() }}
         <!--Grid row 카드 자리-->
 
       </section>

@@ -39,6 +39,7 @@
   <script>
     new WOW().init();
 
+
     // 화살표 함수 : panel8에서 모두 입력 시 panel9로 넘어감.
     function controlRegist(myId, panelId) {
       if(trimHas('modalLRInput12') && trimHas('modalLRInput13') && 
@@ -273,6 +274,8 @@
             }) // end ajax
       }); // end blur
 
+
+
       // 잘못된 회원 정보 입력 시 로그인 막기
       $('#loginForm').submit(function(event){
 
@@ -283,8 +286,9 @@
 
       });
 
+      
 
-      // 좋아요, 싫어요 처리 함수        
+      // 좋아요, 싫어요 처리    
       function like_hate(my, el , id, mycolor, elsecolor) {
         if ($("#" + my + id).hasClass(mycolor)) {
             one(my, id, 'del', 'removeClass', mycolor);
@@ -300,8 +304,25 @@
 
       function one(feel, id, status, classAR, color){
 
-        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
+        if (classAR == 'addClass'){
+          $("#" + feel + id).addClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one + 1);
+          }else { $("#" + feel + "Cnt" + id).text(one - 1); }
+         
+        } else {
+          $("#" + feel + id).removeClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one - 1);
+          }else { $("#" + feel + "Cnt" + id).text(one + 1); }
+    
+        }
 
+        onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"
+
+        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '', function(res){
+          getFooter(id)
+        });
       }
 
 
@@ -323,7 +344,7 @@
         $('#cmtAdd' + id).toggle();
         $('#cmt' + id).toggle();
         $('#commentArea1' + id).toggle();
-        // $('#commentArea2' + id).val('');
+        $('#commentArea2' + id).val('');
         }
       }
 
@@ -337,6 +358,7 @@
           send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', function(res){
             console.log('댓쓰기 완료')
             getComment(id)
+            $('#commentArea2' + id).val('');
           });
         }
       }
@@ -352,13 +374,20 @@
         }); 
       }
       
-       function getComment(id) {
+      function getComment(id) {
         send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
           if (!res || !res.length) return;
           console.log("comments>>", res)
           hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
         });
       } 
+
+      function getFooter(id){
+        send_ajax('/boo/card/' + id, 'GET', '', '', function(res) {
+          if (!res) return;
+          hbs('cardFooter', res, 'card_footer' + id);
+        });
+      }
 
 
       // 핸들바
@@ -381,7 +410,21 @@
       }
 
 
-      // 카드
+      // 카드 초기값 셋팅
+      $(document).ready(function () {
+        var path = '{{request.path}}';
+        console.log("path>>", path)
+        if (path === '/boo') {
+          send_ajax('/boo/lists', 'GET', '', '', function (res) {
+            if (!res || !res.length) return;
+            hbs('card_lists', { lists : res }, 'acard')
+
+            res.forEach( function(r) {
+              getFooter(r.list_id);
+            });
+          }); // send_ajax
+        } // if
+      }) // ready
       
 
   </script>

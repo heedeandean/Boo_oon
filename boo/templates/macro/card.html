@@ -1,38 +1,63 @@
-{% macro card(list_id, title, txt, cmt_cnt, hate_cnt, like_cnt) -%}
+{% macro card() -%}
 <!-- 카드 -->
-<div class="col-lg-4 col-md-6 mb-3" id='card'>
+
+<div class="row" id='acard'></div>
+
+<script id="card_lists" type="text/x-handlebars-template">
+
+{% raw %}
+{{#if lists }}
+{{#each lists }}
+
+<div class="col-lg-4 col-md-6 mb-3" id='card{{list_id}}'>
 
     <!--Card Primary-->
     <div class="card text-center z-depth-2">
+
         <div class="card-body" id='card-body' onclick='card_modal({{list_id}})'>
-        <h5 class="font-weight mt-2 mb-3">{{title}}</h5>
-        <p class="text-muted mb-0">{{txt}}</p>
+        <h5 class="font-weight mt-2 mb-3">{{list_title}}</h5>
+        <p class="text-muted mb-0">{{list_txt}}</p>
         </div>
 
         <!--Card footer-->
-        <div class="card-footer" id='card_footer{{list_id}}'>
-            <span class="float-left"><i class="far fa-comment-dots mr-2"></i>{{cmt_cnt}} </span>
-            <span class="float-right" >
+        <div class="card-footer" id='card_footer{{list_id}}'></div>
 
-                <span class="discount"> 
-                    <span id="hateCnt{{list_id}}">{{hate_cnt}}</span>
-                    <a class="icons-sm"> 
-                    <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" 
-                    onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
-                    </a>
-                </span>
-    
-                <span id='likeCnt{{list_id}}'> {{like_cnt}} </span>
-            
-                <a class="icons-sm" > 
-                <i class="fas fa-heart" id="like{{list_id}}" onclick="like_hate('like','hate',{{list_id}},'text-info','text-primary')"></i>
-                </a>
-            </span>
-        </div>
     </div>
     <!--/.Card Primary-->    
 
 </div>
+
+{{/each }}
+{{/if }}
+
+{% endraw %}
+</script>
+
+
+<script id="cardFooter" type="text/x-handlebars-template">
+
+{% raw %}
+    <span class="float-left"><i class="far fa-comment-dots mr-2"></i>{{cmt_count}} </span>
+    <span class="float-right" >
+
+        <span class="discount"> 
+            <span id="hateCnt{{list_id}}">{{hatecnt}}</span>
+            <a class="icons-sm"> 
+            <i class="fas fa-heart-broken ml-1 mr-1" id="hate{{list_id}}" 
+            onclick="like_hate('hate','like',{{list_id}},'text-primary','text-info')"></i> 
+            </a>
+        </span>
+
+        <span id='likeCnt{{list_id}}'> {{likecnt}} </span>
+
+        <a class="icons-sm" > 
+        <i class="fas fa-heart" id="like{{list_id}}" onclick="like_hate('like','hate',{{list_id}},'text-info','text-primary')"></i>
+        </a>
+    </span>
+{% endraw %}    
+
+</script>            
 <!-- 카드 -->
+
 {%- endmacro %}
 
