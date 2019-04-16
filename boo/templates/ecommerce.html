@@ -288,31 +288,42 @@
 
       
       // 좋아요, 싫어요 처리    
-      function add_like(id){
-        if ( !( $('#like' + id).hasClass('text-info') ) ){
-            send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : 'add', 'feel' : 'like'}, '', function(res){
-              getFooter(id)
-            });
-
-        }else{
-          send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : 'del', 'feel' : 'like'}, '', function(res){
-            getFooter(id)
-          });
+      
+      function like_hate(my, el , id, mycolor, elsecolor) {
+        if ($("#" + my + id).hasClass(mycolor)) {
+            one(my, id, 'del', mycolor);
+            
+        } else if ($("#"+ el + id).hasClass(elsecolor)){ 
+            one(el, id, 'del', elsecolor);
+            one(my, id, 'add', mycolor);
+            
+        } else {
+            one(my, id, 'add', mycolor);
         }
       }
 
-       function add_hate(id){
-        if ( !( $('#hate' + id).hasClass('text-primary') ) ){
-            send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : 'add', 'feel' : 'hate'}, '', function(res){
-              getFooter(id)
-            });
+      function one(feel, id, status, color){
+      
+        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '', function(res){
 
-        }else{
-          send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : 'del', 'feel' : 'hate'}, '', function(res){
-            getFooter(id)
-          });
-        }
+          if (status == 'add'){
+          $('#'+feel+id).addClass(color)
+          }else{
+            $('#'+feel+id).removeClass(color)
+          }
+
+          getFooter(id)
+        });
       }
+
+
+      function cmt_like_hate(id, cmt_id, status){
+      
+        send_ajax('/boo/cmt_like_hate/'+id, 'POST', {'list_id' : id, 'num' : status, 'cmt_id' : cmt_id}, '', function(res){  
+          getComment(id)
+        });
+      }
+
 
 
       // 카드 클릭시, 세부 내용 모달 띄우는 함수
@@ -372,44 +383,27 @@
         });
       } 
 
+
       function getFooter(id){
         send_ajax('/boo/card/' + id, 'GET', '', '', function(res) {
           if (!res) return;
-
-          var origin_likecnt = $('#likeCnt'+id).text();
-          var origin_hatecnt = parseInt($('#hateCnt'+id).text());
-          console.log('hatecnt1', origin_hatecnt)
+         
+          var $likeid =  $('#like'+id).hasClass('text-info') 
+          var $hateid =  $('#hate'+id).hasClass('text-primary')     
 
           hbs('cardFooter', res, 'card_footer' + id);
 
+          if  ( $likeid ) {
+            $('#like'+id).addClass('text-info') 
+          }else {
+            $('#like'+id).removeClass('text-info') 
+          }
 
-          if( origin_hatecnt ){
-            var new_hatecnt = parseInt($('#hateCnt'+id).text());
-            console.log('hatecnt3', new_hatecnt)
-
-            if ( origin_hatecnt > new_hatecnt ){
-              console.log('hatecnt3', '대소비교 안돼?')
-              $('#hate'+id).addClass('text-primary') 
-              console.log('hatecnt3', '대소비교 안돼?')
-
-            }else if ( origin_hatecnt < new_hatecnt ){
-              $('#hate'+id).removeClass('text-primary')
-            }     
-
-          } // if
-          
-          if( origin_likecnt ){
-            var new_likecnt = $('#likeCnt'+id).text();
-            
-            if ( origin_likecnt < new_likecnt ){
-              $('#like'+id).addClass('text-info') 
-
-            }else if ( origin_likecnt > new_likecnt ){
-              $('#like'+id).removeClass('text-info')
-            }     
-
-          } // if
-      
+          if  ( $hateid ) {
+            $('#hate'+id).addClass('text-primary') 
+          }else {
+            $('#hate'+id).removeClass('text-primary') 
+          }
 
         }); // send_ajax
       } //getFooter

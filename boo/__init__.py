@@ -175,7 +175,7 @@ def write():
     return redirect('/boo')
     
 
-# 좋아요, 싫어요 수 조정
+# 뜬구름 좋아요, 싫어요 수 조정
 @app.route('/boo/like_hate', methods=['GET', 'POST'])
 def hate():
     l_id = request.values.get('list_id')
@@ -188,14 +188,39 @@ def hate():
         if feel == 'like' :
             if num == 'add' :
                 lst.likecnt += 1
-            elif num == 'del' :
+            else :
                 lst.likecnt -= 1
 
         elif feel == 'hate':
             if num == 'add' :
                 lst.hatecnt -= 1
-            elif num == 'del' :
+            else :
                 lst.hatecnt += 1
+
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return redirect('/boo')
+
+# 뜬구름 좋아요, 싫어요 수 조정
+@app.route('/boo/cmt_like_hate/<list_id>', methods=['POST'])
+def cmt_like(list_id):
+    
+    num = request.values.get('num')
+    cmt_id = request.values.get('cmt_id')
+
+    cmt = Cmt.query.filter('list_id=:list_id and cmt_id=:cmt_id').params(
+        list_id=list_id, cmt_id=cmt_id).first()
+
+    try:
+       
+        if num == 'add' :
+            cmt.cmt_like += 1
+        else :
+            cmt.cmt_hate -= 1
 
         db_session.commit()
 
@@ -219,10 +244,7 @@ def comment():
 
     c = Cmt(u.userno, cmt_txt, cmt_date, list_id, cmt_like, cmt_hate)
 
-    # lst = Lists.query.filter(Lists.list_id == list_id).first()
-
     try:
-        # lst.cmt_count += 1
         db_session.add(c)
         db_session.commit()
         
@@ -252,18 +274,15 @@ def card(list_id):
 
     lst = Lists.query.filter(Lists.list_id == list_id).first()
 
-    print('@@@####@@@###@@@#####', lst)
-
     return jsonify( lst.json() )
 
 
 # 댓글
 @app.route('/boo/comment/<list_id>', methods=['GET'])
 def comments(list_id):
+
     cmts = Cmt.query.filter('list_id=:list_id').params(
         list_id=list_id).order_by(Cmt.cmt_id.desc()).all()
-
-    print('@@@####@@@###@@@#####cmts', cmts)
 
     return jsonify([c.json() for c in cmts])
 
