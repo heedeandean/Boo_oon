@@ -310,26 +310,40 @@
       
         send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '', function(res){
 
-          if (status == 'add'){
-          $('#'+feel+id).addClass(color)
-          }else{
-            $('#'+feel+id).removeClass(color)
-          }
-
-          getFooter(id)
         });
       }
 
-
-      function cmt_like_hate(id, cmt_id, status){
-      
-        send_ajax('/boo/cmt_like_hate/'+id, 'POST', {'list_id' : id, 'num' : status, 'cmt_id' : cmt_id}, '', function(res){  
-          getComment(id)
-        });
+      function like_hate(my, el , id, mycolor, elsecolor) {
+        if ($("#" + my + id).hasClass(mycolor)) {
+          one(my, id, 'del', 'removeClass', mycolor);
+          
+        } else if ($("#"+ el + id).hasClass(elsecolor)){ 
+          one(el, id, 'del', 'removeClass', elsecolor);
+          one(my, id, 'add', 'addClass', mycolor);
+        } else {
+          one(my, id, 'add', 'addClass', mycolor)
+        }
       }
 
+      function one(feel, id, status, classAR, color){
+        var one = parseInt($("#" + feel + "Cnt" + id).text())
+        if (classAR == 'addClass'){
+          $("#" + feel + id).addClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one + 1);
+          }else { $("#" + feel + "Cnt" + id).text(one - 1); }
+         
+        } else {
+          $("#" + feel + id).removeClass(color);
+          if (feel == 'like'){
+            $("#" + feel + "Cnt" + id).text(one - 1);
+          }else { $("#" + feel + "Cnt" + id).text(one + 1); }
+    
+        }
+        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
+      }
 
-
+    
       // 카드 클릭시, 세부 내용 모달 띄우는 함수
       function card_modal(id){
         getModal(id);
@@ -370,9 +384,16 @@
 
       function deleteCmt(cmt_id) {
         send_ajax('/boo/comment/' + cmt_id, 'DELETE', '', '', function (res) {
-            console.log("res>>", res)
-            $('#cmt' + cmt_id).remove();
-            if (!res || res.result !== 'OK') return;
+          console.log("res>>", res)
+          $('#cmt' + cmt_id).remove();
+          if (!res || res.result !== 'OK') return;
+        });
+      }
+
+      function cmt_like_hate(id, cmt_id, status){
+      
+        send_ajax('/boo/cmt_like_hate/'+id, 'POST', {'list_id' : id, 'num' : status, 'cmt_id' : cmt_id}, '', function(res){  
+          getComment(id)
         });
       }
 
@@ -400,23 +421,7 @@
       function getFooter(id){
         send_ajax('/boo/card/' + id, 'GET', '', '', function(res) {
           if (!res) return;
-         
-          var $likeid =  $('#like'+id).hasClass('text-info') 
-          var $hateid =  $('#hate'+id).hasClass('text-primary')     
-
           hbs('cardFooter', res, 'card_footer' + id);
-
-          if  ( $likeid ) {
-            $('#like'+id).addClass('text-info') 
-          }else {
-            $('#like'+id).removeClass('text-info') 
-          }
-
-          if  ( $hateid ) {
-            $('#hate'+id).addClass('text-primary') 
-          }else {
-            $('#hate'+id).removeClass('text-primary') 
-          }
 
         }); // send_ajax
       } //getFooter
