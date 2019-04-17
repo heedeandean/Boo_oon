@@ -231,7 +231,7 @@ def cmt_like(list_id):
     return redirect('/boo')
 
 
-# 댓글 입력
+### 댓글 ####
 @app.route('/boo/comment', methods=['GET','POST'])
 def comment():
     global user
@@ -256,6 +256,31 @@ def comment():
     return redirect('/boo')
 
 
+@app.route('/boo/comment/<list_id>', methods=['GET'])
+def comment_get(list_id):
+
+    cmts = Cmt.query.filter('list_id=:list_id').params(
+        list_id=list_id).order_by(Cmt.cmt_id.desc()).all()
+
+    return jsonify([c.json() for c in cmts])
+
+
+@app.route('/boo/comment/<cmt_id>', methods=['DELETE'])
+def comment_delete(cmt_id):
+
+    print("DDDDDDDDDDDDDDDDD>>>", cmt_id)
+
+    try:
+        Cmt.query.filter(Cmt.cmt_id == cmt_id).delete()
+        db_session.commit()
+
+    except SQLAlchemyError as err:
+        db_session.rollback()
+        print("Error!!", err)
+
+    return jsonify({"result": 'OK'})
+
+
 # 카드 
 @app.route('/boo/lists', methods=['GET'])
 def cards():
@@ -276,15 +301,6 @@ def card(list_id):
 
     return jsonify( lst.json() )
 
-
-# 댓글
-@app.route('/boo/comment/<list_id>', methods=['GET'])
-def comments(list_id):
-
-    cmts = Cmt.query.filter('list_id=:list_id').params(
-        list_id=list_id).order_by(Cmt.cmt_id.desc()).all()
-
-    return jsonify([c.json() for c in cmts])
 
 
 

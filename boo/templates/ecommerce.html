@@ -26,6 +26,9 @@
 
 
   <!--  SCRIPTS  -->
+  <!-- Moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/ko.js"></script>
   <!-- Handlebars -->
   <script type="text/javascript" src="{{ url_for('static', filename='js/handlebars-v4.0.12.js')}}"></script>
   <!-- JQuery -->
@@ -36,6 +39,7 @@
   <script type="text/javascript" src="{{ url_for('static', filename="js/bootstrap.min.js") }}"></script>
   <!-- MDB core JavaScript -->
   <script type="text/javascript" src="{{ url_for('static', filename="js/mdb.min.js") }}"></script>
+
   <script>
     new WOW().init();
 
@@ -364,6 +368,15 @@
         }
       }
 
+      function deleteCmt(cmt_id) {
+        send_ajax('/boo/comment/' + cmt_id, 'DELETE', '', '', function (res) {
+            console.log("res>>", res)
+            $('#cmt' + cmt_id).remove();
+            if (!res || res.result !== 'OK') return;
+        });
+      }
+
+
 
       // 카드 + 상세 모달
       function getModal(id) {
@@ -427,6 +440,18 @@
       function render(template, data, resultId) {
         document.getElementById(resultId).innerHTML = template(data);
       }
+
+      Handlebars.registerHelper('formatDate', function(dateString) {
+        return moment(dateString).utc().format("YYYY.MM.DD  h:mm a");
+      });
+
+      Handlebars.registerHelper('isWriter', function( writer_name, cmt_id ){
+        //onclick="cmt_like_hate({{list_id}}, {{cmt_id}}, 'del')"
+        var user = $('#writeModalUser').text()
+        if ( writer_name == user) {
+          return new Handlebars.SafeString('<a class="like float-right" onclick="deleteCmt('+cmt_id+')"><span>삭제</span><i class="fas fa-times"></i></a>')
+        }
+      });
 
 
       // 카드 초기값 셋팅

@@ -138,6 +138,7 @@
 <!-- 댓글 -->
 <script id="comment_template_{{list_id}}" type="text/x-handlebars-template">
 {% raw %}
+
     {{#if cmts}}
     {{#each cmts}}
       <div class="news" id="cmt{{cmt_id}}" >
@@ -149,20 +150,24 @@
         
             <div class="brief">
                 <a class="name">{{writer_name}}</a> 
-                <div class="date float-right">{{ cmt_date | simpledate }}</div>
+                <div class="date float-right">{{formatDate cmt_date}}</div>
             </div>
 
-            <div class="added-text"> {{cmt_txt}} </div>
+            <div class="added-text"> {{cmt_txt}}</div>
             
             <div class="feed-footer">
                 <a class="like mr-1" onclick="cmt_like_hate({{list_id}}, {{cmt_id}}, 'add')">
                 <i class="fas fa-heart" ></i>
                 <span>{{cmt_like}} 좋아요
                 </a>
+
                 <a class="like" onclick="cmt_like_hate({{list_id}}, {{cmt_id}}, 'del')">
                 <i class="fas fa-heart-broken" ></i>
                 <span>{{cmt_hate}} 싫어요</span>
                 </a>
+
+                {{{isWriter writer_name cmt_id}}}
+               
             </div>
         </div>
       </div>  
