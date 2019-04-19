@@ -280,195 +280,237 @@
 
 
 
-      // 잘못된 회원 정보 입력 시 로그인 막기
-      $('#loginForm').submit(function(event){
+    // 잘못된 회원 정보 입력 시 로그인 막기
+    $('#loginForm').submit(function(event){
 
-        if(!(trimHas('modalLRInput10') && trimHas('modalLRInput11'))) {
-          alert('정보를 정확히 기입해 주세요.');
-          event.preventDefault();
-        } 
-
-      });
-
-      
-      // 좋아요, 싫어요 처리    
-      
-      function like_hate2(my, el , id, mycolor, elsecolor) {
-        if ($("#" + my + id).hasClass(mycolor)) {
-            one(my, id, 'del', mycolor);
-            
-        } else if ($("#"+ el + id).hasClass(elsecolor)){ 
-            one(el, id, 'del', elsecolor);
-            one(my, id, 'add', mycolor);
-            
-        } else {
-            one(my, id, 'add', mycolor);
-        }
-      }
-
-      function one(feel, id, status, color){
-      
-        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '', function(res){
-
-        });
-      }
-
-      function like_hate(my, el , id, mycolor, elsecolor) {
-        if ($("#" + my + id).hasClass(mycolor)) {
-          one(my, id, 'del', 'removeClass', mycolor);
-          
-        } else if ($("#"+ el + id).hasClass(elsecolor)){ 
-          one(el, id, 'del', 'removeClass', elsecolor);
-          one(my, id, 'add', 'addClass', mycolor);
-
-        } else {
-          one(my, id, 'add', 'addClass', mycolor)
-        }
-
-      }
-
-      function one(feel, id, status, classAR, color){
-        var one = parseInt($("#" + feel + "Cnt" + id).text())
-        if (classAR == 'addClass'){
-          $("#" + feel + id).addClass(color);
-          if (feel == 'like'){
-            $("#" + feel + "Cnt" + id).text(one + 1);
-          }else { $("#" + feel + "Cnt" + id).text(one - 1); }
-         
-        } else {
-          $("#" + feel + id).removeClass(color);
-          if (feel == 'like'){
-            $("#" + feel + "Cnt" + id).text(one - 1);
-          }else { $("#" + feel + "Cnt" + id).text(one + 1); }
-    
-        }
-
-        send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '', function(res){
-
-        });
-      }
-
-    
-      // 카드 클릭시, 세부 내용 모달 띄우는 함수
-      function card_modal(id){
-        getModal(id);
-        $('#cardModal'+id).modal('show');
-      }
-
-
-      // 댓글 
-
-      function controlCmt(id){
-        if ( $('#writeModalUser').text().length == 0 ){
-          alert('로그인이 필요합니다.')
-        }else {
-        $('#cancel'+ id).toggle();
-        $('#cmtAdd' + id).toggle();
-        $('#cmt' + id).toggle();
-        $('#commentArea1' + id).toggle();
-        $('#commentArea2' + id).val('');
-        }
-      }
-
-      function addCmt(id){
-        var txt = $('#commentArea2' + id).val()
-
-        if ( txt.length == 0 ){
-          alert('내용을 입력해주세요.')
-
-        }else{
-          send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', function(res){
-            console.log('댓쓰기 완료')
-            getComment(id)
-            $('#commentArea2' + id).val('');
-            getFooter(id);
-          });
-        }
-      }
-
-      function deleteCmt(cmt_id) {
-        send_ajax('/boo/comment/' + cmt_id, 'DELETE', '', '', function (res) {
-          console.log("res>>", res)
-          $('#cmt' + cmt_id).remove();
-          if (!res || res.result !== 'OK') return;
-        });
-      }
-
-      function cmt_like_hate(id, cmt_id, status){
-      
-        send_ajax('/boo/cmt_like_hate/'+id, 'POST', {'list_id' : id, 'num' : status, 'cmt_id' : cmt_id}, '', function(res){  
-          getComment(id)
-        });
-      }
-
-
-      var listRes;
-
-      // 카드 + 상세 모달
-      function getModal(id) {
-        
-          console.log(listRes['lists'][0]['list_id'])
-          // hbs( 'card_modal_'+ id, listRes[lists], 'cm' + id);  
-          //getComment(id);
-          console.log("modal text-info")
-
-      }
-      
-      
-      function getComment(id) {
-        send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
-          if (!res || !res.length) return;
-          console.log("comments>>", res)
-          hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
-        });
+      if(!(trimHas('modalLRInput10') && trimHas('modalLRInput11'))) {
+        alert('정보를 정확히 기입해 주세요.');
+        event.preventDefault();
       } 
 
+    });
 
-      // 핸들바
-      function hbs(sourceId, data, resultId) {
-          var source = document.getElementById(sourceId).innerHTML;
-          var template = Handlebars.compile(source);
-          html = template(data);
-          var result = document.getElementById(resultId).innerHTML;
-  
-          if ( result ) {
-            render(template, data, resultId)
-
-          } else {
-            document.getElementById(resultId).innerHTML = html;
-          }
-      }
       
-      function render(template, data, resultId) {
-        document.getElementById(resultId).innerHTML = template(data);
+    // 좋아요, 싫어요 처리    
+    function like_hate(my, el , id, mycolor, elsecolor) {
+      if ($("#" + my + id).hasClass(mycolor)) {
+        one(my, id, 'del', 'removeClass', mycolor);
+        
+      } else if ($("#"+ el + id).hasClass(elsecolor)){ 
+        one(el, id, 'del', 'removeClass', elsecolor);
+        one(my, id, 'add', 'addClass', mycolor);
+
+      } else {
+        one(my, id, 'add', 'addClass', mycolor)
+      }
+    }
+
+    function one(feel, id, status, classAR, color){
+      var one = parseInt($("#" + feel + "Cnt" + id).text())
+      if (classAR == 'addClass'){
+        $("#" + feel + id).addClass(color);
+        if (feel == 'like'){
+          listRes[id].likecnt++;
+          $("#" + feel + "Cnt" + id).text(one + 1);
+        }else { 
+          listRes[id].hatecnt--;
+          $("#" + feel + "Cnt" + id).text(one - 1); 
+          }
+        
+      } else {
+        $("#" + feel + id).removeClass(color);
+        if (feel == 'like'){
+          listRes[id].likecnt--;
+          $("#" + feel + "Cnt" + id).text(one - 1);
+        }else { 
+          listRes[id].hatecnt++ ;
+          $("#" + feel + "Cnt" + id).text(one + 1);
+        }
       }
 
-      Handlebars.registerHelper('formatDate', function(dateString) {
-        return moment(dateString).utc().format("YYYY.MM.DD  h:mm a");
-      });
+      send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : status, 'feel' : feel}, '');
+    }
 
-      Handlebars.registerHelper('isWriter', function( writer_name, cmt_id ){
-        //onclick="cmt_like_hate({{list_id}}, {{cmt_id}}, 'del')"
-        var user = $('#writeModalUser').text()
-        if ( writer_name == user) {
-          return new Handlebars.SafeString('<a class="like float-right" onclick="deleteCmt('+cmt_id+')"><span>삭제</span><i class="fas fa-times"></i></a>')
+    // 모달 좋아요, 싫어요
+    function m_like_hate(my, el , id, mycolor, elsecolor) {
+      if ($("#" + my + id).hasClass(mycolor)) {
+        mone(my, id, 'del', mycolor);
+        
+      } else if ($("#"+ el + id).hasClass(elsecolor)){ 
+        mone(el, id, 'del', elsecolor);
+        mone(my, id, 'add', mycolor);
+
+      } else {
+        mone(my, id, 'add', mycolor)
+      }
+    }
+
+    function mone(feel, id, num, color){
+      var mone = parseInt($("#" + feel + "CntModal" + id).text());
+    
+      if ( num == 'add'){
+        $('#'+ feel +'Modal' + id).addClass(color);
+        $('#'+ feel + id).addClass(color);
+        
+        if( feel == 'like'){
+          $('#likeCntModal' + id).text(mone + 1);
+          $('#likeCnt' + id).text(mone + 1);
+          listRes[id].likecnt++;
+        }else{
+          listRes[id].hatecnt--;
+          $('#hateCntModal' + id).text(mone - 1);
+          $('#hateCnt' + id).text(mone - 1);
         }
+
+      }else {
+        $('#'+ feel +'Modal' + id).removeClass(color);
+        $('#'+ feel + id).removeClass(color);
+
+        if( feel == 'like'){
+          $('#likeCntModal' + id).text(mone - 1);
+          $('#likeCnt' + id).text(mone - 1);
+          listRes[id].likecnt--;
+        }else{
+          $('#hateCntModal' + id).text(mone + 1);
+          $('#hateCnt' + id).text(mone + 1);
+          listRes[id].hatecnt++;
+        }
+      }
+
+      send_ajax('/boo/like_hate', 'POST', {'list_id' : id, 'num' : num, 'feel' : feel}, '');
+    }
+
+
+    // 카드 클릭시, 세부 내용 모달 띄우는 함수
+    function card_modal(id){
+      getModal(id);
+      console.log(listRes[id].hatecnt)
+      $('#cardModal'+id).modal('show');
+    }
+
+
+    // 댓글 
+    function controlCmt(id){
+      if ( $('#writeModalUser').text().length == 0 ){
+        alert('로그인이 필요합니다.')
+      }else {
+      $('#cancel'+ id).toggle();
+      $('#cmtAdd' + id).toggle();
+      $('#cmt' + id).toggle();
+      $('#commentArea1' + id).toggle();
+      $('#commentArea2' + id).val('');
+      }
+    }
+
+    function addCmt(id){
+      var txt = $('#commentArea2' + id).val()
+      var one = parseInt($("#cmtCnt" + id).text())
+
+      if ( txt.length == 0 ){
+        alert('내용을 입력해주세요.')
+
+      }else{
+        send_ajax('/boo/comment', 'POST', {'list_id' : id, 'cmt_txt' : txt}, '', function(res){
+          console.log('댓쓰기 완료')
+          getComment(id)
+          $('#commentArea2' + id).val('');
+          $('#cmtCnt' + id).text(one+1);
+          $('#cmtModalCnt' + id).text(one+1);
+          listRes[id].cmt_count++;
+        });
+      }
+    }
+
+    function deleteCmt(cmt_id, id) {
+      var one = parseInt($("#cmtCnt" + id).text())
+
+      send_ajax('/boo/comment/' + cmt_id, 'DELETE', '', '', function (res) {
+        console.log("res>>", res)
+        if (!res || res.result !== 'OK') return;
+        $('#cmt' + cmt_id).remove();
+        $('#cmtCnt' + id).text(one-1);
+        $('#cmtModalCnt' + id).text(one-1);
+        listRes[id].cmt_count--;
       });
+    }
+
+    function cmt_like_hate(id, cmt_id, status){
+      send_ajax('/boo/cmt_like_hate/'+id, 'POST', {'list_id' : id, 'num' : status, 'cmt_id' : cmt_id}, '', function(res){  
+        getComment(id)
+      });
+    }
 
 
-      // 카드 초기값 셋팅
-      $(document).ready(function () {
-        var path = '{{request.path}}';
-        console.log("path>>", path)
-        if (path === '/boo') {
-          send_ajax('/boo/lists', 'GET', '', '', function (res) {
-            if (!res || !res.length) return;
-            hbs('card_lists', { lists : res }, 'acard')
-            listRes = { lists : res };
+    var listRes = {};
 
-          }); // send_ajax
-        } // if
-      }) // ready
+    // 카드 + 상세 모달
+    function getModal(id) {
+      hbs( 'card_modal_'+ id, listRes[id], 'cm' + id);  
+      getComment(id);
+
+      if ( $('#like'+id).hasClass('text-info') ){
+        $('#likeModal'+id).addClass('text-info')
+      }else if ( $('#hate'+id).hasClass('text-primary') ){
+        $('#hateModal'+id).addClass('text-primary')
+      }
+    }  
+      
+    function getComment(id) {
+      send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
+        if (!res || !res.length) return;
+        console.log("comments>>", res)
+        hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
+      });
+    } 
+
+
+    // 핸들바
+    function hbs(sourceId, data, resultId) {
+        var source = document.getElementById(sourceId).innerHTML;
+        var template = Handlebars.compile(source);
+        html = template(data);
+        var result = document.getElementById(resultId).innerHTML;
+
+        if ( result ) {
+          render(template, data, resultId)
+
+        } else {
+          document.getElementById(resultId).innerHTML = html;
+        }
+    }
+      
+    function render(template, data, resultId) {
+      document.getElementById(resultId).innerHTML = template(data);
+    }
+
+    Handlebars.registerHelper('formatDate', function(dateString) {
+      return moment(dateString).utc().format("YYYY.MM.DD  h:mm a");
+    });
+
+    Handlebars.registerHelper('isWriter', function( writer_name, cmt_id, list_id ){
+      var user = $('#writeModalUser').text()
+      if ( writer_name == user) {
+        return new Handlebars.SafeString('<a class="like float-right" onclick="deleteCmt('+cmt_id+","+list_id+')"><span>삭제</span><i class="fas fa-times"></i></a>')
+      }
+    });
+
+
+    // 카드 초기값 셋팅
+    $(document).ready(function () {
+      var path = '{{request.path}}';
+      console.log("path>>", path)
+      if (path === '/boo') {
+        send_ajax('/boo/lists', 'GET', '', '', function (res) {
+          if (!res || !res.length) return;
+          hbs('card_lists', { lists : res }, 'acard')
+          
+          res.forEach( function(r) {
+            listRes[r.list_id] =  r
+          });
+          
+        }); // send_ajax
+      } // if
+    }) // ready
       
 
   </script>

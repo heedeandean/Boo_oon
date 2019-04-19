@@ -49,9 +49,8 @@ def main():
 @app.route('/boo/idcheck', methods=['GET','POST'])
 def ifexists():
     username = request.form.get('username')
-
+    
     checkid = Users.query.filter(Users.username == username).first()
-
     checkem = Users.query.filter(Users.email == username).first()
     
     if checkid == None and checkem == None :

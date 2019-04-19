@@ -88,20 +88,22 @@
 
     <br>
     
-    <a class="text-muted">댓글</a><span id='cmtCnt'> {{cmt_count}} </span> {{!-- 댓글수 --}}
+    <a class="text-muted">댓글</a><span id='cmtModalCnt{{list_id}}'>{{cmt_count}}</span> {{!-- 댓글수 --}}
 
     <span class="float-right" >
 
       <span> 
         <span id="hateCntModal{{list_id}}">{{hatecnt}}</span> {{!-- 싫어요 --}}
         <a class="icons-sm"> 
-        <i class="fas fa-heart-broken ml-1 mr-1"></i> 
+        <i class="fas fa-heart-broken ml-1 mr-1" id='hateModal{{list_id}}'
+        onclick="m_like_hate('hate', 'like', {{list_id}}, 'text-primary', 'text-info')"></i> 
         </a>
       </span>
 
       <span id='likeCntModal{{list_id}}'> {{likecnt}} </span> {{!-- 좋아요 --}}
       <a class="icons-sm" > 
-      <i class="fas fa-heart" id='likeModal{{list_id}}'></i>
+      <i class="fas fa-heart" id='likeModal{{list_id}}' 
+      onclick="m_like_hate('like','hate',{{list_id}}, 'text-info','text-primary')"></i>
       </a>
     </span>
 
@@ -166,7 +168,7 @@
                 <span>{{cmt_hate}} 싫어요</span>
                 </a>
 
-                {{{isWriter writer_name cmt_id}}}
+                {{{isWriter writer_name cmt_id list_id}}}
                
             </div>
         </div>
