@@ -49,7 +49,7 @@ def main():
 @app.route('/boo/idcheck', methods=['GET','POST'])
 def ifexists():
     username = request.form.get('username')
-    
+
     checkid = Users.query.filter(Users.username == username).first()
     checkem = Users.query.filter(Users.email == username).first()
     
@@ -289,6 +289,14 @@ def cards():
 
 
     print('@@@####@@@###@@@#####', '카드 리스트 가져왔다 ~~~~~~~')
+    return jsonify( [l.json() for l in lists] )
+
+@app.route('/boo/rank', methods=['GET'])
+def rank():
+
+    lists = Lists.query.order_by(Lists.likecnt.desc())
+    lists = lists.filter(Lists.public == 1).all()
+
     return jsonify( [l.json() for l in lists] )
     
 
