@@ -30,12 +30,6 @@ def main():
     lists = Lists.query.options(joinedload(Lists.fk_users)).order_by(Lists.list_id.desc())
     lists = lists.filter(Lists.public == 1)
 
-    #print( 'boo의 리스트 ?!?!?!?!?!?', lists )
-
-    #for l in lists :
-       # print(l)
-        #print("##########", l.fk_users.username)
-
     if islogin == False :
         user = ''
     elif user != "" :
@@ -54,17 +48,12 @@ def ifexists():
     checkem = Users.query.filter(Users.email == username).first()
     
     if checkid == None and checkem == None :
-        print('실패실패', username)
         return jsonify(username='가입 가능')
 
-    elif checkid == None and checkem != None :
-        print('이메일 있음', username)
+    elif checkid == None and checkem != None : 
         return jsonify(username='이메일 있음')
 
     else : 
-        # response = make_response(render_template('ecom_main.html'))
-        # response.headers['Content-Type'] = '  application/x-www-form-urlencoded; charset=UTF-8'
-        print('성공성공')
         return jsonify(username='이미 있음')
 
 
@@ -291,6 +280,8 @@ def cards():
     print('@@@####@@@###@@@#####', '카드 리스트 가져왔다 ~~~~~~~')
     return jsonify( [l.json() for l in lists] )
 
+
+# 랭크
 @app.route('/boo/rank', methods=['GET'])
 def rank():
 
