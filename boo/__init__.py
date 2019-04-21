@@ -27,16 +27,12 @@ def main():
     session['islogin'] = {'islogin' : islogin}
     islogin = session.get('islogin')['islogin']
 
-    lists = Lists.query.options(joinedload(Lists.fk_users)).order_by(Lists.list_id.desc())
-    lists = lists.filter(Lists.public == 1)
-
     if islogin == False :
         user = ''
     elif user != "" :
         user = session.get('loginUser')['username']
-
     
-    return render_template('ecom_main.html', islogin = islogin, user = user, lists=lists)
+    return render_template('ecom_main.html', islogin = islogin, user = user)
 
 
 # 가입시 아이디, 이메일 중복 체크.
