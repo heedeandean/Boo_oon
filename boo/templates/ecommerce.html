@@ -385,7 +385,7 @@
     function card_modal(id){
       getModal(id);
       console.log(listRes[id].hatecnt)
-      $('#cardModal'+id).modal('show');
+      $('#cardModal').modal('show');
     }
 
 
@@ -445,7 +445,7 @@
 
     // 카드 + 상세 모달
     function getModal(id) {
-      hbs( 'card_modal_'+ id, listRes[id], 'cm' + id);  
+      hbs( 'card_modal', listRes[id], 'cm');  
       getComment(id);
 
       if ( $('#like'+id).hasClass('text-info') ){
@@ -459,7 +459,7 @@
       send_ajax('/boo/comment/' + id, 'GET', '', '', function(res) {
         if (!res || !res.length) return;
         console.log("comments>>", res)
-        hbs('comment_template_' + id, {cmts: res}, 'comments' + id);
+        hbs('comment_template', {cmts: res}, 'comments' + id);
       });
     } 
 

@@ -54,20 +54,20 @@
 {%- endmacro %}
 
 
-{% macro card_modal( list_id ) -%}
+{% macro card_modal() -%}
 <!-- Modal: 카드 상세 모달 -->
-<div class="modal fade" id="cardModal{{list_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog " role="document">
     <div class="modal-content rounded">
       
       <div class="modal-body">
-        <div class="" id="cm{{list_id}}"></div>
+        <div class="" id="cm"></div>
       </div>
     </div>
   </div>
 </div>
 
-<script id="card_modal_{{list_id}}" type="text/x-handlebars-template">
+<script id="card_modal" type="text/x-handlebars-template">
   {% raw %}
   <div class="col-lg-12">
       
@@ -138,7 +138,7 @@
 
 
 <!-- 댓글 -->
-<script id="comment_template_{{list_id}}" type="text/x-handlebars-template">
+<script id="comment_template" type="text/x-handlebars-template">
 {% raw %}
 
     {{#if cmts}}
