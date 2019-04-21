@@ -34,6 +34,11 @@ def main():
     
     return render_template('ecom_main.html', islogin = islogin, user = user)
 
+@app.route('/boo/sub', methods=['GET','POST'])
+def sub():
+    
+    return render_template('boo_sub.html')
+
 
 # 가입시 아이디, 이메일 중복 체크.
 @app.route('/boo/idcheck', methods=['GET','POST'])
