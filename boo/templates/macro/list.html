@@ -1,0 +1,46 @@
+{% macro keyword() -%}
+
+
+<script id="keyword_modal" type="text/x-handlebars-template">
+{% raw %}
+    
+     <div class="row">
+        <div class='col-lg-1'>
+        <h5>나이</h5>
+        </div>
+        <div class='col-lg-10'>
+            {{#list age}}{{/list }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class='col-lg-1'>
+        <h5>성별</h5>
+        </div>
+        <div class='col-lg-10'>
+            {{#list gender}}{{/list }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class='col-lg-1'>
+        <h5>지역</h5>
+        </div>
+        <div class='col-lg-10'>
+            {{#list city}}{{/list }}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class='col-lg-1'>
+        <h5>직업</h5>
+        </div>
+        <div class='col-lg-10'>
+            {{#list job}}{{/list }}
+        </div>
+    </div>
+   
+{% endraw %}
+</script>
+{%- endmacro %}
+

@@ -516,10 +516,61 @@
           hbs('slide_card_lists', { lists : [res[6], res[7], res[8]] }, 'slide_card3')
         })
           
-        }); // send_ajax
-      } // if
+        }); //send_ajax
+      } //if
+
+      if (path === '/boo/sub') {
+        send_ajax('/boo/lists', 'GET', '', '', function (res) {
+        if (!res || !res.length) return;
+        hbs('card_lists', { lists : res }, 'acard')
+        
+        res.forEach( function(r) {
+          listRes[r.list_id] =  r
+        });
+ 
+        }); //send_ajax
+
+      } //else if
     }) // ready
-      
+
+
+    // 키워드로 찾기
+    var keyword = 
+    {'age' : ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대이상'],
+    'gender' : ['여자', '남자'],
+    'city' : ['서울','경기','부산','울산','인천','대구','광주','대전','세종','강원','충북','충남','경북','경남','전북','전남','제주'],
+    'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', 
+              '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', 
+              '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
+    }
+
+    Handlebars.registerHelper('list', function(items) {
+      var out = "<ul style='list-style-type: none;'>";
+
+      for(var i=0, l=items.length; i<l; i++) {
+        out = out + '<li class="float-left mr-2 mt-2"><button type="button" class="btn-sm btn-outline-light-blue btn-rounded">'  + items[i] + "</button></li>";
+      }
+
+      return out + "</ul>";
+    });
+
+    
+
+    hbs('keyword_modal', keyword, 'keywords');
+
+    $( "ul li button" ).click(function(){
+      if ( $(this).hasClass('btn-outline-light-blue') ){
+        $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
+        send_ajax('/boo/sub', 'POST', {keyword : $(this).text() }, '', function(){
+          send_ajax('/boo/sub', 'GET', '', '', function (res) {
+            hbs('card_lists', { lists : res }, 'acard')
+          })
+        } )
+       
+      }else{
+        $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
+      }
+    });
 
   </script>
 

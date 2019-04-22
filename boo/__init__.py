@@ -34,10 +34,25 @@ def main():
     
     return render_template('ecom_main.html', islogin = islogin, user = user)
 
+
 @app.route('/boo/sub', methods=['GET','POST'])
 def sub():
+
+    kw = request.form.get('keyword')
     
+    if kw != None :
+        ret = Users.query.join(Album, Song.albumid == Album.albumid).filter(Song.likecnt < 10000)
+
+
+        lists = Users.query.filter(Users.city == kw).all()
+
+        print('#@@@@@@@@@@@@@@@@@@@',lists)
+
+
+        return jsonify( [l.json() for l in lists])
+
     return render_template('boo_sub.html')
+
 
 
 # 가입시 아이디, 이메일 중복 체크.
@@ -194,6 +209,7 @@ def hate():
     
     return redirect('/boo')
 
+
 # 뜬구름 좋아요, 싫어요 수 조정
 @app.route('/boo/cmt_like_hate/<list_id>', methods=['POST'])
 def cmt_like(list_id):
@@ -277,8 +293,6 @@ def cards():
     lists = Lists.query.order_by(Lists.list_id.desc())
     lists = lists.filter(Lists.public == 1).all()
 
-
-    print('@@@####@@@###@@@#####', '카드 리스트 가져왔다 ~~~~~~~')
     return jsonify( [l.json() for l in lists] )
 
 
