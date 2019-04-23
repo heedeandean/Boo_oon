@@ -40,16 +40,20 @@ def sub():
 
     kw = request.form.get('keyword')
     
+    
     if kw != None :
-        ret = Users.query.join(Album, Song.albumid == Album.albumid).filter(Song.likecnt < 10000)
+        kw = '%' + kw +'%'
+        
+        # lists = Lists.query.options(joinedload(Lists.fk_users))
+        lists = Users.query.filter(Users.city.like(kw)).all()
 
-
-        lists = Users.query.filter(Users.city == kw).all()
+        # lists = Users.query.filter(Users.city == kw).all()
 
         print('#@@@@@@@@@@@@@@@@@@@',lists)
+        for l in lists :
+            lists = Lists.query.filter(Lists.userno == l.userno).all()
 
-
-        return jsonify( [l.json() for l in lists])
+            return jsonify( [l.json() for l in lists])
 
     return render_template('boo_sub.html')
 

@@ -558,17 +558,31 @@
 
     hbs('keyword_modal', keyword, 'keywords');
 
+    var selected = [];
+    var key;
+
     $( "ul li button" ).click(function(){
       if ( $(this).hasClass('btn-outline-light-blue') ){
         $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
-        send_ajax('/boo/sub', 'POST', {keyword : $(this).text() }, '', function(){
-          send_ajax('/boo/sub', 'GET', '', '', function (res) {
-            hbs('card_lists', { lists : res }, 'acard')
+        key =  $(this).text();
+        send_ajax('/boo/sub', 'POST', { keyword : $(this).text() }, '', function(res){ 
+          
+          res.forEach( function(r) {
+            r['key'] = key
+            selected.push(r)
           })
+    
+          hbs('card_lists', { lists : selected }, 'acard') 
         } )
        
       }else{
         $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
+        
+        console.log( $(this). text() )
+
+        var filtered = selected.filter(e => e['key'] !==  $(this).text() )
+
+        hbs('card_lists', { lists : filtered }, 'acard') 
       }
     });
 
