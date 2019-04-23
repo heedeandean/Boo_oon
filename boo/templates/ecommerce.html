@@ -496,6 +496,7 @@
       }
     });
 
+    var selected = [];
 
     // 카드 초기값 셋팅
     $(document).ready(function () {
@@ -505,7 +506,7 @@
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           hbs('card_lists', { lists : res }, 'acard')
-          
+
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
@@ -517,31 +518,29 @@
         })
           
         }); //send_ajax
-      } //if
+      } //if '/boo'
 
       if (path === '/boo/sub') {
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
-        if (!res || !res.length) return;
-        hbs('card_lists', { lists : res }, 'acard')
-        
-        res.forEach( function(r) {
-          listRes[r.list_id] =  r
-        });
- 
-        }); //send_ajax
+          if (!res || !res.length) return;
+          hbs('card_lists', { lists : res }, 'acard') // 초기 카드
+          hbs('keyword_modal', keyword, 'keywords');  // 키워드 버튼 모음
+          
+          selected = res;
 
-      } //else if
+          res.forEach( function(r) {
+            listRes[r.list_id] =  r
+          });
+        }); //send_ajax
+      } // if '/boo/sub'
     }) // ready
 
 
     // 키워드로 찾기
-    var keyword = 
-    {'age' : ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대이상'],
+    var keyword =  {'age' : ['10대', '20대', '30대', '40대', '50대', '60대', '70대', '80대이상'],
     'gender' : ['여자', '남자'],
     'city' : ['서울','경기','부산','울산','인천','대구','광주','대전','세종','강원','충북','충남','경북','경남','전북','전남','제주'],
-    'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', 
-              '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', 
-              '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
+    'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
     }
 
     Handlebars.registerHelper('list', function(items) {
@@ -554,33 +553,52 @@
       return out + "</ul>";
     });
 
-    
 
-    hbs('keyword_modal', keyword, 'keywords');
+    function makeAge(aa){
+      aa = parseInt( aa.substring(0,4) )
+      if ( aa > 2000){
+        return "10대"
+      }else if ( 1990 < aa <= 2000 ){
+        return "20대"
+      }else if ( 1980 < aa <= 1990 ){
+        return "30대"
+      }else if ( 1970 < aa <= 1980 ){
+        return "40대"
+      }
+    }
 
-    var selected = [];
-    var key;
+    function makeGender(k){
+      if ( k == '여자'){
+        return "1"
+      }else if ( k == '남자') {
+        return "2"
+      }
+    }
+
 
     $( "ul li button" ).click(function(){
+      key =  $(this).text();
+
       if ( $(this).hasClass('btn-outline-light-blue') ){
         $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
-        key =  $(this).text();
-        send_ajax('/boo/sub', 'POST', { keyword : $(this).text() }, '', function(res){ 
-          
-          res.forEach( function(r) {
-            r['key'] = key
-            selected.push(r)
-          })
-    
-          hbs('card_lists', { lists : selected }, 'acard') 
-        } )
+        
+        $('#filters').text( $('#filters').text() + key )
+        
+        if ( keyword['job'].indexOf(key) !== -1){
+          filtered = ( selected.filter(e => e['job'] ==  key ) ) 
+        }else if ( keyword['city'].indexOf(key) !== -1) {
+          filtered = ( selected.filter(e => e['city'].substring(0,2) ==  key ) ) 
+        }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
+          filtered = ( selected.filter(e => e['gender'] ==  makeGender(key) ) ) 
+        }else  {
+          filtered = ( selected.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
+        }
+
+        hbs('card_lists', { lists : filtered }, 'acard') 
        
       }else{
         $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
-        
-        console.log( $(this). text() )
-
-        var filtered = selected.filter(e => e['key'] !==  $(this).text() )
+        $('#filters').text( $('#filters').text().replace( key ,'') );
 
         hbs('card_lists', { lists : filtered }, 'acard') 
       }

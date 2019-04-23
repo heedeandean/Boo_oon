@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-# connection 선언.
+# connection 선언.   
+#### 비밀번호 처리 필요 !!!
 mysql_url = 'mysql+pymysql://root:11@35.243.122.63:3306/boodb?charset=utf8' # 프로젝트 DB
-
 # mysql_url = 'mysql+pymysql://root:1234@localhost/project?charset=utf8' # 희진 집 DB 
 
 engine = create_engine(mysql_url, echo=True, convert_unicode=True)

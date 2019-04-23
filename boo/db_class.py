@@ -77,6 +77,10 @@ class Lists(Base):
     def json(self):
         j = {l.name: getattr(self, l.name) for l in self.__table__.columns}
         j['writer_name'] = self.fk_users.username
+        j['birthdate'] = self.fk_users.birthdate
+        j['job'] = self.fk_users.job
+        j['gender'] = self.fk_users.gender
+        j['city'] = self.fk_users.city
         return j
     
 
