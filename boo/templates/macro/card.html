@@ -9,11 +9,10 @@
 {{#if lists }}
 {{#each lists }}
 
-<div class="col-lg-4 col-md-6 mb-3" id='card{{list_id}}'>
+<div class="col-lg-4 col-md-6 mb-3 " id='card{{list_id}}'>
 
     <!--Card Primary-->
-    <div class="card text-center z-depth-2">
-
+    {{getLine likecnt }}
         <div class="card-body" id='card-body' onclick='card_modal({{list_id}})'>
         <h5 class="font-weight mt-2 mb-3">{{list_title}}</h5>
         <p class="text-muted mb-0">{{list_txt}}</p>
@@ -76,7 +75,7 @@
 <div class="col-md-4 clearfix d-none d-sm-block" id='card{{list_id}}' >
 
     <!-- Card -->
-    <div class="card testimonial-card" onclick="card_modal({{list_id}})">
+    <div class="card testimonial-card " onclick="card_modal({{list_id}})">
 
         <!-- Background color -->
         <div class="card-up" style="background-image: url('static/img/sky.jpg') ; background-repeat: no-repeat; background-size: cover; background-position: center center;">

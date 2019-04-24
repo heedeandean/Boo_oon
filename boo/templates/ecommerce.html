@@ -496,6 +496,22 @@
       }
     });
 
+    Handlebars.registerHelper('getLine', function( likecnt ){
+      parseInt(likecnt)
+
+      if ( 5 <= likecnt && likecnt < 10){
+        return new Handlebars.SafeString('<div class="card text-center" style="box-shadow: 1px 1px 1px LightGray , 0 0 20px #87d1ed">')
+      }else if ( 10 <= likecnt && likecnt < 20 ){
+        return new Handlebars.SafeString('<div class="card text-center" style="box-shadow: 1px 1px 1px LightGray , 0 0 20px #64a6db;">')
+      }else if ( 20 <= likecnt ){
+        return new Handlebars.SafeString('<div class="card text-center" style="box-shadow: 1px 1px 1px LightGray , 0 0 20px #377fcc;">')
+      }else {
+        return new Handlebars.SafeString('<div class="card text-center">')
+      }
+    });
+
+    
+
     var selected = [];
 
     // 카드 초기값 셋팅
