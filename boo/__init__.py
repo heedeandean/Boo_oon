@@ -310,17 +310,6 @@ def rank():
     return jsonify( [l.json() for l in lists] )
     
 
-# 상세 모달
-@app.route('/boo/card/<list_id>', methods=['GET'])
-def card(list_id):
-
-    lst = Lists.query.filter(Lists.list_id == list_id).first()
-
-    return jsonify( lst.json() )
-
-
-
-
 
 @app.teardown_appcontext
 def teardown_context(exception):
