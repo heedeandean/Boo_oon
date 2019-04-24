@@ -311,6 +311,7 @@ def rank():
     
 
 
+
 @app.teardown_appcontext
 def teardown_context(exception):
     print(">>> teardown context!!", exception)

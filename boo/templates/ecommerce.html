@@ -547,6 +547,35 @@
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
+          
+          $( "#keywords ul li button" ).click(function(){
+            key =  $(this).text();
+          
+            if ( $(this).hasClass('btn-outline-light-blue') ){
+              $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
+              
+              $('#filters').text( $('#filters').text() + key )
+              
+              if ( keyword['job'].indexOf(key) !== -1){
+                filtered = ( selected.filter(e => e['job'] ==  key ) ) 
+              }else if ( keyword['city'].indexOf(key) !== -1) {
+                filtered = ( selected.filter(e => e['city'].substring(0,2) ==  key ) ) 
+              }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
+                filtered = ( selected.filter(e => e['gender'] ==  makeGender(key) ) ) 
+              }else  {
+                filtered = ( selected.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
+              }
+
+              hbs('card_lists', { lists : filtered }, 'acard') 
+            
+            }else{
+              $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
+              $('#filters').text( $('#filters').text().replace( key ,'') );
+
+              hbs('card_lists', { lists : selected }, 'acard') 
+            }
+          });
+          
         }); //send_ajax
       } // if '/boo/sub'
     }) // ready
@@ -565,8 +594,7 @@
       for(var i=0, l=items.length; i<l; i++) {
         out = out + '<li class="float-left mr-2 mt-2"><button type="button" class="btn-sm btn-outline-light-blue btn-rounded">'  + items[i] + "</button></li>";
       }
-
-      return out + "</ul>";
+      return new Handlebars.SafeString(out + "</ul>"); 
     });
 
 
@@ -589,36 +617,9 @@
       }else if ( k == '남자') {
         return "2"
       }
-    }
+    };
+    
 
-
-    $( "ul li button" ).click(function(){
-      key =  $(this).text();
-
-      if ( $(this).hasClass('btn-outline-light-blue') ){
-        $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
-        
-        $('#filters').text( $('#filters').text() + key )
-        
-        if ( keyword['job'].indexOf(key) !== -1){
-          filtered = ( selected.filter(e => e['job'] ==  key ) ) 
-        }else if ( keyword['city'].indexOf(key) !== -1) {
-          filtered = ( selected.filter(e => e['city'].substring(0,2) ==  key ) ) 
-        }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
-          filtered = ( selected.filter(e => e['gender'] ==  makeGender(key) ) ) 
-        }else  {
-          filtered = ( selected.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
-        }
-
-        hbs('card_lists', { lists : filtered }, 'acard') 
-       
-      }else{
-        $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
-        $('#filters').text( $('#filters').text().replace( key ,'') );
-
-        hbs('card_lists', { lists : filtered }, 'acard') 
-      }
-    });
 
   </script>
 
