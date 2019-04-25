@@ -77,13 +77,17 @@
     </div>
     
     <br>
-    
-    <div class="text-center text-break h-50 rounded-lg py-3 px-4 mb-4 light-blue lighten-5">
+
+    <div class="text-center text-break h-50 rounded-lg py-3 px-4 light-blue lighten-5">
       <h4>{{list_title}}</h4>
     </div>
 
-    <div class="mb-3">
-      <h6 class="text-muted text-break px-2">{{list_txt}}</h6>
+    <div class="text-right grey-text mr-1 font-weight-lighter" style='font-size:13px'>{{formatDate list_date}}</div>
+
+    <br>
+
+    <div class="mb-3 text-muted text-break px-2">
+      <h6 class="">{{list_txt}}</h6>
     </div>
     
 
@@ -420,3 +424,46 @@
 <!--Modal: Login / Register Form-->
 {%- endmacro %}
 
+
+
+{% macro edit_modal() -%}
+<!-- Modal: 수정 모달 -->
+<div class="modal fade" id="cardModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog " role="document">
+    <div class="modal-content rounded">
+      
+      <div class="modal-body">
+        <div class="" id="em"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="edit_modal" type="text/x-handlebars-template">
+  {% raw %}
+  <div class="col-lg-12">
+      
+    <div class="label mt-2">
+      <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(20)-mini.jpg" class="rounded-circle"> {{writer_name}}
+      {{{isWriter2 writer_name list_id}}}
+    </div>
+    
+    <br>
+    
+    <div class="text-center text-break h-50 rounded-lg py-3 px-4 mb-4 light-blue lighten-5">
+      <h4>{{list_title}}</h4>
+    </div>
+
+    <div class="mb-3">
+      <h6 class="text-muted text-break px-2">{{list_txt}}</h6>
+    </div>
+    
+
+   
+
+  </div>
+  {% endraw %} 
+</script>
+
+
+{%- endmacro %}
