@@ -465,6 +465,20 @@
       });
     } 
 
+    function deleteCard(id) {
+      send_ajax('/boo/delete', 'POST', {list_id : id}, '', function (res) {
+        if (!res) return;
+        console.log("res>>", res)
+        console.log("set public")
+        $('#cardModal').modal('hide');
+        $('#card' + id).remove();  
+      });
+    }
+
+    function editCard(id) {
+      console.log('수정수정수정')
+    }
+
 
     // 핸들바
     function hbs(sourceId, data, resultId) {
@@ -496,6 +510,14 @@
       }
     });
 
+    Handlebars.registerHelper('isWriter2', function( writer_name, list_id ){
+      var user = $('#writeModalUser').text()
+      if ( writer_name == user) {
+        return new Handlebars.SafeString('<a class="like float-right mx-2" onclick="editCard('+list_id+')">수정<i class="fas fa-edit ml-1"></i></a> <a class="like float-right pink-text" onclick="deleteCard('+list_id+')"><span>삭제</span><i class="fas fa-times ml-1"></i></a>')
+      }
+      
+    });
+
     Handlebars.registerHelper('getLine', function( likecnt ){
       parseInt(likecnt)
 
@@ -510,9 +532,16 @@
       }
     });
 
+    Handlebars.registerHelper('list', function(items) {
+      var out = "<ul style='list-style-type: none;'>";
+
+      for(var i=0, l=items.length; i<l; i++) {
+        out = out + '<li class="float-left mr-2 mt-2"><button type="button" class="btn-sm btn-outline-light-blue btn-rounded">'  + items[i] + "</button></li>";
+      }
+      return new Handlebars.SafeString(out + "</ul>"); 
+    });
     
 
-    var selected = [];
 
     // 카드 초기값 셋팅
     $(document).ready(function () {
@@ -557,13 +586,13 @@
               $('#filters').text( $('#filters').text() + key )
               
               if ( keyword['job'].indexOf(key) !== -1){
-                filtered = ( selected.filter(e => e['job'] ==  key ) ) 
+                filtered = ( res.filter(e => e['job'] ==  key ) ) 
               }else if ( keyword['city'].indexOf(key) !== -1) {
-                filtered = ( selected.filter(e => e['city'].substring(0,2) ==  key ) ) 
+                filtered = ( res.filter(e => e['city'].substring(0,2) ==  key ) ) 
               }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
-                filtered = ( selected.filter(e => e['gender'] ==  makeGender(key) ) ) 
+                filtered = ( res.filter(e => e['gender'] ==  makeGender(key) ) ) 
               }else  {
-                filtered = ( selected.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
+                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
               }
 
               hbs('card_lists', { lists : filtered }, 'acard') 
@@ -572,7 +601,7 @@
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
               $('#filters').text( $('#filters').text().replace( key ,'') );
 
-              hbs('card_lists', { lists : selected }, 'acard') 
+              hbs('card_lists', { lists : res }, 'acard') 
             }
           });
           
@@ -587,15 +616,6 @@
     'city' : ['서울','경기','부산','울산','인천','대구','광주','대전','세종','강원','충북','충남','경북','경남','전북','전남','제주'],
     'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
     }
-
-    Handlebars.registerHelper('list', function(items) {
-      var out = "<ul style='list-style-type: none;'>";
-
-      for(var i=0, l=items.length; i<l; i++) {
-        out = out + '<li class="float-left mr-2 mt-2"><button type="button" class="btn-sm btn-outline-light-blue btn-rounded">'  + items[i] + "</button></li>";
-      }
-      return new Handlebars.SafeString(out + "</ul>"); 
-    });
 
 
     function makeAge(aa){

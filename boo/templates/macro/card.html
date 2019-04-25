@@ -1,12 +1,10 @@
 {% macro card() -%}
 <!-- 카드 -->
-
 <div class="row" id='acard'></div>
 
 <script id="card_lists" type="text/x-handlebars-template">
 
 {% raw %}
-{{#if lists }}
 {{#each lists }}
 
 <div class="col-lg-4 col-md-6 mb-3 " id='card{{list_id}}'>
@@ -51,13 +49,9 @@
 </div>
 
 {{/each }}
-{{/if }}
-
 {% endraw %}
 </script>
-     
 <!-- 카드 -->
-
 {%- endmacro %}
 
 
@@ -65,7 +59,6 @@
 
 {% macro slide_card() -%}
 <!-- 랭킹 카드 (슬라이드) -->
-
 <script id="slide_card_lists" type="text/x-handlebars-template">
 
 {% raw %}
@@ -124,9 +117,7 @@
 
 {% endraw %}
 </script>
-     
 <!-- 카드 -->
-
 {%- endmacro %}
 
 

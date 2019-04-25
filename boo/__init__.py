@@ -181,6 +181,23 @@ def write():
         db_session.rollback()
     
     return redirect('/boo')
+
+# 카드 삭제
+@app.route('/boo/delete', methods=['POST'])
+def boo_delete():
+    l_id = request.values.get('list_id')
+
+    lst = Lists.query.filter(Lists.list_id == l_id).first()
+
+    try:
+        lst.public = 0
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return redirect('/boo')
     
 
 # 뜬구름 좋아요, 싫어요 수 조정
