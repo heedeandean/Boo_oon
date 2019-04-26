@@ -561,6 +561,11 @@
           hbs('slide_card_lists', { lists : [res[3], res[4], res[5]] }, 'slide_card2')
           hbs('slide_card_lists', { lists : [res[6], res[7], res[8]] }, 'slide_card3')
         })
+
+        console.log(res[0])
+        hbs('edit_modal', res[0] , 'em')
+        $('#editModal').modal('show');
+        
           
         }); //send_ajax
       } //if '/boo'

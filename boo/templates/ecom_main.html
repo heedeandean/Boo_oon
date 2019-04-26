@@ -1,5 +1,5 @@
 {% extends 'ecommerce.html' %}
-{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
+{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal, edit_modal %}
 {% from 'macro/card.html' import card, slide_card %}
 
 
@@ -100,10 +100,9 @@
 
 {{ login_modal('loginModal') }}
 
-
 {{ card_modal() }}
 
-
+{{ edit_modal() }}
 
 
   <!--Main Layout-->
