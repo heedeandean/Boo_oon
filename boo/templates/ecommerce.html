@@ -462,6 +462,9 @@
         if (!res || !res.length) return;
         console.log("comments>>", res)
         hbs('comment_template', {cmts: res}, 'comments' + id);
+
+        $('div#comments'+id+'div.added-text').text().trim().replace(/\n/g, '<br>');
+
       });
     } 
 
@@ -562,9 +565,11 @@
           hbs('slide_card_lists', { lists : [res[6], res[7], res[8]] }, 'slide_card3')
         })
 
-        console.log(res[0])
         hbs('edit_modal', res[0] , 'em')
         $('#editModal').modal('show');
+
+        console.log(res.length)
+        hbs('booCount_template', { 'booCnt': res.length}, 'booCount')
         
           
         }); //send_ajax
@@ -623,6 +628,7 @@
     }
 
 
+    // 동년배 계산 - To Do : 현재 날짜를 기준으로 자동으로 계산되게 만들기 !!
     function makeAge(aa){
       aa = parseInt( aa.substring(0,4) )
       if ( aa > 2000){

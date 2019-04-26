@@ -205,13 +205,15 @@
 
       <div class="flex-center white-text pattern-1" style="background-attachment: f">
         <ul class="list-unstyled">
-          <li>
-            <h1 class=" white-text">
-              <strong>500+</strong> 뜬 구름 </h1>
-          </li>
-
+          <li id='booCount'></li>
         </ul>
       </div>
+
+      <script id="booCount_template" type="text/x-handlebars-template">
+        {% raw %}
+        <h1 class="white-text">+<strong>{{booCnt}}</strong>개의 뜬 구름 </h1>
+        {% endraw %}
+      </script>
 
     </div>
     <!-- /.Streak Section -->
