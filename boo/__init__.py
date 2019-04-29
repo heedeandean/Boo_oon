@@ -156,7 +156,7 @@ def logout():
 
 
 # 글쓰기.
-@app.route('/boo/write', methods=['GET', 'POST'])
+@app.route('/boo/write', methods=['POST'])
 def write():
     global user
 

@@ -451,16 +451,16 @@
 
           <h5 class="text-center mt-1 mb-2" name="username" id="writeModalUser">{{writer_name}}</h5>
 
-          <div class="md-form mb-5">
-              <i class="fas fa-tag prefix grey-text"></i>
-              <input type="text" id="form32" class="form-control validate" name="list_title">
-              <label data-error="wrong" data-success="right" for="form32">나의 뜬 구름은 ?</label>
+          <div class="md-form mb-5"  >
+              <i class="fas fa-tag prefix grey-text" ></i>
+              <input type="text"  id="editTitle" class="form-control validate" name="list_title">
+              <label id='editTitleLabel' data-error="wrong" data-success="right" for="editTitle">나의 뜬 구름은 ?</label>
           </div>
 
-          <div class="md-form">
-              <i class="fas fa-pencil prefix grey-text"></i>
-              <textarea type="text" id="form8" class="md-textarea form-control" rows="4" name="list_txt"></textarea>
-              <label data-error="wrong" data-success="right" for="form8">상세 내용</label>
+          <div class="md-form" >
+              <i class="fas fa-pencil prefix grey-text" ></i>
+              <textarea type="text" id="editTxt" class="md-textarea form-control" rows="4" name="list_txt"></textarea>
+              <label id='editTxtLabel' data-error="wrong" data-success="right" for="editTxt">상세 내용</label>
           </div>
         </div>
         
@@ -470,11 +470,11 @@
         </div>
 
         <div class="text-center mt-2">
-          <button class="btn btn-info" type="submit">등록하기<i class="fas fa-sign-in ml-1"></i></button>
+          <button class="btn btn-info" type="submit">수정완료<i class="fas fa-sign-in ml-1"></i></button>
         </div>
 
         <div class="d-flex justify-content-right">
-          <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">닫기</button>
+          <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal" onclick='card_modal({{list_id}})'>닫기</button>
         </div>
 
       </div>

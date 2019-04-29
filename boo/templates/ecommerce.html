@@ -479,9 +479,20 @@
     }
 
     function editCard(id) {
-      console.log('수정수정수정')
+      hbs('edit_modal', listRes[id] , 'em')
+      $('#cardModal').modal('hide');
+      $('#em').modal('show');
+      
+      $('#editTitle').val(listRes[id]['list_title']).focus()
+      $('#editTitleLabel').addClass('active')
+      $('#editTxt').text(listRes[id]['list_txt'])
+      $('#editTxtLabel').addClass('active')
     }
 
+    function edit(){
+      send_ajax
+    }
+  
 
     // 핸들바
     function hbs(sourceId, data, resultId) {
@@ -564,10 +575,6 @@
           hbs('slide_card_lists', { lists : [res[3], res[4], res[5]] }, 'slide_card2')
           hbs('slide_card_lists', { lists : [res[6], res[7], res[8]] }, 'slide_card3')
         })
-
-        console.log('start>>>>', res[0])
-        hbs('edit_modal', res[0] , 'em')
-        $('#em').modal('show');
 
         hbs('booCount_template', { 'booCnt': res.length}, 'booCount')
         
