@@ -178,7 +178,7 @@ def write():
     try:
         if l == None :
             db_session.add(lists)
-            db_session.commit()
+            
         else :
             l.list_title = list_title
             l.list_txt = list_txt
@@ -186,7 +186,7 @@ def write():
                 l.public = public
 
         db_session.commit()
-        
+    
     except Exception as err:
         print("Error on users>>>", err)
         db_session.rollback()

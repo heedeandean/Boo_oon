@@ -449,6 +449,10 @@
     // 카드 + 상세 모달
     function getModal(id) {
       hbs( 'card_modal', listRes[id], 'cm');  
+      
+      lid = 'div#listTxt' + listRes[id]['list_id'] + ' h6'
+      $(lid).html($(lid).text().trim().replace(/\n/g, '<br>'))
+      
       getComment(id);
 
       if ( $('#like'+id).hasClass('text-info') ){
@@ -464,8 +468,11 @@
         console.log("comments>>", res)
         hbs('comment_template', {cmts: res}, 'comments' + id);
 
-        $('div#comments'+id+'div.added-text').text().trim().replace(/\n/g, '<br>');
-
+        res.forEach( function(c){
+          cmtid = 'div#cmt' + c['cmt_id'] + ' div.added-text'
+          $(cmtid).html($(cmtid).text().trim().replace(/\n/g, '<br>'))
+        })
+        
       });
     } 
 
@@ -490,15 +497,6 @@
       $('#editTxtLabel').addClass('active')
       $('#editId').val(listRes[id]['list_id'])
     }
-
-    $('#editForm').submit(function(event){
-      var id = $('#editId').val()
-      //send_ajax('boo/write','POST', { 'id' : id } ,'','')
-      listRes[id]['list_title'] = $('#editTitle').val()
-      listRes[id]['list_txt'] = $('#editTxt').val()
-    })
-
-   
   
 
     // 핸들바

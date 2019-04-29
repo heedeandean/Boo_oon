@@ -86,7 +86,7 @@
 
     <br>
 
-    <div class="mb-3 text-muted text-break px-2">
+    <div id="listTxt{{list_id}}" class="mb-3 text-muted text-break px-2">
       <h6 class="">{{list_txt}}</h6>
     </div>
     
@@ -160,7 +160,7 @@
                 <div class="date float-right">{{formatDate cmt_date}}</div>
             </div>
 
-            <div class="added-text"> {{cmt_txt}}</div>
+            <div class="added-text"> {{{cmt_txt}}}</div>
             
             <div class="feed-footer">
                 <a class="like mr-1" onclick="cmt_like_hate({{list_id}}, {{cmt_id}}, 'add')">
