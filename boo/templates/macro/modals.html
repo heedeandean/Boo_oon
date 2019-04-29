@@ -435,7 +435,7 @@
 
 <script id="edit_modal" type="text/x-handlebars-template">
   {% raw %}
-  <form action="/boo/write" method="POST" id='writeForm'>
+  <form action="/boo/write" method="POST" id='editForm'>
 
     <div class="modal-dialog cascading-modal modal-avatar" role="document">
       <!--Content-->
@@ -449,9 +449,10 @@
         <!--Body-->
         <div class="modal-body mb-1">
 
+          <input id='editId' style='display:none' name='editId'></input>
           <h5 class="text-center mt-1 mb-2" name="username" id="writeModalUser">{{writer_name}}</h5>
 
-          <div class="md-form mb-5"  >
+          <div class="md-form mb-5">
               <i class="fas fa-tag prefix grey-text" ></i>
               <input type="text"  id="editTitle" class="form-control validate" name="list_title">
               <label id='editTitleLabel' data-error="wrong" data-success="right" for="editTitle">나의 뜬 구름은 ?</label>
@@ -470,7 +471,7 @@
         </div>
 
         <div class="text-center mt-2">
-          <button class="btn btn-info" type="submit">수정완료<i class="fas fa-sign-in ml-1"></i></button>
+          <button class="btn btn-info" type='submit'>수정완료<i class="fas fa-sign-in ml-1"></i></button>
         </div>
 
         <div class="d-flex justify-content-right">

@@ -164,16 +164,27 @@ def write():
     list_txt = request.form.get('list_txt')
     public = request.form.get('public')
     (cmt_count, like_cnt, hate_cnt, list_date, isdelete) = (None, None, None, None, None)
+    lid = request.form.get('editId')
 
-    print('확인확인확인', user, list_title, list_txt, public)
     u = Users.query.filter(Users.username == user).first()
-    print("UUUUUUUUU", u)
-
+    
     lists = Lists( u.userno, list_title, list_txt, cmt_count, like_cnt, hate_cnt, public, list_date, isdelete)
-    print("U리스트리스트시르트시읗ㅁ", lists)
+
+    l = Lists.query.filter(Lists.list_id == lid).first()
+
+    print('#########', 'lid====', lid)
+    print('@@@@@@@@@', l)
 
     try:
-        db_session.add(lists)
+        if l == None :
+            db_session.add(lists)
+            db_session.commit()
+        else :
+            l.list_title = list_title
+            l.list_txt = list_txt
+            if public != None :
+                l.public = public
+
         db_session.commit()
         
     except Exception as err:

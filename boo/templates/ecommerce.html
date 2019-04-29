@@ -445,6 +445,7 @@
 
     var listRes = {};
 
+
     // 카드 + 상세 모달
     function getModal(id) {
       hbs( 'card_modal', listRes[id], 'cm');  
@@ -487,11 +488,17 @@
       $('#editTitleLabel').addClass('active')
       $('#editTxt').text(listRes[id]['list_txt'])
       $('#editTxtLabel').addClass('active')
+      $('#editId').val(listRes[id]['list_id'])
     }
 
-    function edit(){
-      send_ajax
-    }
+    $('#editForm').submit(function(event){
+      var id = $('#editId').val()
+      //send_ajax('boo/write','POST', { 'id' : id } ,'','')
+      listRes[id]['list_title'] = $('#editTitle').val()
+      listRes[id]['list_txt'] = $('#editTxt').val()
+    })
+
+   
   
 
     // 핸들바
@@ -529,7 +536,6 @@
       if ( writer_name == user) {
         return new Handlebars.SafeString('<a class="like float-right mx-2" onclick="editCard('+list_id+')">수정<i class="fas fa-edit ml-1"></i></a> <a class="like float-right pink-text" onclick="deleteCard('+list_id+')"><span>삭제</span><i class="fas fa-times ml-1"></i></a>')
       }
-      
     });
 
     Handlebars.registerHelper('getLine', function( likecnt ){
@@ -555,7 +561,6 @@
       return new Handlebars.SafeString(out + "</ul>"); 
     });
     
-
 
     // 카드 초기값 셋팅
     $(document).ready(function () {
