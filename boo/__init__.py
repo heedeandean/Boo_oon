@@ -57,6 +57,11 @@ def sub():
 
     return render_template('boo_sub.html')
 
+@app.route('/boo/mypage')
+def mypage():
+
+    return render_template('mypage.html')
+
 
 
 # 가입시 아이디, 이메일 중복 체크.

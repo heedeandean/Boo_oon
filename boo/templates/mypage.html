@@ -1,10 +1,6 @@
 {% extends 'ecommerce.html' %}
-{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
-{% from 'macro/card.html' import card, slide_card %}
-{% from 'macro/list.html' import keyword %}
 
-{% block sub %}
-
+{% block my %}
 
 <header>
 
@@ -26,10 +22,10 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">sub</a>
+              <a class="nav-link" href="/boo/sub">sub</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/boo/mypage">My page</a>
+              <a class="nav-link" href="#">My page</a>
             </li>
           </ul>
           <form class="form-inline">
@@ -44,7 +40,7 @@
 
     <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('../static/img/cloudynight.png') ; background-repeat: no-repeat; background-size: cover; background-position: center center;">
         
-        <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="container h-50 d-flex justify-content-center align-items-center">
           <div class="row pt-5 mt-3">
             <div class="col-md-12 mb-3">      
             </div>
@@ -56,33 +52,6 @@
    
 </header>
 
-<main>
 
 
-  <div class="container">
-    {{ card_modal() }}
-    {{ keyword() }}
-
-    <section class="section pb-3 wow fadeIn" data-wow-delay="0.3s">
-
-      <!--Section heading-->
-      <h1 class="font-weight-bold text-center h1 my-5"><i class="fab fa-mixcloud"></i>
-        새롭게 뜬 구름<i class="fab fa-mixcloud"></i></h1>
-
-      <!--Section description-->
-      <p class="text-center grey-text mb-5 mx-auto w-responsive">안녕하세요. 뜬 구름입니다 :) </p>
-
-      <div class="container mb-5" id='keywords'></div>
-      
-      <!--Grid row 카드 자리-->
-      <div class="container mb-5" id='filters'></div>
-
-      {{ card() }}
-      
-    </section>
-  </div>
-
-</main>
-
-
-{% endblock sub %}
+{% endblock my %}
