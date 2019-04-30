@@ -567,11 +567,12 @@
     $(document).ready(function () {
       var path = '{{request.path}}';
       console.log("path>>", path)
+     
       if (path === '/boo') {
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           hbs('card_lists', { lists : res }, 'acard')
-        
+          console.log('cookie', '{{user}}')
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
@@ -631,14 +632,14 @@
       } // if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
-        send_ajax('/boo/lists/'+ path.substring(12,), 'GET', '', '', function (res) {
+        send_ajax('/boo/mylist/'+ path.substring(12,), 'GET', '', '', function (res) {
           if (!res || !res.length) return;
 
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
 
-          hbs('card_lists', { lists : user_list }, 'acard') // 해당 유저가 쓴 카드
+          hbs('card_lists', { lists : res }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
     }) // ready

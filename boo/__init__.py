@@ -321,11 +321,11 @@ def cards():
 
 
 # 마이페이지 카드
-@app.route('boo/mylist/<username>', methods=['GET'])
+@app.route('/boo/mylist/<username>', methods=['GET'])
 def get_mylist(username):
+    u = Users.query.filter(Users.username == username).first()
 
-    lists = Lists.query.filter(Lists.username == username).order_by(Lists.list_id.desc())
-    lists = lists.filter(Lists.public == 1).all()
+    lists = Lists.query.filter(Lists.userno == u.userno).order_by(Lists.list_id.desc()).all()
 
     return jsonify( [l.json() for l in lists] )
 
