@@ -571,7 +571,7 @@
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           hbs('card_lists', { lists : res }, 'acard')
-
+        
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
@@ -584,7 +584,6 @@
 
         hbs('booCount_template', { 'booCnt': res.length}, 'booCount')
         
-          
         }); //send_ajax
       } //if '/boo'
 
@@ -599,7 +598,7 @@
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
-          
+
           $( "#keywords ul li button" ).click(function(){
             key =  $(this).text();
           
@@ -631,10 +630,15 @@
         }); //send_ajax
       } // if '/boo/sub'
 
-      if (path == '/boo/mypage'){
-        send_ajax('/boo/lists', 'GET', '', '', function (res) {
+      if (path.substring(0,11) == '/boo/mypage'){
+        send_ajax('/boo/lists/'+ path.substring(12,), 'GET', '', '', function (res) {
           if (!res || !res.length) return;
-          hbs('card_lists', { lists : res }, 'acard') // 초기 카드
+
+          res.forEach( function(r) {
+            listRes[r.list_id] =  r
+          });
+
+          hbs('card_lists', { lists : user_list }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
     }) // ready
@@ -646,7 +650,6 @@
     'city' : ['서울','경기','부산','울산','인천','대구','광주','대전','세종','강원','충북','충남','경북','경남','전북','전남','제주'],
     'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
     }
-
 
     // 동년배 계산 - To Do : 현재 날짜를 기준으로 자동으로 계산되게 만들기 !!
     function makeAge(aa){

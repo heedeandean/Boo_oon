@@ -29,7 +29,7 @@
               <a class="nav-link" href="#">sub</a>
             </li>
             <li class="nav-item">
-              {% if  (session.loginUser)   %}
+              {% if  (islogin)   %}
                 <!-- 로그인 후 -->
                 <a class="nav-link" href="/boo/mypage/{{session.loginUser['username']}}">My page</a>
               {% else %}

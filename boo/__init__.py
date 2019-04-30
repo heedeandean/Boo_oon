@@ -20,6 +20,7 @@ app.config.update(
 islogin = False
 user = ''
 
+# 메인페이지
 @app.route('/boo', methods=['GET','POST'])
 def main():
     global islogin, user
@@ -32,7 +33,7 @@ def main():
     elif user != "" :
         user = session.get('loginUser')['username']
     
-    return render_template('ecom_main.html', user = user)
+    return render_template('ecom_main.html', islogin=islogin, user = user)
 
 # 서브페이지
 @app.route('/boo/sub')
@@ -44,6 +45,7 @@ def sub():
 def mypage(user_name):
 
     u = Users.query.filter(Users.username == user_name).first()
+    print('@#@#@#@#@#@#@#@#@#', u)
 
     return render_template('mypage.html', email=u.email, name=u.username)
 
@@ -183,6 +185,7 @@ def write():
     
     return redirect('/boo')
 
+
 # 카드 삭제
 @app.route('/boo/delete', methods=['POST'])
 def boo_delete():
@@ -232,35 +235,9 @@ def hate():
     return redirect('/boo')
 
 
-# 뜬구름 좋아요, 싫어요 수 조정
-@app.route('/boo/cmt_like_hate/<list_id>', methods=['POST'])
-def cmt_like(list_id):
-    
-    num = request.values.get('num')
-    cmt_id = request.values.get('cmt_id')
-
-    cmt = Cmt.query.filter('list_id=:list_id and cmt_id=:cmt_id').params(
-        list_id=list_id, cmt_id=cmt_id).first()
-
-    try:
-       
-        if num == 'add' :
-            cmt.cmt_like += 1
-        else :
-            cmt.cmt_hate -= 1
-
-        db_session.commit()
-
-    except Exception as err:
-        print("Error on users>>>", err)
-        db_session.rollback()
-    
-    return redirect('/boo')
-
-
 ### 댓글 ####
-@app.route('/boo/comment', methods=['GET','POST'])
-def comment():
+@app.route('/boo/comment', methods=['POST'])
+def comment_post():
     global user
     u = Users.query.filter(Users.username == user).first()
     
@@ -286,8 +263,7 @@ def comment():
 @app.route('/boo/comment/<list_id>', methods=['GET'])
 def comment_get(list_id):
 
-    cmts = Cmt.query.filter('list_id=:list_id').params(
-        list_id=list_id).order_by(Cmt.cmt_id.desc()).all()
+    cmts = Cmt.query.filter(Cmt.list_id == list_id).order_by(Cmt.cmt_id.desc()).all()
 
     return jsonify([c.json() for c in cmts])
 
@@ -307,6 +283,32 @@ def comment_delete(cmt_id):
 
     return jsonify({"result": 'OK'})
 
+# 댓글 좋아요, 싫어요 수 조정
+@app.route('/boo/cmt_like_hate/<list_id>', methods=['POST'])
+def cmt_like(list_id):
+    
+    num = request.values.get('num')
+    cmt_id = request.values.get('cmt_id')
+
+    cmt = Cmt.query.filter('list_id=:list_id and cmt_id=:cmt_id').params(
+        list_id=list_id, cmt_id=cmt_id).first()
+
+    try:
+       
+        if num == 'add' :
+            cmt.cmt_like += 1
+        else :
+            cmt.cmt_hate -= 1
+
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    return redirect('/boo')
+
+
 
 # 카드 
 @app.route('/boo/lists', methods=['GET'])
@@ -316,6 +318,17 @@ def cards():
     lists = lists.filter(Lists.public == 1).all()
 
     return jsonify( [l.json() for l in lists] )
+
+
+# 마이페이지 카드
+@app.route('boo/mylist/<username>', methods=['GET'])
+def get_mylist(username):
+
+    lists = Lists.query.filter(Lists.username == username).order_by(Lists.list_id.desc())
+    lists = lists.filter(Lists.public == 1).all()
+
+    return jsonify( [l.json() for l in lists] )
+
 
 
 # 랭크
