@@ -35,31 +35,12 @@ def main():
     return render_template('ecom_main.html', islogin = islogin, user = user)
 
 
-@app.route('/boo/sub', methods=['GET','POST'])
+@app.route('/boo/sub')
 def sub():
-
-    kw = request.form.get('keyword')
-    
-    
-    if kw != None :
-        kw = '%' + kw +'%'
-        
-        # lists = Lists.query.options(joinedload(Lists.fk_users))
-        lists = Users.query.filter(Users.city.like(kw)).all()
-
-        # lists = Users.query.filter(Users.city == kw).all()
-
-        print('#@@@@@@@@@@@@@@@@@@@',lists)
-        for l in lists :
-            lists = Lists.query.filter(Lists.userno == l.userno).all()
-
-            return jsonify( [l.json() for l in lists])
-
     return render_template('boo_sub.html')
 
 @app.route('/boo/mypage')
 def mypage():
-
     return render_template('mypage.html')
 
 

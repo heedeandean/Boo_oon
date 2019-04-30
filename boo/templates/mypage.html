@@ -3,7 +3,6 @@
 {% from 'macro/card.html' import card, slide_card %}
 
 {% block my %}
-
 <!--Main Navigation-->
   <header>
 
@@ -11,7 +10,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar aqua-gradient">
       <div class="container">
         <a class="navbar-brand" href="#">
-          <strong>MDB</strong>
+          <strong>뜬구름</strong>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
           aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,15 +19,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Home
+              <a class="nav-link" href="/boo">Home
                 <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="/boo/sub">sub</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="/boo/mypage">My page</a>     
             </li>
           </ul>
           <form class="form-inline">
@@ -83,28 +82,19 @@
             <h3 class="my-3 font-weight-bold">
               <strong>Anna Deynah</strong>
             </h3>
-            <h6 class="font-weight-bold teal-text mb-4">Web Designer</h6>
+            <h6 class="font-weight-bold teal-text mb-4">abbde12@gmail.com</h6>
 
-            <!--Facebook-->
-            <a class="p-2 m-2 fa-lg fb-ic">
-              <i class="fab fa-facebook-f grey-text"> </i>
-            </a>
+            
             <!--Twitter-->
-            <a class="p-2 m-2 fa-lg tw-ic">
-              <i class="fab fa-twitter grey-text"> </i>
-            </a>
+            <button class="btn m-2 btn-info btn-rounded px-7">
+              <i class="fas fa-user-check white-text mr-2"> </i>
+              <span>팔로우</span>
+            </button>
             <!--Instagram-->
-            <a class="p-2 m-2 fa-lg ins-ic">
-              <i class="fab fa-instagram grey-text"> </i>
-            </a>
-
-            <p class="mt-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore
-              magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-              commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-              pariatur.
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</p>
+            <button class="btn btn-info btn-rounded px-7">
+              <i class="far fa-comment-dots white-text mr-2"> </i> DM
+            </button>
+            
 
           </div>
           <!--Grid column-->
@@ -114,6 +104,7 @@
 
       </section>
       <!--Section: Team v.1-->
+    
 
       <!--Section: Tabs-->
       <section>
@@ -121,21 +112,32 @@
         <ul class="nav md-pills pills-default d-flex justify-content-center">
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">
-              <strong>Work</strong>
+              <strong>뜬 구름 222개</strong>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
-              <strong>My team</strong>
+              <strong>좋아요 21개</strong>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-              <strong>Portfolio</strong>
+              <strong>뱃지 3개</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+              <strong>팔로워 100명</strong>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+              <strong>팔로우 30명</strong>
             </a>
           </li>
         </ul>
 
+      
         <!-- Tab panels -->
         <div class="tab-content">
 
@@ -144,125 +146,9 @@
             <br>
 
             <!--Grid row-->
-            <div class="row">
+            
+             {{ card() }}
 
-              <!--Grid column-->
-              <div class="col-md-12">
-
-                <!--Projects section v.4-->
-                <section class="text-center mb-5">
-
-                  <!--Grid row-->
-                  <div class="row mb-4">
-
-                    <!--Grid column-->
-                    <div class="col-md-6 mb-4">
-                      <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/Work/6-col/img%20(41).jpg');">
-
-                        <!-- Content -->
-                        <div class="text-white text-center d-flex align-items-center rgba-blue-strong py-5 px-4">
-                          <div>
-                            <h3 class="mb-4 mt-4 font-weight-bold">
-                              <strong>Project title</strong>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam,
-                              voluptatem,
-                              optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum
-                              dignissimos.
-                              Odit sed qui, dolorum!.</p>
-                            <a class="btn btn-outline-white btn-sm">
-                              <i class="fas fa-clone left"></i> View project</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6 mb-4">
-                      <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/Work/6-col/img%20(14).jpg');">
-
-                        <!-- Content -->
-                        <div class="text-white text-center d-flex align-items-center rgba-teal-strong py-5 px-4">
-                          <div>
-                            <h3 class="mb-4 mt-4 font-weight-bold">
-                              <strong>Project title</strong>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam,
-                              voluptatem,
-                              optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum
-                              dignissimos.
-                              Odit sed qui, dolorum!.</p>
-                            <a class="btn btn-outline-white btn-sm">
-                              <i class="fas fa-clone left"></i> View project</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Grid column-->
-
-                  </div>
-                  <!--Grid row-->
-
-                  <!--Grid row-->
-                  <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-6 mb-4">
-                      <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/Work/6-col/img%20(11).jpg');">
-
-                        <!-- Content -->
-                        <div class="text-white text-center d-flex align-items-center rgba-green-strong py-5 px-4">
-                          <div>
-                            <h3 class="mb-4 mt-4 font-weight-bold">
-                              <strong>Project title</strong>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam,
-                              voluptatem,
-                              optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum
-                              dignissimos.
-                              Odit sed qui, dolorum!.</p>
-                            <a class="btn btn-outline-white btn-sm">
-                              <i class="fas fa-clone left"></i> View project</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6 mb-4">
-                      <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Horizontal/Work/6-col/img%20(42).jpg');">
-
-                        <!-- Content -->
-                        <div class="text-white text-center d-flex align-items-center rgba-stylish-strong py-5 px-4">
-                          <div>
-                            <h3 class="mb-4 mt-4 font-weight-bold">
-                              <strong>Project title</strong>
-                            </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam,
-                              voluptatem,
-                              optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum
-                              dignissimos.
-                              Odit sed qui, dolorum!.</p>
-                            <a class="btn btn-outline-white btn-sm">
-                              <i class="fas fa-clone left"></i> View project</a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Grid column-->
-
-                  </div>
-                  <!--Grid row-->
-
-                </section>
-                <!--Projects section v.4-->
-
-              </div>
-              <!--Grid column-->
-
-            </div>
             <!--Grid row-->
 
           </div>
@@ -483,8 +369,6 @@
     </div>
 
   </main>
-  <!--Main Layout--
-
-
+  <!--Main Layout-->
 
 {% endblock my %}

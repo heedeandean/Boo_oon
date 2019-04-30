@@ -630,6 +630,13 @@
           
         }); //send_ajax
       } // if '/boo/sub'
+
+      if (path == '/boo/mypage'){
+        send_ajax('/boo/lists', 'GET', '', '', function (res) {
+          if (!res || !res.length) return;
+          hbs('card_lists', { lists : res }, 'acard') // 초기 카드
+        }); //send_ajax
+      } // if '/boo/mypage'
     }) // ready
 
 

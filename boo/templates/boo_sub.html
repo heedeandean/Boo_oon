@@ -29,7 +29,13 @@
               <a class="nav-link" href="#">sub</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/boo/mypage">My page</a>
+              {% if  (islogin)   %}
+                <!-- 로그인 후 -->
+                <a class="nav-link" href="/boo/mypage">My page</a>
+              {% else %}
+                <!-- 로그인 전 -->
+                <a class="nav-link" onclick='alert("로그인이 필요합니다.")'>My page</a>
+              {% endif %}
             </li>
           </ul>
           <form class="form-inline">
