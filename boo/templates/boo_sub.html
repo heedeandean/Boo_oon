@@ -29,9 +29,9 @@
               <a class="nav-link" href="#">sub</a>
             </li>
             <li class="nav-item">
-              {% if  (islogin)   %}
+              {% if  (session.loginUser)   %}
                 <!-- 로그인 후 -->
-                <a class="nav-link" href="/boo/mypage">My page</a>
+                <a class="nav-link" href="/boo/mypage/{{session.loginUser['username']}}">My page</a>
               {% else %}
                 <!-- 로그인 전 -->
                 <a class="nav-link" onclick='alert("로그인이 필요합니다.")'>My page</a>

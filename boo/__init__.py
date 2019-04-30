@@ -32,16 +32,20 @@ def main():
     elif user != "" :
         user = session.get('loginUser')['username']
     
-    return render_template('ecom_main.html', islogin = islogin, user = user)
+    return render_template('ecom_main.html', user = user)
 
-
+# 서브페이지
 @app.route('/boo/sub')
 def sub():
     return render_template('boo_sub.html')
 
-@app.route('/boo/mypage')
-def mypage():
-    return render_template('mypage.html')
+# 마이페이지
+@app.route('/boo/mypage/<user_name>')
+def mypage(user_name):
+
+    u = Users.query.filter(Users.username == user_name).first()
+
+    return render_template('mypage.html', email=u.email, name=u.username)
 
 
 

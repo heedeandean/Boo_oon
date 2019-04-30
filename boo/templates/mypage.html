@@ -27,7 +27,7 @@
               <a class="nav-link" href="/boo/sub">sub</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/boo/mypage">My page</a>     
+                <a class="nav-link" href="/boo/mypage/{{session.loginUser['username']}}">My page</a>     
             </li>
           </ul>
           <form class="form-inline">
@@ -40,17 +40,16 @@
     </nav>
 
     <!-- Intro Section -->
-    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url(https://mdbootstrap.com/img/Photos/Others/gradient3.png); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <div class="view jarallax" data-jarallax='{"speed": 0.2}' style="background-image: url('static/img/main.png'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
       <div class="mask rgba-indigo-slight">
         <div class="container h-100 d-flex justify-content-center align-items-center">
           <div class="row pt-5 mt-3">
             <div class="col-md-12 mb-3">
               <div class="intro-info-content text-center">
                 <h1 class="display-3 blue-text mb-5 wow fadeInDown" data-wow-delay="0.3s">ABOUT
-                  <a class="blue-text font-weight-bold">ME</a>
+                  <a class="blue-text font-weight-bold">{{session.loginUser['username']}}</a>
                 </h1>
-                <h5 class="text-uppercase blue-text mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">Lorem
-                  ipsum dolor sit amet</h5>
+                <a class="btn btn-outline-info btn-lg wow fadeInDown" data-wow-delay="0.3s" href="/boo/logout">로그아웃</a>
               </div>
             </div>
           </div>
@@ -80,11 +79,11 @@
                 alt="First sample avatar image">
             </div>
             <h3 class="my-3 font-weight-bold">
-              <strong>Anna Deynah</strong>
+              <strong>{{session.loginUser['username']}}</strong>
             </h3>
-            <h6 class="font-weight-bold teal-text mb-4">abbde12@gmail.com</h6>
+            <h6 class="font-weight-bold teal-text mb-4">{{email}}</h6>
 
-            
+            {% if (session.loginUser['username'] != name)%}
             <!--Twitter-->
             <button class="btn m-2 btn-info btn-rounded px-7">
               <i class="fas fa-user-check white-text mr-2"> </i>
@@ -92,8 +91,14 @@
             </button>
             <!--Instagram-->
             <button class="btn btn-info btn-rounded px-7">
-              <i class="far fa-comment-dots white-text mr-2"> </i> DM
+              <i class="far fa-comments white-text mr-2"> </i> DM
             </button>
+            {% else %}
+            <button class="btn btn-blue-grey btn-rounded px-7">
+              <i class="fas fa-cloud-meatball mr-2"> </i> 회원정보 수정
+            </button>
+
+            {% endif %}
             
 
           </div>
