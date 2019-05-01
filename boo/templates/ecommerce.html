@@ -409,7 +409,7 @@
 
     function addCmt(id){
       var txt = $('#commentArea2' + id).val()
-      var one = parseInt($("#cmtCnt" + id).text())
+      var one = '{{user}}'
 
       if ( txt.length == 0 ){
         alert('내용을 입력해주세요.')
@@ -526,14 +526,14 @@
     });
 
     Handlebars.registerHelper('isWriter', function( writer_name, cmt_id, list_id ){
-      var user = $('#writeModalUser').text()
+      var user = '{{user}}'
       if ( writer_name == user) {
         return new Handlebars.SafeString('<a class="like float-right" onclick="deleteCmt('+cmt_id+","+list_id+')"><span>삭제</span><i class="fas fa-times"></i></a>')
       }
     });
 
     Handlebars.registerHelper('isWriter2', function( writer_name, list_id ){
-      var user = $('#writeModalUser').text()
+      var user = '{{user}}'
       if ( writer_name == user) {
         return new Handlebars.SafeString('<a class="like float-right mx-2" onclick="editCard('+list_id+')">수정<i class="fas fa-edit ml-1"></i></a> <a class="like float-right pink-text" onclick="deleteCard('+list_id+')"><span>삭제</span><i class="fas fa-times ml-1"></i></a>')
       }
@@ -642,7 +642,6 @@
             userlist = res[0];
           }else{
             res[0].forEach( function(u){
-              console.log(u)
               if ( u.public == 1 ){
                 userlist.push(u)
               }
@@ -692,12 +691,26 @@
     };
     
     // 팔로우 설정 
-    function addFollow(guest){
+    function Follow(guest){
       var host = $('#hostname').text().trim()
-      console.log(host, guest)
+      if ( guest.length == 0 ){
+        alert('로그인이 필요합니다.')
+      }else {
+        if ( $('#followButton').hasClass('btn-outline-info')  ){
+          $('#follower_cnt').text( parseInt($('#follower_cnt').text()) + 1 );
+          $('#followIcon').removeClass('fa-user').addClass('fa-user-check white-text')
+          $('#followButton').removeClass('btn-outline-info').addClass('btn-info')
+          send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
 
-      send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
-    }
+        }else{
+          $('#follower_cnt').text( parseInt($('#follower_cnt').text()) - 1 );
+          $('#followIcon').removeClass('fa-user-check white-text').addClass('fa-user')
+          $('#followButton').removeClass('btn-info').addClass('btn-outline-info')
+          send_ajax('/boo/delfollow' , 'POST', {'user' : host, 'following' : guest}, ''); 
+
+        } // if hasClass
+      }// if guest.length
+    }// Follow
     
 
 

@@ -71,16 +71,27 @@
         </li>
         <li class="nav-item">
         <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-            <strong>팔로워 {{follower_cnt}}명</strong>
+            <strong>팔로워 <span id='follower_cnt'>{{follower_cnt}}</span>명</strong>
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-            <strong>팔로우 {{follow_cnt}}명</strong>
+        <a class="nav-link" data-toggle="tab" href="#panel14" role="tab">
+            <strong>팔로우 <span>{{follow_cnt}}명</strong>
         </a>
         </li>
     </ul>       
 {% endraw %}
 </script>  
+
+{%- endmacro %}
+
+
+{% macro follow(lst) -%}
+
+    <ul>
+        {% for l in lst %}
+            <li>{{l.username}}, {{l.email}}<li>
+        {% endfor %}
+    </ul>
 
 {%- endmacro %}

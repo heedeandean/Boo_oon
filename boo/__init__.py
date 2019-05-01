@@ -40,20 +40,49 @@ def main():
 # 서브페이지
 @app.route('/boo/sub')
 def sub():
+    global islogin, user
+
+    session['islogin'] = islogin
     islogin = session.get('islogin')
 
-    return render_template('boo_sub.html', islogin=islogin)
+    if islogin == False :
+        user = ''
+    elif user != "" :
+        user = session.get('loginUser')['username']
+
+    return render_template('boo_sub.html', islogin=islogin, user=user)
 
 
 # 마이페이지
 @app.route('/boo/mypage/<user_name>')
 def mypage(user_name):
-    global user
+    global islogin, user
+
+    isfollow = False
+    my_follow_list = []
+
+    if islogin == False :
+        user = ''
+    elif user != "" :
+        user = session.get('loginUser')['username']
+        my = Users.query.filter(Users.username == user).first()
+        f = Follow.query.filter(Follow.following == my.userno).all()
+        for ff in f :
+            my_follow_list.append(ff.userno)
 
     u = Users.query.filter(Users.username == user_name).first()
-    print('@#@#@#@#@#@#@#@#@#', u)
+   
+    if u.userno in my_follow_list :
+        isfollow = True
+    
+    host_follow_list = Follow.query.filter(Follow.following == u.userno).all()
+    host_follower_list = Follow.query.filter(Follow.userno == u.userno).all()
+    follow = [ Users.query.filter(Users.userno == f.userno).first() for f in host_follow_list]
+    follower = [ Users.query.filter(Users.userno == f.following).first() for f in host_follower_list ]
+    
+    print('FOLLOW>>>>>>>>>', follow, 'FOLLWER>>>>>>>>>', follower)
 
-    return render_template('mypage.html', email=u.email, name=u.username, user=user)
+    return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower )
 
 
 
@@ -193,14 +222,12 @@ def write():
 
 
 # 카드 삭제
-@app.route('/boo/delete', methods=['POST'])
+@app.route('/boo/delete', methods=['DELETE'])
 def boo_delete():
     l_id = request.values.get('list_id')
 
-    lst = Lists.query.filter(Lists.list_id == l_id).first()
-
     try:
-        lst.public = 0
+        Lists.query.filter(Lists.list_id == l_id).delete()
         db_session.commit()
 
     except Exception as err:
@@ -349,7 +376,7 @@ def rank():
 
 # 팔로우
 @app.route('/boo/follow', methods=['POST'])
-def add_follow():
+def follow_post():
 
     username = request.values.get('user')
     following = request.values.get('following')
@@ -357,11 +384,7 @@ def add_follow():
     host = Users.query.filter(Users.username == username).first()
     guest = Users.query.filter(Users.username == following).first()
 
-    print('aaaaaaaaaaaa', username, host.userno, 'BBBBBBBBB', following, guest.userno)
-    print(type(host.userno), type(guest.userno))
     f = Follow(host.userno, guest.userno)
-
-    print('||||||||||', f)
 
     try:
         db_session.add(f)
@@ -374,12 +397,32 @@ def add_follow():
     rd = 'boo/mypage/' + username
     return redirect(rd)
 
+# 팔로우
+@app.route('/boo/delfollow', methods=['POST'])
+def follow_delete():
+
+    username = request.values.get('user')
+    following = request.values.get('following')
+
+    host = Users.query.filter(Users.username == username).first()
+    guest = Users.query.filter(Users.username == following).first()
+
+    try:
+        print('삭제삭제삭제삭제삭제삭제삭제삭제삭제삭제삭제삭제')
+        Follow.query.filter(Follow.userno == host.userno, Follow.following == guest.userno).delete()
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    rd = 'boo/mypage/' + username
+    return redirect(rd)
 
 
 
 
-
-
+###############teardown_appcontext#############################
 
 @app.teardown_appcontext
 def teardown_context(exception):

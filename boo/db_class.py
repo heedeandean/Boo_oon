@@ -34,7 +34,6 @@ class Users(Base):
 
     def json(self):
         j = {l.name: getattr(self, l.name) for l in self.__table__.columns}
-       
         return j
 
 
