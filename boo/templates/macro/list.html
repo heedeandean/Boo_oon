@@ -55,17 +55,17 @@
 {% raw %}
     <ul class="nav md-pills pills-default d-flex justify-content-center">
         <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">
+        <a class="nav-link" data-toggle="tab" href="#panel10" role="tab">
             <strong>뜬 구름 {{listCnt}}개</strong>
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
+        <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">
             <strong>좋아요 {{userlikeCnt}}개</strong>
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+        <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
             <strong>뱃지 {{badgeCnt}}개</strong>
         </a>
         </li>
@@ -86,12 +86,31 @@
 {%- endmacro %}
 
 
-{% macro follow(lst) -%}
+{% macro follow(lst, id) -%}
 
-    <ul>
+    <div class="list-group-flush">
         {% for l in lst %}
-            <li>{{l.username}}, {{l.email}}<li>
+            <div class="list-group-item" id='{{id}}{{l.userno}}'>
+                
+                <div class="mdb-feed mt-1">   
+                    <div class="news" id="cmt" >
+                        <div class="label">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
+                        </div>
+
+                        <div class="excerpt">
+                            <div class="brief">
+                                <a class="text-md name"><strong>{{l.username}}</strong></a> 
+                            </div>
+                            
+                            <div class="feed-footer">
+                                <p class="text-sm grey-text">{{l.email}}</p>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 
 {%- endmacro %}
