@@ -48,6 +48,7 @@ def sub():
 # 마이페이지
 @app.route('/boo/mypage/<user_name>')
 def mypage(user_name):
+    global user
 
     u = Users.query.filter(Users.username == user_name).first()
     print('@#@#@#@#@#@#@#@#@#', u)
@@ -345,6 +346,38 @@ def rank():
 
     return jsonify( [l.json() for l in lists] )
     
+
+# 팔로우
+@app.route('/boo/follow', methods=['POST'])
+def add_follow():
+
+    username = request.values.get('user')
+    following = request.values.get('following')
+
+    host = Users.query.filter(Users.username == username).first()
+    guest = Users.query.filter(Users.username == following).first()
+
+    print('aaaaaaaaaaaa', username, host.userno, 'BBBBBBBBB', following, guest.userno)
+    print(type(host.userno), type(guest.userno))
+    f = Follow(host.userno, guest.userno)
+
+    print('||||||||||', f)
+
+    try:
+        db_session.add(f)
+        db_session.commit()
+
+    except Exception as err:
+        print("Error on users>>>", err)
+        db_session.rollback()
+    
+    rd = 'boo/mypage/' + username
+    return redirect(rd)
+
+
+
+
+
 
 
 

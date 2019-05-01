@@ -571,8 +571,9 @@
       if (path === '/boo') {
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
+
           hbs('card_lists', { lists : res }, 'acard')
-          console.log('cookie', '{{user}}')
+          
           res.forEach( function(r) {
             listRes[r.list_id] =  r
           });
@@ -645,8 +646,8 @@
               if ( u.public == 1 ){
                 userlist.push(u)
               }
-            }); //res[0].forEach
-          }// if
+            }); 
+          }
 
           userlist.forEach( function(r) {
             listRes[r.list_id] =  r
@@ -689,6 +690,14 @@
         return "2"
       }
     };
+    
+    // 팔로우 설정 
+    function addFollow(guest){
+      var host = $('#hostname').text().trim()
+      console.log(host, guest)
+
+      send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
+    }
     
 
 

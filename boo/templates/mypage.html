@@ -81,14 +81,14 @@
               <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="img-fluid rounded-circle z-depth-1"
                 alt="First sample avatar image">
             </div>
-            <h3 class="my-3 font-weight-bold">
+            <h3 class="my-3 font-weight-bold" id='hostname'>
               <strong>{{name}}</strong>
             </h3>
             <h6 class="font-weight-bold teal-text mb-4">{{email}}</h6>
 
             {% if (session.loginUser['username'] != name)%}
             <!--Twitter-->
-            <button class="btn m-2 btn-info btn-rounded px-7">
+            <button class="btn m-2 btn-info btn-rounded px-7" onclick='addFollow("{{user}}")'>
               <i class="fas fa-user-check white-text mr-2"> </i>
               <span>팔로우</span>
             </button>

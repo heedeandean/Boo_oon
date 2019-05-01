@@ -40,6 +40,11 @@ class Users(Base):
 
 class Follow(Base):	
     __tablename__ = 'Follow'
+
+    def __init__(self, userno, following):
+        self.userno = userno
+        self.following = following
+        
     follow_id = Column(Integer, primary_key = True)	
     userno = Column(Integer, ForeignKey('Users.userno'))
     following = Column(Integer, ForeignKey('Users.userno'))
@@ -47,6 +52,9 @@ class Follow(Base):
     fk_users = relationship('Users', foreign_keys=[userno])
     fk_following = relationship('Users', foreign_keys=[following])
     
+    def __repr__(self):
+        return 'Follow %r, %r' % (self.userno, self.following)
+
 
 class Lists(Base):
     __tablename__ = "Lists"
