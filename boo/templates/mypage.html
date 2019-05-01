@@ -1,6 +1,7 @@
 {% extends 'ecommerce.html' %}
 {% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
 {% from 'macro/card.html' import card, slide_card %}
+{% from 'macro/list.html' import panel_picker %}
 
 {% block my %}
 <!--Main Navigation-->
@@ -116,35 +117,7 @@
       <!--Section: Tabs-->
       <section>
 
-        <div>
-        <ul class="nav md-pills pills-default d-flex justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">
-              <strong>뜬 구름 222개</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
-              <strong>좋아요 21개</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-              <strong>뱃지 3개</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-              <strong>팔로워 100명</strong>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
-              <strong>팔로우 30명</strong>
-            </a>
-          </li>
-        </ul>
-        </div>
+        {{ panel_picker() }}
 
       
         <!-- Tab panels -->

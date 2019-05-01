@@ -632,14 +632,30 @@
       } // if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
-        send_ajax('/boo/mylist/'+ path.substring(12,), 'GET', '', '', function (res) {
+        send_ajax('/boo/mylist/'+ '{{name}}', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
+          
+          var userlist = [];
 
-          res.forEach( function(r) {
+          if ('{{name}}' == '{{user}}'){
+            userlist = res[0];
+          }else{
+            res[0].forEach( function(u){
+              console.log(u)
+              if ( u.public == 1 ){
+                userlist.push(u)
+              }
+            }); //res[0].forEach
+          }// if
+
+          userlist.forEach( function(r) {
             listRes[r.list_id] =  r
           });
 
-          hbs('card_lists', { lists : res }, 'acard') // 해당 유저가 쓴 카드
+          res[1]['listCnt'] = userlist.length
+
+          hbs('panel_picker', res[1], 'pp') 
+          hbs('card_lists', { lists : userlist }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
     }) // ready

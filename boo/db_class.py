@@ -26,11 +26,16 @@ class Users(Base):
     # join_date  =  Column(TIMESTAMP)
     job = Column(String)
     email = Column(String)
-    # following_cnt =  Column(Integer)
-    # follower_cnt = Column(Integer)
+    follow_cnt =  Column(Integer, default=0)
+    follower_cnt = Column(Integer, default=0)
 
     def __repr__(self):
         return 'Users %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno)
+
+    def json(self):
+        j = {l.name: getattr(self, l.name) for l in self.__table__.columns}
+       
+        return j
 
 
 class Follow(Base):	

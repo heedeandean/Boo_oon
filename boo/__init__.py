@@ -20,13 +20,14 @@ app.config.update(
 islogin = False
 user = ''
 
+
 # 메인페이지
 @app.route('/boo', methods=['GET','POST'])
 def main():
     global islogin, user
 
-    session['islogin'] = {'islogin' : islogin}
-    islogin = session.get('islogin')['islogin']
+    session['islogin'] = islogin
+    islogin = session.get('islogin')
 
     if islogin == False :
         user = ''
@@ -35,10 +36,14 @@ def main():
     
     return render_template('ecom_main.html', islogin=islogin, user = user)
 
+
 # 서브페이지
 @app.route('/boo/sub')
 def sub():
-    return render_template('boo_sub.html')
+    islogin = session.get('islogin')
+
+    return render_template('boo_sub.html', islogin=islogin)
+
 
 # 마이페이지
 @app.route('/boo/mypage/<user_name>')
@@ -47,7 +52,7 @@ def mypage(user_name):
     u = Users.query.filter(Users.username == user_name).first()
     print('@#@#@#@#@#@#@#@#@#', u)
 
-    return render_template('mypage.html', email=u.email, name=u.username)
+    return render_template('mypage.html', email=u.email, name=u.username, user=user)
 
 
 
@@ -327,7 +332,7 @@ def get_mylist(username):
 
     lists = Lists.query.filter(Lists.userno == u.userno).order_by(Lists.list_id.desc()).all()
 
-    return jsonify( [l.json() for l in lists] )
+    return jsonify( [l.json() for l in lists] , u.json() )
 
 
 

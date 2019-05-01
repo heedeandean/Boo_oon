@@ -1,6 +1,5 @@
 {% macro keyword() -%}
 
-
 <script id="keyword_modal" type="text/x-handlebars-template">
 {% raw %}
     
@@ -44,3 +43,44 @@
 </script>
 {%- endmacro %}
 
+
+
+
+{% macro panel_picker() -%}
+
+<div id='pp'></div>
+
+
+<script id="panel_picker" type="text/x-handlebars-template">
+{% raw %}
+    <ul class="nav md-pills pills-default d-flex justify-content-center">
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel11" role="tab">
+            <strong>뜬 구름 {{listCnt}}개</strong>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel12" role="tab">
+            <strong>좋아요 {{userlikeCnt}}개</strong>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+            <strong>뱃지 {{badgeCnt}}개</strong>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+            <strong>팔로워 {{follower_cnt}}명</strong>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#panel13" role="tab">
+            <strong>팔로우 {{follow_cnt}}명</strong>
+        </a>
+        </li>
+    </ul>       
+{% endraw %}
+</script>  
+
+{%- endmacro %}
