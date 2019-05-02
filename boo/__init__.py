@@ -60,15 +60,18 @@ def mypage(user_name):
 
     isfollow = False
     my_follow_list = []
+    mydata = {}
 
     if islogin == False :
         user = ''
     elif user != "" :
         user = session.get('loginUser')['username']
         my = Users.query.filter(Users.username == user).first()
-        f = Follow.query.filter(Follow.following == my.userno).all()
-        for ff in f :
-            my_follow_list.append(ff.userno)
+        mydata = { 'userno' : my.userno, 'username' : my.username, 'email' : my.email }
+        my_follow_list = [ ff.userno for ff in Follow.query.filter(Follow.following == my.userno).all() ]
+        # f = Follow.query.filter(Follow.following == my.userno).all()
+        # for ff in f :
+        #     my_follow_list.append(ff.userno)
 
     u = Users.query.filter(Users.username == user_name).first()
    
@@ -77,12 +80,12 @@ def mypage(user_name):
     
     host_follow_list = Follow.query.filter(Follow.following == u.userno).all()
     host_follower_list = Follow.query.filter(Follow.userno == u.userno).all()
-    follow = [ Users.query.filter(Users.userno == f.userno).first() for f in host_follow_list]
-    follower = [ Users.query.filter(Users.userno == f.following).first() for f in host_follower_list ]
+    follow = [{ 'userno' : u.userno, 'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.userno).first() for f in host_follow_list] ]
+    follower = [ { 'userno' : u.userno,  'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.following).first() for f in host_follower_list ] ]
     
     print('FOLLOW>>>>>>>>>', follow, 'FOLLWER>>>>>>>>>', follower)
 
-    return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower )
+    return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower, mydata=mydata)
 
 
 
@@ -222,7 +225,7 @@ def write():
 
 
 # 카드 삭제
-@app.route('/boo/delete', methods=['DELETE'])
+@app.route('/boo/delete', methods=['POST'])
 def boo_delete():
     l_id = request.values.get('list_id')
 

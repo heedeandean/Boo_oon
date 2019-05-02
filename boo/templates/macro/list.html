@@ -86,31 +86,36 @@
 {%- endmacro %}
 
 
-{% macro follow(lst, id) -%}
+{% macro follow(type) -%}
 
-    <div class="list-group-flush">
-        {% for l in lst %}
-            <div class="list-group-item" id='{{id}}{{l.userno}}'>
-                
-                <div class="mdb-feed mt-1">   
-                    <div class="news" id="cmt" >
-                        <div class="label">
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
-                        </div>
+    <div class="list-group-flush" id='{{type}}_list'></div>
 
-                        <div class="excerpt">
-                            <div class="brief">
-                                <a class="text-md name"><strong>{{l.username}}</strong></a> 
-                            </div>
-                            
-                            <div class="feed-footer">
-                                <p class="text-sm grey-text">{{l.email}}</p>
-                            </div>
+    <script id="{{type}}_list_script" type="text/x-handlebars-template">
+        {% raw %}
+        {{#if list}}
+        {{#each list}}
+        <div class="list-group-item" id='{{userno}}'>
+            <div class="mdb-feed mt-1">   
+                <div class="news" id="cmt" >
+                    <div class="label">
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(18)-mini.jpg" class="rounded-circle">
+                    </div>
+
+                    <div class="excerpt">
+                        <div class="brief">
+                            <a class="text-md name"><strong>{{username}}</strong></a> 
                         </div>
-                    </div> 
-                </div>
+                        
+                        <div class="feed-footer">
+                            <p class="text-sm grey-text">{{email}}</p>
+                        </div>
+                    </div>
+                </div> 
             </div>
-        {% endfor %}
-    </div>
+        </div>
+        {{/each }}
+        {{/if }}
+        {% endraw %}
+    </script>
 
 {%- endmacro %}

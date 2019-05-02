@@ -655,6 +655,10 @@
           res[1]['listCnt'] = userlist.length
 
           hbs('panel_picker', res[1], 'pp') 
+          {% if followlist is defined %}
+          hbs('follow_list_script',{ list : {{followlist | safe}} },'follow_list');
+          hbs('follow_list_script', { list: {{followerlist | safe}} },'follower_list');
+          {% endif %}
           hbs('card_lists', { lists : userlist }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
@@ -701,13 +705,20 @@
           $('#followIcon').removeClass('fa-user').addClass('fa-user-check white-text')
           $('#followButton').removeClass('btn-outline-info').addClass('btn-info')
           send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
-
+          {% if followerlist is defined %}
+          console.log('mydata', {{mydata | safe}})
+          console.log('follllowwwwww', {{followerlist | safe}}.push( {{mydata | safe}} ) )
+          console.log('follllowwwwww2222', {{followerlist | safe}} )
+          hbs('follow_list_script', { list: {{followerlist | safe}}.push({{mydata | safe}}) },'follower_list');
+          {% endif %}
         }else{
           $('#follower_cnt').text( parseInt($('#follower_cnt').text()) - 1 );
           $('#followIcon').removeClass('fa-user-check white-text').addClass('fa-user')
           $('#followButton').removeClass('btn-info').addClass('btn-outline-info')
           send_ajax('/boo/delfollow' , 'POST', {'user' : host, 'following' : guest}, ''); 
-
+          {% if mydata is defined %}
+          $('div#follower_list div#' + '{{mydata.userno}}').remove()
+          {% endif %}
         } // if hasClass
       }// if guest.length
     }// Follow
