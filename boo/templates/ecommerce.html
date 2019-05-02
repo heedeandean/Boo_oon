@@ -409,7 +409,7 @@
 
     function addCmt(id){
       var txt = $('#commentArea2' + id).val()
-      var one = '{{user}}'
+      var one = parseInt($("#cmtCnt" + id).text())
 
       if ( txt.length == 0 ){
         alert('내용을 입력해주세요.')
@@ -567,7 +567,7 @@
     $(document).ready(function () {
       var path = '{{request.path}}';
       console.log("path>>", path)
-     
+    
       if (path === '/boo') {
         send_ajax('/boo/lists', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
@@ -602,7 +602,8 @@
           });
 
           $( "#keywords ul li button" ).click(function(){
-            key =  $(this).text();
+            var key =  $(this).text();
+            var filters = [];
           
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
@@ -610,16 +611,25 @@
               $('#filters').text( $('#filters').text() + key )
               
               if ( keyword['job'].indexOf(key) !== -1){
-                filtered = ( res.filter(e => e['job'] ==  key ) ) 
+                filters.push({'job': key})
+                filtered = ( res.filter(e => e['job'] ==  key ) )
+                console.log(filters)
+
               }else if ( keyword['city'].indexOf(key) !== -1) {
+                filters = filters.push({'city': key})
                 filtered = ( res.filter(e => e['city'].substring(0,2) ==  key ) ) 
+
               }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
+                filters = filters.push({'gender': key})
                 filtered = ( res.filter(e => e['gender'] ==  makeGender(key) ) ) 
+
               }else  {
+                filters = filters.push({'birthdate': key})
                 filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
               }
 
               hbs('card_lists', { lists : filtered }, 'acard') 
+              console.log(filters)
             
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
@@ -627,10 +637,10 @@
 
               hbs('card_lists', { lists : res }, 'acard') 
             }
-          });
+          }); //keyword 
           
         }); //send_ajax
-      } // if '/boo/sub'
+      } //if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
         send_ajax('/boo/mylist/'+ '{{name}}', 'GET', '', '', function (res) {
@@ -674,15 +684,25 @@
 
     // 동년배 계산 - To Do : 현재 날짜를 기준으로 자동으로 계산되게 만들기 !!
     function makeAge(aa){
-      aa = parseInt( aa.substring(0,4) )
-      if ( aa > 2000){
+      var thisYear = new Date().getFullYear();
+      var aa = parseInt( aa.substring(0,4) );
+
+      if ( aa > (thisYear - 19)){
         return "10대"
-      }else if ( 1990 < aa <= 2000 ){
+      }else if ( (thisYear - 29) < aa <= (thisYear - 19) ){
         return "20대"
-      }else if ( 1980 < aa <= 1990 ){
+      }else if ( (thisYear - 39) < aa <= (thisYear - 29) ){
         return "30대"
-      }else if ( 1970 < aa <= 1980 ){
+      }else if ( (thisYear - 49) < aa <= (thisYear - 39)  ){
         return "40대"
+      }else if ( (thisYear - 59) < aa <= (thisYear - 49)  ){
+        return "50대"
+      }else if ( (thisYear - 69) < aa <= (thisYear - 59)  ){
+        return "60대"
+      }else if ( (thisYear - 79) < aa <= (thisYear - 69)  ){
+        return "70대"
+      }else if ( (thisYear - 89) < aa <= (thisYear - 79)  ){
+        return "80대이상"
       }
     }
 
@@ -699,23 +719,25 @@
       var host = $('#hostname').text().trim()
       if ( guest.length == 0 ){
         alert('로그인이 필요합니다.')
+
       }else {
         if ( $('#followButton').hasClass('btn-outline-info')  ){
           $('#follower_cnt').text( parseInt($('#follower_cnt').text()) + 1 );
           $('#followIcon').removeClass('fa-user').addClass('fa-user-check white-text')
           $('#followButton').removeClass('btn-outline-info').addClass('btn-info')
           send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
+
           {% if followerlist is defined %}
-          console.log('mydata', {{mydata | safe}})
-          console.log('follllowwwwww', {{followerlist | safe}}.push( {{mydata | safe}} ) )
-          console.log('follllowwwwww2222', {{followerlist | safe}} )
-          hbs('follow_list_script', { list: {{followerlist | safe}}.push({{mydata | safe}}) },'follower_list');
+          var fl =  {{followerlist | safe}}
+          hbs('follow_list_script', { list : fl },'follower_list');
           {% endif %}
+
         }else{
           $('#follower_cnt').text( parseInt($('#follower_cnt').text()) - 1 );
           $('#followIcon').removeClass('fa-user-check white-text').addClass('fa-user')
           $('#followButton').removeClass('btn-info').addClass('btn-outline-info')
           send_ajax('/boo/delfollow' , 'POST', {'user' : host, 'following' : guest}, ''); 
+
           {% if mydata is defined %}
           $('div#follower_list div#' + '{{mydata.userno}}').remove()
           {% endif %}

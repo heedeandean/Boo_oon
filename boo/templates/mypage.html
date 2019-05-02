@@ -10,7 +10,7 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar aqua-gradient">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/boo">
           <strong>뜬구름</strong>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7"
@@ -91,8 +91,8 @@
             {% if (user != name)%}
                <!--Follow-->
               {% if (isfollow) %}
-                <button class="btn m-2 btn-info btn-rounded px-7" onclick='Follow("{{user}}")'>
-                  <i class="fas fa-user-check white-text mr-2"> </i>
+                <button class="btn m-2 btn-info btn-rounded px-7" onclick='Follow("{{user}}")' id='followButton'>
+                  <i class="fas fa-user-check white-text mr-2" id='followIcon'> </i>
                   <span>팔로잉</span>
                 </button>
               {% else %}

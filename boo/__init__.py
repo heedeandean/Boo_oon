@@ -34,7 +34,7 @@ def main():
     elif user != "" :
         user = session.get('loginUser')['username']
     
-    return render_template('ecom_main.html', islogin=islogin, user = user)
+    return render_template('boo_main.html', islogin=islogin, user = user)
 
 
 # 서브페이지
@@ -69,21 +69,18 @@ def mypage(user_name):
         my = Users.query.filter(Users.username == user).first()
         mydata = { 'userno' : my.userno, 'username' : my.username, 'email' : my.email }
         my_follow_list = [ ff.userno for ff in Follow.query.filter(Follow.following == my.userno).all() ]
-        # f = Follow.query.filter(Follow.following == my.userno).all()
-        # for ff in f :
-        #     my_follow_list.append(ff.userno)
-
+        
     u = Users.query.filter(Users.username == user_name).first()
    
     if u.userno in my_follow_list :
         isfollow = True
     
     host_follow_list = Follow.query.filter(Follow.following == u.userno).all()
-    host_follower_list = Follow.query.filter(Follow.userno == u.userno).all()
     follow = [{ 'userno' : u.userno, 'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.userno).first() for f in host_follow_list] ]
+
+    host_follower_list = Follow.query.filter(Follow.userno == u.userno).all()
     follower = [ { 'userno' : u.userno,  'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.following).first() for f in host_follower_list ] ]
     
-    print('FOLLOW>>>>>>>>>', follow, 'FOLLWER>>>>>>>>>', follower)
 
     return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower, mydata=mydata)
 
@@ -136,7 +133,6 @@ def regist_post():
         print("Error on users>>>", err)
         db_session.rollback()
     
-    # return render_template("ecom_main.html")
     return redirect('/boo')
     
 
