@@ -16,6 +16,10 @@
   <link href="{{ url_for('static', filename="css/mdb.min.css") }}" rel="stylesheet">
   <!-- style -->
   <link href="{{ url_for('static', filename="style/style.css") }}" rel="stylesheet">
+  <!-- Chat CSS -->
+  <link href="{{ url_for('static', filename="css/addons-pro/chat.css" ) }}" rel="stylesheet">
+  <!-- Chat CSS - minified-->
+  <link href="{{ url_for('static', filename="css/addons-pro/chat.min.css" ) }}"  rel="stylesheet">
 
 </head>
 
@@ -29,6 +33,9 @@
 
 {% block my %}
 {% endblock my %}
+
+{% block chat %}
+{% endblock chat %}
 
   <!--  SCRIPTS  -->
   <!-- Moment -->
@@ -639,6 +646,7 @@
       } //if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
+        $('#chatModal').modal('show');
         send_ajax('/boo/mylist/'+ '{{name}}', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           
@@ -670,6 +678,7 @@
           hbs('card_lists', { lists : userlist }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
+
     }) // ready
 
 
@@ -770,10 +779,6 @@
         
         return r;
       });
-
-      dd.forEach( d => {
-        console.log(d.birthdate, d.gender, d.city, d.job)
-      })
 
       return dd
     }

@@ -1,5 +1,5 @@
 {% extends 'ecommerce.html' %}
-{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
+{% from 'macro/modals.html' import modal, card_modal, chat%}
 {% from 'macro/card.html' import card, slide_card %}
 {% from 'macro/list.html' import panel_picker, follow %}
 
@@ -102,6 +102,9 @@
                 </button>
               {% endif %}
 
+            
+            {{ chat() }}
+         
             <!--Direct Message-->
             <button class="btn btn-info btn-rounded px-7">
               <i class="far fa-comments white-text mr-2"> </i> DM
@@ -122,6 +125,9 @@
 
       </section>
       <!--Section: Team v.1-->
+
+      
+      </script>
     
 
       <!--Section: Tabs-->

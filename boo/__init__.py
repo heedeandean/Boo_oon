@@ -84,6 +84,20 @@ def mypage(user_name):
 
     return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower, mydata=mydata)
 
+# 채팅페이지
+@app.route('/boo/chat')
+def chat():
+    global islogin, user
+
+    session['islogin'] = islogin
+    islogin = session.get('islogin')
+
+    if islogin == False :
+        user = ''
+    elif user != "" :
+        user = session.get('loginUser')['username']
+
+    return render_template('boo_chat.html', islogin=islogin, user=user)
 
 
 # 가입시 아이디, 이메일 중복 체크.
