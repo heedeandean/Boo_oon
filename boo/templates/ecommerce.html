@@ -608,65 +608,25 @@
 
           $( "#keywords ul li button" ).click(function(){
             var key =  $(this).parent().parent().parent().attr('id');
-            console.log(key)
             var val =  $(this).text();
+
+            keywordjson = {}
+            keywordjson[key] = val
             
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
-              
               $('#filters').text( $('#filters').text() + val )
-              
-              if ( keyword['job'].indexOf(val) !== -1){
-                filters.push({'job': val}) 
-                
-                filtered = ( res.filter(e => e['job'] ==  val ) )
 
-              }else if ( keyword['city'].indexOf(val) !== -1) {
-                filters.push({'city': val})
-                filtered = ( res.filter(e => e['city'].substring(0,2) ==  val ) ) 
-
-              }else if ( makeGender(val) == '1' ||  makeGender(val) == '2' ){
-                filters.push({'gender': val})
-                gen.push(val);
-                filtered = ( res.filter(e => e['gender'] ==  makeGender(val) ) ) 
-
-              }else  {
-                filters.push({'birthdate': val})
-                age.push(val)
-                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  val ) ) 
-              }
-              
-              f = {age: age, gen: gen};   
-              console.log('add', filters)
-              //filtering(res, filters)
-              //console.log('filtered', filtering(res, filters))
-              filtering(res, f);
-              hbs('card_lists', { lists : filtered }, 'acard') 
-            
+              filters.push(keywordjson)
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
               $('#filters').text( $('#filters').text().replace( val ,'') );
 
-              if ( keyword['job'].indexOf(val) !== -1){
-                filters.splice(filters.indexOf({'job': val}), 1);
-                filtered = ( res.filter(e => e['job'] ==  val ) )
-
-              }else if ( keyword['city'].indexOf(val) !== -1) {
-                filters.splice(filters.indexOf({'city': val}), 1);
-                filtered = ( res.filter(e => e['city'].substring(0,2) ==  val ) ) 
-
-              }else if ( makeGender(val) == '1' ||  makeGender(val) == '2' ){
-                filters.splice(filters.indexOf({'gender': val}), 1);
-                filtered = ( res.filter(e => e['gender'] ==  makeGender(val) ) ) 
-
-              }else  {
-                filters.splice(filters.indexOf({'birthdate': val}), 1);
-                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  val ) ) 
-              }
-              
-              console.log('remove', filters)
-              hbs('card_lists', { lists : res }, 'acard') 
+              filters.splice(filters.indexOf({'job': val}), 1);
             }
+            
+            console.log(filters)
+            
           }); //keyword 
         }); //send_ajax
       } //if '/boo/sub'
