@@ -602,54 +602,66 @@
           });
 
           var filters = [];
+          var f = [],
+              age = [],
+              gen = [];
 
           $( "#keywords ul li button" ).click(function(){
-            var key =  $(this).text();
+            var key =  $(this).parent().parent().parent().attr('id');
+            console.log(key)
+            var val =  $(this).text();
             
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
               
-              $('#filters').text( $('#filters').text() + key )
+              $('#filters').text( $('#filters').text() + val )
               
-              if ( keyword['job'].indexOf(key) !== -1){
-                filters.push({'job': key}) 
-                filtered = ( res.filter(e => e['job'] ==  key ) )
+              if ( keyword['job'].indexOf(val) !== -1){
+                filters.push({'job': val}) 
+                
+                filtered = ( res.filter(e => e['job'] ==  val ) )
 
-              }else if ( keyword['city'].indexOf(key) !== -1) {
-                filters.push({'city': key})
-                filtered = ( res.filter(e => e['city'].substring(0,2) ==  key ) ) 
+              }else if ( keyword['city'].indexOf(val) !== -1) {
+                filters.push({'city': val})
+                filtered = ( res.filter(e => e['city'].substring(0,2) ==  val ) ) 
 
-              }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
-                filters.push({'gender': key})
-                filtered = ( res.filter(e => e['gender'] ==  makeGender(key) ) ) 
+              }else if ( makeGender(val) == '1' ||  makeGender(val) == '2' ){
+                filters.push({'gender': val})
+                gen.push(val);
+                filtered = ( res.filter(e => e['gender'] ==  makeGender(val) ) ) 
 
               }else  {
-                filters.push({'birthdate': key})
-                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
+                filters.push({'birthdate': val})
+                age.push(val)
+                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  val ) ) 
               }
               
+              f = {age: age, gen: gen};   
               console.log('add', filters)
+              //filtering(res, filters)
+              //console.log('filtered', filtering(res, filters))
+              filtering(res, f);
               hbs('card_lists', { lists : filtered }, 'acard') 
             
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
-              $('#filters').text( $('#filters').text().replace( key ,'') );
+              $('#filters').text( $('#filters').text().replace( val ,'') );
 
-              if ( keyword['job'].indexOf(key) !== -1){
-                filters.splice(filters.indexOf({'job': key}), 1);
-                filtered = ( res.filter(e => e['job'] ==  key ) )
+              if ( keyword['job'].indexOf(val) !== -1){
+                filters.splice(filters.indexOf({'job': val}), 1);
+                filtered = ( res.filter(e => e['job'] ==  val ) )
 
-              }else if ( keyword['city'].indexOf(key) !== -1) {
-                filters.splice(filters.indexOf({'city': key}), 1);
-                filtered = ( res.filter(e => e['city'].substring(0,2) ==  key ) ) 
+              }else if ( keyword['city'].indexOf(val) !== -1) {
+                filters.splice(filters.indexOf({'city': val}), 1);
+                filtered = ( res.filter(e => e['city'].substring(0,2) ==  val ) ) 
 
-              }else if ( makeGender(key) == '1' ||  makeGender(key) == '2' ){
-                filters.splice(filters.indexOf({'gender': key}), 1);
-                filtered = ( res.filter(e => e['gender'] ==  makeGender(key) ) ) 
+              }else if ( makeGender(val) == '1' ||  makeGender(val) == '2' ){
+                filters.splice(filters.indexOf({'gender': val}), 1);
+                filtered = ( res.filter(e => e['gender'] ==  makeGender(val) ) ) 
 
               }else  {
-                filters.splice(filters.indexOf({'birthdate': key}), 1);
-                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  key ) ) 
+                filters.splice(filters.indexOf({'birthdate': val}), 1);
+                filtered = ( res.filter(e => makeAge( e['birthdate'] ) ==  val ) ) 
               }
               
               console.log('remove', filters)
@@ -763,6 +775,40 @@
     }// Follow
     
 
+    // 필터 루프
+    function filtering1(data, ff){
+      $(ff).each( f => {
+        data = data.filter( e => ( Object.keys(ff[f])[0] == 'birthdate') ? makeAge( e[Object.keys(ff[f])[0]] ) : e[Object.keys(ff[f])[0]] == Object.values(ff[f])[0] )
+        console.log('looop', Object.keys(ff[f])[0], data)
+      }); // each
+      return data
+    }
+
+    function filtering(data, ff) {
+      console.log("data=", data, ", ff=", ff)
+      let dd = data.filter( d => {
+        let r = true;
+        if (ff.age.length) {
+          console.log(ff.age.length)
+          r = ff.age.indexOf(makeAge(d.birthdate)) !== -1;
+        }
+
+        if (r && ff.gen.length) {
+          let gg = d.gender == '2' ? '여자' : '남자';
+          console.log("gen=", ff.gen.length, gg)
+          r = ff.gen.indexOf(gg) !== -1; 
+        }
+
+
+
+        return r;
+      });
+
+      dd.forEach( d => {
+        console.log(d)
+      })
+    }
+  
 
   </script>
 
