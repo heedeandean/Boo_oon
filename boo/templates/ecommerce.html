@@ -601,33 +601,40 @@
             listRes[r.list_id] =  r
           });
 
-          var filters = [];
-          var f = [],
-              age = [],
-              gen = [];
+          var filters = {
+            birthdate : [],
+            gender : [],
+            city : [],
+            job : []
+          };
+          
 
           $( "#keywords ul li button" ).click(function(){
             var key =  $(this).parent().parent().parent().attr('id');
             var val =  $(this).text();
-
-            keywordjson = {}
-            keywordjson[key] = val
             
+            let filtered = [];
+
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
               $('#filters').text( $('#filters').text() + val )
 
-              filters.push(keywordjson)
+              filters[key].push(val)
+              filtered = filtering(res, filters)
+
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
               $('#filters').text( $('#filters').text().replace( val ,'') );
 
-              filters.splice(filters.indexOf({'job': val}), 1);
+              filters[key].splice(filters[key].indexOf(val), 1);
+              filtered = filtering(res, filters)
             }
             
             console.log(filters)
+
+            hbs('card_lists', { lists : filtered }, 'acard') 
             
-          }); //keyword 
+          }); //onclick keyword 
         }); //send_ajax
       } //if '/boo/sub'
 
@@ -654,10 +661,12 @@
           res[1]['listCnt'] = userlist.length
 
           hbs('panel_picker', res[1], 'pp') 
+
           {% if followlist is defined %}
-          hbs('follow_list_script',{ list : {{followlist | safe}} },'follow_list');
-          hbs('follow_list_script', { list: {{followerlist | safe}} },'follower_list');
+            hbs('follow_list_script',{ list : {{followlist | safe}} },'follow_list');
+            hbs('follow_list_script', { list: {{followerlist | safe}} },'follower_list');
           {% endif %}
+
           hbs('card_lists', { lists : userlist }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
       } // if '/boo/mypage'
@@ -671,7 +680,7 @@
     'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
     }
 
-    // 동년배 계산 - To Do : 현재 날짜를 기준으로 자동으로 계산되게 만들기 !!
+    // 동년배 계산
     function makeAge(aa){
       var thisYear = new Date().getFullYear();
       var aa = parseInt( aa.substring(0,4) );
@@ -735,38 +744,38 @@
     }// Follow
     
 
-    // 필터 루프
-    function filtering1(data, ff){
-      $(ff).each( f => {
-        data = data.filter( e => ( Object.keys(ff[f])[0] == 'birthdate') ? makeAge( e[Object.keys(ff[f])[0]] ) : e[Object.keys(ff[f])[0]] == Object.values(ff[f])[0] )
-        console.log('looop', Object.keys(ff[f])[0], data)
-      }); // each
-      return data
-    }
-
+    // 키워드 필터 루프
     function filtering(data, ff) {
       console.log("data=", data, ", ff=", ff)
+
       let dd = data.filter( d => {
         let r = true;
-        if (ff.age.length) {
-          console.log(ff.age.length)
-          r = ff.age.indexOf(makeAge(d.birthdate)) !== -1;
+
+        if (ff.birthdate.length) {
+          r = ff.birthdate.indexOf(makeAge(d.birthdate)) !== -1;
         }
 
-        if (r && ff.gen.length) {
-          let gg = d.gender == '2' ? '여자' : '남자';
-          console.log("gen=", ff.gen.length, gg)
-          r = ff.gen.indexOf(gg) !== -1; 
+        if (r && ff.gender.length) {
+          let gg = d.gender == '1' ? '여자' : '남자';
+          r = ff.gender.indexOf(gg) !== -1; 
         }
 
+        if (r && ff.city.length) {
+          r = ff.city.indexOf(d.city.substring(0,2)) !== -1; 
+        }
 
-
+        if (r && ff.job.length) {
+          r = ff.job.indexOf(d.job) !== -1; 
+        }
+        
         return r;
       });
 
       dd.forEach( d => {
-        console.log(d)
+        console.log(d.birthdate, d.gender, d.city, d.job)
       })
+
+      return dd
     }
   
 
