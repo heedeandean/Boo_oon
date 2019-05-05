@@ -13,6 +13,7 @@ import os
 app = Flask(__name__)
 app.debug = True
 app.jinja_env.trim_blocks = True
+socketio = SocketIO(app)
 
 app.config.update(
 	SECRET_KEY='X1243yRH!mMwf',
@@ -434,6 +435,25 @@ def follow_delete():
     
     rd = 'boo/mypage/' + username
     return redirect(rd)
+
+
+###############chat#############################
+@socketio.on('connect', namespace='/mynamespace') 
+def connect(): 
+    emit("response", {'data': 'Connected', 'username': session['username']}) 
+    
+@socketio.on('disconnect', namespace='/mynamespace') 
+def disconnect(): 
+    session.clear() 
+    print ("Disconnected" )
+    
+@socketio.on("request", namespace='/mynamespace') 
+def request(message): 
+    emit("response", {'data': message['data'], 'username': session['username']}, broadcast=True) 
+    
+if __name__ == '__main__': 
+    socketio.run(app)
+
 
 
 
