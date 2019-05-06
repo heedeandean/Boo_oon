@@ -624,26 +624,21 @@
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
               
-              $('#filters').text( $('#filters').text() + val )
-              var fb = $('#filters').html( '<button class="btn btn-info white-text">' + val +'</button>');
-              $('#filters').html(  $('#filters').html() + $('#filters').html( '<button class="btn btn-info white-text">' + val +'</button>')   )
+              //$('#filters').text( $('#filters').text() + val )
+            
+              $('#filters').html(  $('#filters').html() + '<button class="btn btn-info white-text">' + val +'</button>'   )
 
               filters[key].push(val)
               filtered = filtering(res, filters)
-              console.log('######', filters)
-
-              hbs('checked_filter', {checked : filters}, 'fb')
 
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
 
               $('#filters').text( $('#filters').text().replace( val ,'') );
-              
 
               filters[key].splice(filters[key].indexOf(val), 1);
               filtered = filtering(res, filters)
 
-              hbs('checked_filter', {checked : filters}, 'fb')
             }
             
             console.log(filters)
@@ -769,7 +764,7 @@
       let dd = data.filter( d => {
         let r = true;
 
-        if (ff.birthdate.length) {
+        if (r && ff.birthdate.length) {
           r = ff.birthdate.indexOf(makeAge(d.birthdate)) !== -1;
         }
 
