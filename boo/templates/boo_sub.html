@@ -81,8 +81,21 @@
 
       <div class="container mb-5" id='keywords'></div>
       
-      <!--Grid row 카드 자리-->
+
       <div class="container mb-5" id='filters'></div>
+      <div class="container mb-5" id='fb'></div>
+
+      <script id="checked_filter" type="text/x-handlebars-template">
+      {% raw %}
+       {{#each checked }}
+        <button class='btn btn-info'>{{birthdate}}</button>
+        <button class='btn btn-info'>{{gender}}</button>
+        <button class='btn btn-info'>{{job}}</button>
+        <button class='btn btn-info'>{{city}}</button>
+       {{/each}}
+      {% endraw %}
+      </script>
+      
 
       {{ card() }}
       

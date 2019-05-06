@@ -614,7 +614,6 @@
             city : [],
             job : []
           };
-          
 
           $( "#keywords ul li button" ).click(function(){
             var key =  $(this).parent().parent().parent().attr('id');
@@ -624,10 +623,12 @@
 
             if ( $(this).hasClass('btn-outline-light-blue') ){
               $(this).removeClass('btn-outline-light-blue').addClass('btn-light-blue')
+              
               $('#filters').text( $('#filters').text() + val )
 
               filters[key].push(val)
               filtered = filtering(res, filters)
+              hbs('checked_filter', {checked : filters}, 'fb')
 
             }else{
               $(this).removeClass('btn-light-blue').addClass('btn-outline-light-blue')
@@ -635,6 +636,7 @@
 
               filters[key].splice(filters[key].indexOf(val), 1);
               filtered = filtering(res, filters)
+              hbs('checked_filter', {checked : filters}, 'fb')
             }
             
             console.log(filters)
