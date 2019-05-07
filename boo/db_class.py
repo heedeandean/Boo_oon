@@ -28,6 +28,7 @@ class Users(Base):
     email = Column(String)
     follow_cnt =  Column(Integer, default=0)
     follower_cnt = Column(Integer, default=0)
+    img = Column(String)
 
     def __repr__(self):
         return 'Users %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno)

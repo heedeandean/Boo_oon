@@ -81,9 +81,14 @@
           <!--Grid column-->
           <div class="col-md-12 mb-4" style="margin-top: -100px;">
 
+            <!--프로필 사진 바꾸기-->
+            <form id="imgForm" action='/boo/upload' method="POST" enctype="multipart/form-data">
+              <input id="imgInput" type="file" onchange='real_upload()' style="opacity: 0; width: 0; height: 0;">
+            </form>
+
             <div class="avatar mx-auto">
-              <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="img-fluid rounded-circle z-depth-1"
-                alt="First sample avatar image">
+              <img id='myImg'src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="img-fluid rounded-circle z-depth-1"
+                alt="First sample avatar image" onclick='upload()'>
             </div>
             <h3 class="my-3 font-weight-bold" id='hostname'>
               <strong>{{name}}</strong>

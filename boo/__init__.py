@@ -6,6 +6,7 @@ from sqlalchemy import update
 from sqlalchemy.orm import relationship, backref, joinedload
 from flask_socketio import SocketIO, emit 
 import os
+from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -438,8 +439,45 @@ def follow_delete():
     return redirect(rd)
 
 
+# 프로필 사진 수정
+@app.route('/boo/upload', methods=['POST'])
+def upload():
+    upfile = request.files['file']    
+    username = request.form.get('username')
 
-###############teardown_appcontext#############################
+    filename = upfile.filename.replace('..', '')
+
+    print("mmmmmmmmmmmmmmmmmm>>", username, filename)
+
+    path = rename(os.path.join("./boo/static/img/upfiles", filename), username)
+    print("aaaaaaaaaaaaaaaaaaaa>>", username, path)
+    upfile.save(path)
+
+    print("mmmmmmmmmmmmmmmmmm>>", username, upfile)
+    print("mmmmmmmmmmmmmmmmmm>>", username, upfile)
+    print("mmmmmmmmmmmmmmmmmm>>", username, path)
+
+
+    path = path[12:]
+
+    print(path)
+
+    u = Users.query.filter(Users.username ==  username).first()
+
+    try:
+        print('uuuuu', u)
+        u.img = path
+        db_session.merge(u)
+        db_session.commit()
+    
+    except SQLAlchemyError as err:
+        db_session.rollback()
+        print("Error >>", err)
+
+    return jsonify({"path": path})
+
+
+############### teardown_appcontext #############################
 
 @app.teardown_appcontext
 def teardown_context(exception):
@@ -447,8 +485,20 @@ def teardown_context(exception):
     db_session.remove() 
 
 
+############### 그냥 필요해서 만든 함수 #############################
+
 def getzero(md):
     if len(md) == 2 :
         return md
     else :
         return '0' + md
+
+
+def rename(path, username):
+    while True:
+        if os.path.isfile(path):
+            idx = path.rindex('.')  
+            if idx == -1:
+                path = username
+            else:
+                path = username + path[idx:]

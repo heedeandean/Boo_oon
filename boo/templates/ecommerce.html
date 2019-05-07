@@ -695,7 +695,7 @@
     'job' : ['공무원', '교육', '사무직', '기술직', '농업, 어업', '건축, 건설', '법률', '보건, 의료', '문화, 예술, 디자인', '음악', '스포츠', '신문, 방송, 매체', '사회복지', '영업, 판매', '운전, 운송', '요식업','숙박, 여행','종교', '군인', '학생', '기타']    
     }
 
-    // 동년배 계산
+    // 키워드 검색에 사용되는 함수
     function makeAge(aa){
       var thisYear = new Date().getFullYear();
       var aa = parseInt( aa.substring(0,4) );
@@ -741,7 +741,7 @@
           send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
 
           {% if followerlist is defined %}
-          var fl =  {{followerlist | safe}}
+          var fl =  {{followerlist | safe}}   //TODO 수상하니까 한 번 더 보기
           console.log('aaaa', fl)
           hbs('follow_list_script', { list : fl },'follower_list');
           {% endif %}
@@ -791,6 +791,41 @@
       return dd
     }
   
+
+    // 프로필 사진 업로드
+    function upload(){
+
+      $('#imgInput').click();
+    }
+
+    function real_upload() {
+      var form = $('#imgForm')[0]
+      var formData = new FormData(form)
+      var file = $("#imgInput")[0].files[0];
+      console.log('fffff', formData)
+
+      formData.append('file', file);
+      formData.append("username", '{{name}}');
+
+       for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+      }
+      console.log('aaaaaaaaa file', file,'form>>', form, 'formdata', formData)
+
+      $.ajax({
+        url: '/boo/upload',
+        processData: false,
+        contentType: false,
+        data: formData,
+        type: 'POST',
+        success: function (res) {
+          console.log("res>>", res);
+          if (res && res.path)
+            $('#myImg').attr('src', res.path);
+        }
+      }); // ajax
+    }
+
 
   </script>
 
