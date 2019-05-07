@@ -224,9 +224,10 @@ def write():
         else :
             l.list_title = list_title
             l.list_txt = list_txt
-            if public != None :
-                l.public = public
-
+            if public == 0 :
+                l.public = 0
+            else :  l.public = 1
+            
         db_session.commit()
     
     except Exception as err:

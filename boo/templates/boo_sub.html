@@ -1,5 +1,5 @@
 {% extends 'ecommerce.html' %}
-{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal %}
+{% from 'macro/modals.html' import modal1, modal, card_modal, regist_modal, login_modal, edit_modal %}
 {% from 'macro/card.html' import card, slide_card %}
 {% from 'macro/list.html' import keyword %}
 
@@ -7,6 +7,8 @@
 
 
 <header>
+
+    {{ edit_modal() }}
 
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
@@ -73,11 +75,10 @@
     <section class="section pb-3 wow fadeIn" data-wow-delay="0.3s">
 
       <!--Section heading-->
-      <h1 class="font-weight-bold text-center h1 my-5"><i class="fab fa-mixcloud"></i>
-        새롭게 뜬 구름<i class="fab fa-mixcloud"></i></h1>
+      <h1 class="font-weight-bold text-center h1 my-5">뜬 구름 키워드 검색</h1>
 
       <!--Section description-->
-      <p class="text-center grey-text mb-5 mx-auto w-responsive">안녕하세요. 뜬 구름입니다 :) </p>
+      <p class="text-center grey-text mb-5 mx-auto w-responsive">나이부터 지역, 성별, 직업까지 각 키워드에 맞는 뜬 구름은 어떤게 있는지 검색해보세요. </p>
 
       <div class="container mb-5" id='keywords'></div>
       

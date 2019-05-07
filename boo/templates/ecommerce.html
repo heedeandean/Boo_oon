@@ -506,6 +506,11 @@
       $('#editTxt').text(listRes[id]['list_txt'])
       $('#editTxtLabel').addClass('active')
       $('#editId').val(listRes[id]['list_id'])
+      // public이 1이면 공개 0이면 비공개
+      console.log('ppppp',listRes[id]['public'])
+      if ( listRes[id]['public'] == 0){
+        $('#defaultChecked2').prop('checked', true) ;
+      }
     }
   
 

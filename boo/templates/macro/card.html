@@ -18,7 +18,10 @@
         <!--Card footer-->
         <div class="card-footer" id='card_footer{{list_id}}'>
 
-            <span class="float-left"><i class="far fa-comment-dots mr-1"></i>
+            <span class="float-left">
+            <a class="icons-sm"> 
+            <i class="far fa-comment-dots mr-1" onclick='card_modal({{list_id}})'></i>
+            </a>
             <span id='cmtCnt{{list_id}}'>{{cmt_count}}</span>
             </span>
 
