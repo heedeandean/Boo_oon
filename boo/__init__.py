@@ -242,6 +242,7 @@ def boo_delete():
     l_id = request.values.get('list_id')
 
     try:
+        Cmt.query.filter(Cmt.list_id == l_id).delete()
         Lists.query.filter(Lists.list_id == l_id).delete()
         db_session.commit()
 
@@ -330,6 +331,7 @@ def comment_delete(cmt_id):
         print("Error!!", err)
 
     return jsonify({"result": 'OK'})
+
 
 # 댓글 좋아요, 싫어요 수 조정
 @app.route('/boo/cmt_like_hate/<list_id>', methods=['POST'])
@@ -433,49 +435,6 @@ def follow_delete():
     
     rd = 'boo/mypage/' + username
     return redirect(rd)
-
-
-###############chat#############################
-
-# from flask import Flask, jsonify, render_template
-# from subprocess import call
-# from flask_socketio import SocketIO, send
-
-# app = Flask(__name__)
-# app.secret_key = "mysecret"
-
-# socket_io = SocketIO(app)
-
-# @app.route('/')
-# def hello_world():
-#     return "Hello Gaemigo Project Home Page!!"
-
-# @app.route('/chat')
-# def chatting():
-#     return render_template('chat_test.html')
-
-
-# @socket_io.on("message")
-# def request(message):
-#     print("message : "+ message)
-#     to_client = dict()
-#     if message == 'new_connect':
-#         to_client['message'] = "새로운 유저가 난입하였다!!"
-#         to_client['type'] = 'connect'
-#     else:
-#         to_client['message'] = message
-#         to_client['type'] = 'normal'
-#     # emit("response", {'data': message['data'], 'username': session['username']}, broadcast=True)
-#     send(to_client, broadcast=True)
-
-
-# if __name__ == '__main__':
-#     socket_io.run(app, debug=True, port=5000)
-
-
-
-
-
 
 
 

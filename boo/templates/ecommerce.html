@@ -403,7 +403,7 @@
 
     // 댓글 
     function controlCmt(id){
-      if ( $('#writeModalUser').text().length == 0 ){
+      if ( '{{user}}' == '' ){
         alert('로그인이 필요합니다.')
       }else {
       $('#cancel'+ id).toggle();
@@ -648,7 +648,6 @@
       } //if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
-        $('#chatModal').modal('show');
         send_ajax('/boo/mylist/'+ '{{name}}', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           
@@ -698,19 +697,19 @@
 
       if ( aa > (thisYear - 19)){
         return "10대"
-      }else if ( (thisYear - 29) < aa <= (thisYear - 19) ){
+      }else if ( (thisYear - 29) < aa && aa <= (thisYear - 19) ){
         return "20대"
-      }else if ( (thisYear - 39) < aa <= (thisYear - 29) ){
+      }else if ( (thisYear - 39) < aa && aa <= (thisYear - 29) ){
         return "30대"
-      }else if ( (thisYear - 49) < aa <= (thisYear - 39)  ){
+      }else if ( (thisYear - 49) < aa && aa <= (thisYear - 39)  ){
         return "40대"
-      }else if ( (thisYear - 59) < aa <= (thisYear - 49)  ){
+      }else if ( (thisYear - 59) < aa && aa <= (thisYear - 49)  ){
         return "50대"
-      }else if ( (thisYear - 69) < aa <= (thisYear - 59)  ){
+      }else if ( (thisYear - 69) < aa && aa <= (thisYear - 59)  ){
         return "60대"
-      }else if ( (thisYear - 79) < aa <= (thisYear - 69)  ){
+      }else if ( (thisYear - 79) < aa && aa <= (thisYear - 69)  ){
         return "70대"
-      }else if ( (thisYear - 89) < aa <= (thisYear - 79)  ){
+      }else if ( (thisYear - 89) < aa && aa <= (thisYear - 79)  ){
         return "80대이상"
       }
     }
@@ -738,6 +737,7 @@
 
           {% if followerlist is defined %}
           var fl =  {{followerlist | safe}}
+          console.log('aaaa', fl)
           hbs('follow_list_script', { list : fl },'follower_list');
           {% endif %}
 
@@ -762,8 +762,8 @@
       let dd = data.filter( d => {
         let r = true;
 
-        if (r && ff.birthdate.length) {
-          r = ff.birthdate.indexOf(makeAge(d.birthdate)) !== -1;
+        if (ff.birthdate.length) {
+          r = ff.birthdate.indexOf( makeAge(d.birthdate)) !== -1;
         }
 
         if (r && ff.gender.length) {
@@ -782,6 +782,7 @@
         return r;
       });
 
+      console.log(dd)
       return dd
     }
   
