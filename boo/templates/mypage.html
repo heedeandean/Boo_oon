@@ -29,8 +29,14 @@
             <li class="nav-item">
               <a class="nav-link" href="/boo/sub">sub</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/boo/mypage/{{host.username}}">My page</a>     
+            <li>
+             {% if (user) %}
+              <!-- 로그인 후 -->
+              <a class="nav-link" href="/boo/mypage/{{session.loginUser['username']}}">My page</a>
+              {% else %}
+              <!-- 로그인 전 -->
+              <a class="nav-link" onclick='alert("로그인이 필요합니다.")'>My page</a>
+              {% endif %}
             </li>
           </ul>
           <form class="form-inline">
