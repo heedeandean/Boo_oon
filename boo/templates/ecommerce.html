@@ -653,12 +653,13 @@
       } //if '/boo/sub'
 
       if (path.substring(0,11) == '/boo/mypage'){
-        send_ajax('/boo/mylist/'+ '{{name}}', 'GET', '', '', function (res) {
+        {% if host is defined %}
+        send_ajax('/boo/mylist/'+ '{{host.username}}', 'GET', '', '', function (res) {
           if (!res || !res.length) return;
           
           var userlist = [];
 
-          if ('{{name}}' == '{{user}}'){
+          if ('{{host.username}}' == '{{user}}'){
             userlist = res[0];
           }else{
             res[0].forEach( function(u){
@@ -683,6 +684,7 @@
 
           hbs('card_lists', { lists : userlist }, 'acard') // 해당 유저가 쓴 카드
         }); //send_ajax
+        {% endif %}
       } // if '/boo/mypage'
 
     }) // ready
@@ -741,8 +743,8 @@
           send_ajax('/boo/follow', 'POST', {'user' : host, 'following' : guest}, ''); 
 
           {% if followerlist is defined %}
-          var fl =  {{followerlist | safe}}   //TODO 수상하니까 한 번 더 보기
-          console.log('aaaa', fl)
+          var fl =  {{followerlist | safe}} 
+          fl.push({{ userinfo | safe }}) 
           hbs('follow_list_script', { list : fl },'follower_list');
           {% endif %}
 
@@ -752,8 +754,8 @@
           $('#followButton').removeClass('btn-info').addClass('btn-outline-info')
           send_ajax('/boo/delfollow' , 'POST', {'user' : host, 'following' : guest}, ''); 
 
-          {% if mydata is defined %}
-          $('div#follower_list div#' + '{{mydata.userno}}').remove()
+          {% if userinfo is defined %}
+          $('div#follower_list div#' + '{{userinfo.userno}}').remove()
           {% endif %}
         } // if hasClass
       }// if guest.length
@@ -794,7 +796,11 @@
 
     // 프로필 사진 업로드
     function upload(){
-      $('#imgInput').click();
+      {% if host is defined %}
+      if ( '{{user}}' == '{{host.username}}' ){
+        $('#imgInput').click();
+      }
+      {% endif %}
     }
 
     function real_upload(name) {

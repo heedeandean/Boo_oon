@@ -8,7 +8,7 @@ from datetime import date, datetime
 class Users(Base):
     __tablename__ = 'Users'
 
-    def __init__(self, username, pw, birthdate, city, gender, job, email):
+    def __init__(self, username, pw, birthdate, city, gender, job, email, img):
         self.username = username
         self.pw = pw
         self.birthdate = birthdate
@@ -16,6 +16,7 @@ class Users(Base):
         self.gender = gender
         self.job = job
         self.email = email
+        self.img = img
     
     userno = Column(Integer, primary_key=True)
     username  = Column(String)
@@ -28,7 +29,7 @@ class Users(Base):
     email = Column(String)
     follow_cnt =  Column(Integer, default=0)
     follower_cnt = Column(Integer, default=0)
-    img = Column(String)
+    img = Column(String, default='static/img/default.png')
 
     def __repr__(self):
         return 'Users %r, %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno, self.img)
@@ -55,6 +56,9 @@ class Follow(Base):
     def __repr__(self):
         return 'Follow %r, %r' % (self.userno, self.following)
 
+    def json(self):
+        return {l.name: getattr(self, l.name) for l in self.__table__.columns}
+        
 
 class Lists(Base):
     __tablename__ = "Lists"
@@ -94,6 +98,7 @@ class Lists(Base):
         j['job'] = self.fk_users.job
         j['gender'] = self.fk_users.gender
         j['city'] = self.fk_users.city
+        j['img'] = self.fk_users.img
         return j
     
 
@@ -122,6 +127,7 @@ class Cmt(Base):
     def json(self):
         j = {c.name: getattr(self, c.name) for c in self.__table__.columns}
         j['writer_name'] = self.fk_users.username
+        j['img'] = self.fk_users.img
         return j
     
 

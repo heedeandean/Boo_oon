@@ -34,8 +34,10 @@ def main():
         user = ''
     elif user != "" :
         user = session.get('loginUser')['username']
+
+    u = Users.query.filter(Users.username == user).first()
     
-    return render_template('boo_main.html', islogin=islogin, user = user)
+    return render_template('boo_main.html', islogin=islogin, user = user, userinfo=u)
 
 
 # 서브페이지
@@ -68,7 +70,7 @@ def mypage(user_name):
     elif user != "" :
         user = session.get('loginUser')['username']
         my = Users.query.filter(Users.username == user).first()
-        mydata = { 'userno' : my.userno, 'username' : my.username, 'email' : my.email }
+        mydata = my.json()
         my_follow_list = [ ff.userno for ff in Follow.query.filter(Follow.following == my.userno).all() ]
         
     u = Users.query.filter(Users.username == user_name).first()
@@ -77,13 +79,12 @@ def mypage(user_name):
         isfollow = True
     
     host_follow_list = Follow.query.filter(Follow.following == u.userno).all()
-    follow = [{ 'userno' : u.userno, 'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.userno).first() for f in host_follow_list] ]
+    follow = [ Users.query.filter(Users.userno == f.userno).first().json() for f in host_follow_list]
 
     host_follower_list = Follow.query.filter(Follow.userno == u.userno).all()
-    follower = [ { 'userno' : u.userno,  'username': u.username, 'email' : u.email}  for u in [ Users.query.filter(Users.userno == f.following).first() for f in host_follower_list ] ]
+    follower = [ Users.query.filter(Users.userno == f.following).first().json() for f in host_follower_list ] 
     
-
-    return render_template('mypage.html', email=u.email, name=u.username, user=user, isfollow = isfollow, followlist=follow, followerlist=follower, mydata=mydata)
+    return render_template('mypage.html', host=u, user=user, isfollow = isfollow, followlist=follow, followerlist=follower, userinfo=mydata)
 
 # 채팅페이지
 @app.route('/boo/chat')
@@ -135,8 +136,9 @@ def regist_post():
     gender = request.form.get('gender')
     job = request.form.get('job')
     email = request.form.get('email')
+    img = None
 
-    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email)
+    u = Users(username, generate_password_hash(pw), birthdate, addr, gender, job, email, img)
 
     try:
         db_session.add(u)

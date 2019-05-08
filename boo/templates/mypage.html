@@ -30,7 +30,7 @@
               <a class="nav-link" href="/boo/sub">sub</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/boo/mypage/{{user}}">My page</a>     
+                <a class="nav-link" href="/boo/mypage/{{host.username}}">My page</a>     
             </li>
           </ul>
           <form class="form-inline">
@@ -52,9 +52,9 @@
             <div class="col-md-12 mb-3">
               <div class="intro-info-content text-center">
                 <h1 class="display-3 blue-text mb-5 wow fadeInDown" data-wow-delay="0.3s">ABOUT
-                  <a class="blue-text font-weight-bold">{{name}}</a>
+                  <a class="blue-text font-weight-bold">{{host.username}}</a>
                 </h1>
-                {% if name == user %}
+                {% if user == host.username %}
                 <a class="btn btn-outline-info btn-lg wow fadeInDown" data-wow-delay="0.3s" href="/boo/logout">로그아웃</a>
                 {% endif %}
               </div>
@@ -83,19 +83,22 @@
 
             <!--프로필 사진 바꾸기-->
             <form id="imgForm" action='/boo/upload' method="POST" enctype="multipart/form-data">
-              <input id="imgInput" type="file" onchange='real_upload("{{name}}")' style="opacity: 0; width: 0; height: 0;">
+              <input id="imgInput" type="file" onchange='real_upload("{{host.username}}")' style="opacity: 0; width: 0; height: 0;">
             </form>
 
             <div class="avatar mx-auto">
-              <img id='myImg'src="https://mdbootstrap.com/img/Photos/Avatars/img%20(10).jpg" class="img-fluid rounded-circle z-depth-1"
-                alt="First sample avatar image" onclick='upload()'>
+              <img id='myImg' class="img-fluid rounded-circle z-depth-1" onclick='upload()'
+              src="../../{{host.img}}" 
+              alt="First sample avatar image" style="width: 120px; height:120px;">
             </div>
-            <h3 class="my-3 font-weight-bold" id='hostname'>
-              <strong>{{name}}</strong>
-            </h3>
-            <h6 class="font-weight-bold teal-text mb-4">{{email}}</h6>
+            <!--/프로필 사진 바꾸기-->
 
-            {% if (user != name)%}
+            <h3 class="my-3 font-weight-bold" id='hostname'>
+              <strong>{{host.username}}</strong>
+            </h3>
+            <h6 class="font-weight-bold teal-text mb-4">{{host.email}}</h6>
+
+            {% if (user != host.username)%}
                <!--Follow-->
               {% if (isfollow) %}
                 <button class="btn m-2 btn-info btn-rounded px-7" onclick='Follow("{{user}}")' id='followButton'>
