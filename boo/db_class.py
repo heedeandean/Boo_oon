@@ -31,7 +31,7 @@ class Users(Base):
     img = Column(String)
 
     def __repr__(self):
-        return 'Users %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno)
+        return 'Users %r, %r, %r, %r, %r' % (self.email, self.username, self.pw, self.userno, self.img)
 
     def json(self):
         j = {l.name: getattr(self, l.name) for l in self.__table__.columns}

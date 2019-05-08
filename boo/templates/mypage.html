@@ -83,7 +83,7 @@
 
             <!--프로필 사진 바꾸기-->
             <form id="imgForm" action='/boo/upload' method="POST" enctype="multipart/form-data">
-              <input id="imgInput" type="file" onchange='real_upload()' style="opacity: 0; width: 0; height: 0;">
+              <input id="imgInput" type="file" onchange='real_upload("{{name}}")' style="opacity: 0; width: 0; height: 0;">
             </form>
 
             <div class="avatar mx-auto">

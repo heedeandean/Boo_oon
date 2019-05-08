@@ -11,8 +11,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.debug = True
-app.jinja_env.trim_blocks = True
-socketio = SocketIO(app)
 
 app.config.update(
 	SECRET_KEY='X1243yRH!mMwf',
@@ -439,26 +437,21 @@ def follow_delete():
     return redirect(rd)
 
 
+
 # 프로필 사진 수정
-@app.route('/boo/upload', methods=['POST'])
+@app.route('/boo/upload', methods=["POST"])
 def upload():
     upfile = request.files['file']    
     username = request.form.get('username')
+    print("mmmmmmmmmmmmmmmmmm>>", username, upfile.filename, upfile.filename.replace('..', ''))
+    f = upfile.filename.replace('..', '')
+    f = rename(f, username)
 
-    filename = upfile.filename.replace('..', '')
+    path = os.path.join("./boo/static/img/upfiles", f )
 
-    print("mmmmmmmmmmmmmmmmmm>>", username, filename)
-
-    path = rename(os.path.join("./boo/static/img/upfiles", filename), username)
-    print("aaaaaaaaaaaaaaaaaaaa>>", username, path)
     upfile.save(path)
 
-    print("mmmmmmmmmmmmmmmmmm>>", username, upfile)
-    print("mmmmmmmmmmmmmmmmmm>>", username, upfile)
-    print("mmmmmmmmmmmmmmmmmm>>", username, path)
-
-
-    path = path[12:]
+    path = path[6:]
 
     print(path)
 
@@ -485,7 +478,7 @@ def teardown_context(exception):
     db_session.remove() 
 
 
-############### 그냥 필요해서 만든 함수 #############################
+############### 필요해서 만든 파이썬 함수 #############################
 
 def getzero(md):
     if len(md) == 2 :
@@ -495,10 +488,15 @@ def getzero(md):
 
 
 def rename(path, username):
-    while True:
-        if os.path.isfile(path):
-            idx = path.rindex('.')  
-            if idx == -1:
-                path = username
-            else:
-                path = username + path[idx:]
+    
+    idx = path.rindex('.')  
+    print('rename', idx, path)
+    if idx == -1:
+        path = username
+        print('rename', idx, path)
+    else:
+        path = username + path[idx:]
+        print('rename', idx, path)
+
+    return path
+    
