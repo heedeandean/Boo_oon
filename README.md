@@ -1,25 +1,48 @@
 
- 뜬 구름 프로젝트 (웹 SNS 제작)
- Git : https://github.com/eeuoo/Boo_oon
-Trello : https://trello.com/b/F2Mvrx73/%EB%9C%AC-%EA%B5%AC%EB%A6%84
+ ## 뜬 구름 프로젝트 (웹 SNS 제작)
+ 
+ Flask MVC 구조를 활용한 Web SNS 모듈 제작 프로젝트.
+ 
+ <br>
+ 
+#### 동기 및 목적 
+'사람은 타자의 욕망을 내제화 한다.' 라캉의 욕망이론의 핵심입니다. 이 한 줄에서 프로젝트를 구상해 웹 SNS '뜬 구름 프로젝트'를 시작했습니다. 다른 사람들이 어떤 걸 꿈꾸고 있는지 궁금한 사람들, 내 꿈과 이상을 적어보고 공유할 수 있는 공간이 필요한 사람들을 위한 SNS입니다. '뜬 구름 잡는 소리 하지 마라'라고 듣는 것일지라도 누군가에겐 큰 울림이 될 수 있습니다. Pinterest처럼 다른 사람들의 구름을 보며 영감을 얻을 수 있고, 수집된 데이터는 추상적인 것을 실체화한 데이터로서 분석 가치도 있을 것입니다. 
 
+<br>
+
+ #### 프로젝트 기간
  2019.03.08 ~ 2019.05.14
  
-  3명 
--	Flask MVC 구조를 활용한 SNS 모듈 제작
--	GCP, Git 을 이용한 CI/CD (추후 Jenkins 사용 예정)
+ <br>
+ 
+ #### 팀원 및 역할 분담 
+- 이현주 : 팀장, WAS( Python Flask ), Web   
+- 엄희진 : DB ( MySQL ), Web    
+- 한진선 : Web    
+     
+<br>
 
+ #### 기술 소개
 -	OS: Windows7, Mac
 -	IDE: Visual Studio
--	Language: Python, Javascript, J-Query, MySQL
-- Skill : Flask, HTML, CSS, Handlebars
--	Tools: Mysql Workbench, Bootstrap, Git, Trello, Slack
- 
--	Flask MVC 구조를 활용한 게시판 모듈 제작
--	게시판에 게시글과 좋아요/싫어요, 댓글 구현
--	sha256을 활용한 비밀번호 암호화
--	게시글을 좋아요 순으로 sort하여 랭킹 표현
--	Session을 활용한 로그인 유지 
--	키워드 선택을 통한 게시글 필터링
--	SQLAlchemy로 DB와 연동하여 입/출력 관리
+- DB : MySQL
+-	Language: Python, JavaScript, J-Query, CSS
+- Technique : Flask, Ajax, Handlebars, Jinja, Moment
+-	Tools:  Bootstrap, Git, Trello, Slack
 
+<br>
+
+#### 설치방법
+배포 전이므로 git clone으로 설치.
+ ~~~python
+ git clone  https://github.com/eeuoo/Boo_oon  
+ ~~~
+
+
+<br>
+
+Git : https://github.com/eeuoo/Boo_oon    
+Trello : https://trello.com/b/F2Mvrx73/%EB%9C%AC-%EA%B5%AC%EB%A6%84     
+email : lee512joo@gmail.com
+
+PPT : https://docs.google.com/presentation/d/1KpU0ylqL9yZO38FHMN6ZNcKT4M7ZvhvO88QpqMnijpE/edit
