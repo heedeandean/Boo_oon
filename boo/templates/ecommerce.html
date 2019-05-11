@@ -769,7 +769,7 @@
       let dd = data.filter( d => {
         let r = true;
 
-        if (ff.birthdate.length) {
+        if (r && ff.birthdate.length) {
           r = ff.birthdate.indexOf( makeAge(d.birthdate)) !== -1;
         }
 
@@ -837,6 +837,10 @@
 
     }
 
+    function getChat(){
+     $('#chatModal').modal('show');
+     // display: block;
+    }
 
   </script>
 
